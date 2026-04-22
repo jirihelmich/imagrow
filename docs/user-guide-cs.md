@@ -119,6 +119,41 @@ Sekce **Profil** umožňuje zadat vaše profesní údaje: titul před jménem (n
 
 ---
 
+## Zálohování a aktualizace
+
+Aplikace ukládá data výhradně na vašem počítači. Neexistuje cloudová záloha ani synchronizace — pokud se počítač ztratí, rozbije nebo přeinstaluje, mizí s ním i data. Dva praktické způsoby, jak mít bezpečnostní kopii:
+
+### Ruční export z aplikace
+
+Na úvodní obrazovce je vpravo nahoře tlačítko **Export**. Klepnutím se stáhne soubor `auxology-export.json` s kompletní databází — pacienti, vyšetření, údaje o rodičích. Uložte ho někam mimo aplikaci: sdílený disk, OneDrive, externí disk. Týdenní rytmus je rozumné minimum; export určitě udělejte před větší změnou (import více pacientů, aktualizace aplikace).
+
+Pokud by se cokoli stalo s vaší instalací, pošlete mi ten JSON e-mailem a data obnovíme. Aplikace zatím nemá tlačítko **Import** pro svépomocnou obnovu — pokud to bude potřeba, napište mi a doplním ho.
+
+### Zálohování celé složky (pro IT nemocnice)
+
+Databáze leží v uživatelském profilu operačního systému:
+
+- **Windows:** `C:\Users\<uživatel>\AppData\Roaming\auxology\IndexedDB\`
+- **macOS:** `~/Library/Application Support/auxology/IndexedDB/`
+
+Celá složka `IndexedDB` je kompletní databáze. IT oddělení může tuto cestu zahrnout do standardní zálohy uživatelských profilů (Windows Backup, roaming profily, Time Machine, OneDrive Known Folder Move). V okamžiku zálohy by aplikace měla být zavřená — soubor LevelDB může být uzamčen běžící aplikací a záloha by pak byla nekonzistentní. Ideální je plánovaná noční záloha mimo pracovní dobu.
+
+### Aktualizace na novou verzi
+
+Instalace novější verze se **nedotkne** databáze. Instalátor nahrazuje jen binárky aplikace v `/Applications/` (macOS) nebo `Program Files\Auxology\` (Windows); vaše data v uvedené profilové složce zůstanou beze změny. Nová verze otevře existující IndexedDB, ověří uložené číslo verze schématu a migraci spustí jen tehdy, když se struktura mezi verzemi změnila.
+
+Doporučený postup aktualizace:
+
+1. Otevřít Auxology a kliknout **Export** na úvodní stránce; uložit JSON někam bokem.
+2. Zavřít Auxology.
+3. Nainstalovat novou verzi (drag-and-drop `.app` na macOS, spustit `.exe` na Windows).
+4. Spustit novou verzi a ověřit, že je seznam pacientů pořád vidět.
+5. Kdyby cokoli nesedělo, pošlete mi JSON uložený v kroku 1.
+
+Při **odinstalaci** konkrétní verze instalátor defaultně datovou složku ponechá. Databáze se smaže až ručním odstraněním `~/Library/Application Support/auxology/` (macOS) nebo `%APPDATA%\auxology\` (Windows), případně zaškrtnutím volby „odstranit uživatelská data", pokud je při odinstalaci nabídnuta.
+
+---
+
 ## Další informace
 
 ### Data a soukromí

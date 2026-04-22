@@ -192,6 +192,45 @@
 
     <hr />
 
+    <h2>Backup &amp; Upgrades</h2>
+
+    <p>The application stores data entirely on your computer. There is no cloud backup or sync — if the computer is lost, replaced, or reinstalled, the data goes with it. Two practical ways to keep a safety copy:</p>
+
+    <h3>Manual export from the app</h3>
+
+    <p>On the dashboard, the <strong>Export</strong> button (top right) downloads a single <code>auxology-export.json</code> file containing your complete database — patients, examinations, and parent data. Save it somewhere outside the app's storage: a shared drive, OneDrive, or an external disk. A weekly cadence is a reasonable default; do the export before any larger change (import of many patients, upgrade of the app).</p>
+
+    <p>If something happens to your installation, email that JSON to the author and the data will be restored. The app does not yet have a self-service Import button — if this becomes important, let me know and I'll add it.</p>
+
+    <h3>Folder-level backup (for hospital IT)</h3>
+
+    <p>The underlying database lives in the operating system user profile:</p>
+
+    <ul>
+      <li><strong>Windows:</strong> <code>C:\Users\&lt;user&gt;\AppData\Roaming\auxology\IndexedDB\</code></li>
+      <li><strong>macOS:</strong> <code>~/Library/Application Support/auxology/IndexedDB/</code></li>
+    </ul>
+
+    <p>The whole <code>IndexedDB</code> folder is the complete database. Hospital IT can include this path in the standard user-profile backup (Windows Backup, roaming profiles, Time Machine, OneDrive Known Folder Move). Auxology should be closed during the backup window — the LevelDB file can be locked by a running process, which makes a backup inconsistent. A scheduled nightly backup when nobody is signed in is ideal.</p>
+
+    <h3>Upgrading to a new version</h3>
+
+    <p>Installing a newer release does <strong>not</strong> touch the database. The installer replaces only the application binaries in <code>/Applications/</code> (macOS) or <code>Program Files\Auxology\</code> (Windows); your data in the profile folder above stays intact. The new version reads the existing IndexedDB, checks the stored schema version, and runs a migration only if the structure changed between releases.</p>
+
+    <p>Recommended upgrade routine:</p>
+
+    <ol>
+      <li>Open Auxology and click <strong>Export</strong> on the dashboard; save the JSON somewhere safe.</li>
+      <li>Close Auxology.</li>
+      <li>Install the new version (drag and drop the <code>.app</code> on macOS, run the <code>.exe</code> on Windows).</li>
+      <li>Launch the new version and confirm the patient list is still there.</li>
+      <li>If anything looks wrong, send me the JSON from step 1.</li>
+    </ol>
+
+    <p>During the <strong>uninstall</strong> of a specific version, the installer leaves the data folder in place by default. The database is only deleted by manually removing <code>~/Library/Application Support/auxology/</code> (macOS) or <code>%APPDATA%\auxology\</code> (Windows), or by ticking a "remove user data" option if one is presented during uninstall.</p>
+
+    <hr />
+
     <h2>Additional Information</h2>
 
     <h3>Data and Privacy</h3>

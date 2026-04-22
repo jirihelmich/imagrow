@@ -434,6 +434,41 @@ The **Profile** section lets you enter your professional details: title prefix (
 ${img(s.doctorProfile)}
 ---
 
+## Backup & Upgrades
+
+The application stores data entirely on your computer. There is no cloud backup or sync — if the computer is lost, replaced, or reinstalled, the data goes with it. Two practical ways to keep a safety copy:
+
+### Manual export from the app
+
+On the dashboard, the **Export** button (top right) downloads a single \`auxology-export.json\` file containing your complete database — patients, examinations, and parent data. Save it somewhere outside the app's storage: a shared drive, OneDrive, or an external disk. A weekly cadence is a reasonable default; do the export before any larger change (import of many patients, upgrade of the app).
+
+If something happens to your installation, email that JSON to the author and the data will be restored. The app does not yet have a self-service Import button — if this becomes important, let me know and I'll add it.
+
+### Folder-level backup (for hospital IT)
+
+The underlying database lives in the operating system user profile:
+
+- **Windows:** \`C:\\Users\\<user>\\AppData\\Roaming\\auxology\\IndexedDB\\\`
+- **macOS:** \`~/Library/Application Support/auxology/IndexedDB/\`
+
+The whole \`IndexedDB\` folder is the complete database. Hospital IT can include this path in the standard user-profile backup (Windows Backup, roaming profiles, Time Machine, OneDrive Known Folder Move). Auxology should be closed during the backup window — the LevelDB file can be locked by a running process, which makes a backup inconsistent. A scheduled nightly backup when nobody is signed in is ideal.
+
+### Upgrading to a new version
+
+Installing a newer release does **not** touch the database. The installer replaces only the application binaries in \`/Applications/\` (macOS) or \`Program Files\\Auxology\\\` (Windows); your data in the profile folder above stays intact. The new version reads the existing IndexedDB, checks the stored schema version, and runs a migration only if the structure changed between releases.
+
+Recommended upgrade routine:
+
+1. Open Auxology and click **Export** on the dashboard; save the JSON somewhere safe.
+2. Close Auxology.
+3. Install the new version (drag and drop the \`.app\` on macOS, run the \`.exe\` on Windows).
+4. Launch the new version and confirm the patient list is still there.
+5. If anything looks wrong, send me the JSON from step 1.
+
+During the **uninstall** of a specific version, the installer leaves the data folder in place by default. The database is only deleted by manually removing \`~/Library/Application Support/auxology/\` (macOS) or \`%APPDATA%\\auxology\\\` (Windows), or by ticking a "remove user data" option if one is presented during uninstall.
+
+---
+
 ## Additional Information
 
 ### Data and Privacy
@@ -626,6 +661,45 @@ function generateHTML(s) {
 
     <hr />
 
+    <h2>Backup &amp; Upgrades</h2>
+
+    <p>The application stores data entirely on your computer. There is no cloud backup or sync — if the computer is lost, replaced, or reinstalled, the data goes with it. Two practical ways to keep a safety copy:</p>
+
+    <h3>Manual export from the app</h3>
+
+    <p>On the dashboard, the <strong>Export</strong> button (top right) downloads a single <code>auxology-export.json</code> file containing your complete database — patients, examinations, and parent data. Save it somewhere outside the app's storage: a shared drive, OneDrive, or an external disk. A weekly cadence is a reasonable default; do the export before any larger change (import of many patients, upgrade of the app).</p>
+
+    <p>If something happens to your installation, email that JSON to the author and the data will be restored. The app does not yet have a self-service Import button — if this becomes important, let me know and I'll add it.</p>
+
+    <h3>Folder-level backup (for hospital IT)</h3>
+
+    <p>The underlying database lives in the operating system user profile:</p>
+
+    <ul>
+      <li><strong>Windows:</strong> <code>C:\\Users\\&lt;user&gt;\\AppData\\Roaming\\auxology\\IndexedDB\\</code></li>
+      <li><strong>macOS:</strong> <code>~/Library/Application Support/auxology/IndexedDB/</code></li>
+    </ul>
+
+    <p>The whole <code>IndexedDB</code> folder is the complete database. Hospital IT can include this path in the standard user-profile backup (Windows Backup, roaming profiles, Time Machine, OneDrive Known Folder Move). Auxology should be closed during the backup window — the LevelDB file can be locked by a running process, which makes a backup inconsistent. A scheduled nightly backup when nobody is signed in is ideal.</p>
+
+    <h3>Upgrading to a new version</h3>
+
+    <p>Installing a newer release does <strong>not</strong> touch the database. The installer replaces only the application binaries in <code>/Applications/</code> (macOS) or <code>Program Files\\Auxology\\</code> (Windows); your data in the profile folder above stays intact. The new version reads the existing IndexedDB, checks the stored schema version, and runs a migration only if the structure changed between releases.</p>
+
+    <p>Recommended upgrade routine:</p>
+
+    <ol>
+      <li>Open Auxology and click <strong>Export</strong> on the dashboard; save the JSON somewhere safe.</li>
+      <li>Close Auxology.</li>
+      <li>Install the new version (drag and drop the <code>.app</code> on macOS, run the <code>.exe</code> on Windows).</li>
+      <li>Launch the new version and confirm the patient list is still there.</li>
+      <li>If anything looks wrong, send me the JSON from step 1.</li>
+    </ol>
+
+    <p>During the <strong>uninstall</strong> of a specific version, the installer leaves the data folder in place by default. The database is only deleted by manually removing <code>~/Library/Application Support/auxology/</code> (macOS) or <code>%APPDATA%\\auxology\\</code> (Windows), or by ticking a "remove user data" option if one is presented during uninstall.</p>
+
+    <hr />
+
     <h2>Additional Information</h2>
 
     <h3>Data and Privacy</h3>
@@ -767,6 +841,41 @@ ${img(cs.refCharts)}
 
 Sekce **Profil** umožňuje zadat vaše profesní údaje: titul před jménem (např. RNDr., MUDr.), jméno, příjmení, titul za jménem (např. Ph.D.) a pracoviště. Tyto informace se zobrazují v postranním menu.
 ${img(cs.doctorProfile)}
+---
+
+## Zálohování a aktualizace
+
+Aplikace ukládá data výhradně na vašem počítači. Neexistuje cloudová záloha ani synchronizace — pokud se počítač ztratí, rozbije nebo přeinstaluje, mizí s ním i data. Dva praktické způsoby, jak mít bezpečnostní kopii:
+
+### Ruční export z aplikace
+
+Na úvodní obrazovce je vpravo nahoře tlačítko **Export**. Klepnutím se stáhne soubor \`auxology-export.json\` s kompletní databází — pacienti, vyšetření, údaje o rodičích. Uložte ho někam mimo aplikaci: sdílený disk, OneDrive, externí disk. Týdenní rytmus je rozumné minimum; export určitě udělejte před větší změnou (import více pacientů, aktualizace aplikace).
+
+Pokud by se cokoli stalo s vaší instalací, pošlete mi ten JSON e-mailem a data obnovíme. Aplikace zatím nemá tlačítko **Import** pro svépomocnou obnovu — pokud to bude potřeba, napište mi a doplním ho.
+
+### Zálohování celé složky (pro IT nemocnice)
+
+Databáze leží v uživatelském profilu operačního systému:
+
+- **Windows:** \`C:\\Users\\<uživatel>\\AppData\\Roaming\\auxology\\IndexedDB\\\`
+- **macOS:** \`~/Library/Application Support/auxology/IndexedDB/\`
+
+Celá složka \`IndexedDB\` je kompletní databáze. IT oddělení může tuto cestu zahrnout do standardní zálohy uživatelských profilů (Windows Backup, roaming profily, Time Machine, OneDrive Known Folder Move). V okamžiku zálohy by aplikace měla být zavřená — soubor LevelDB může být uzamčen běžící aplikací a záloha by pak byla nekonzistentní. Ideální je plánovaná noční záloha mimo pracovní dobu.
+
+### Aktualizace na novou verzi
+
+Instalace novější verze se **nedotkne** databáze. Instalátor nahrazuje jen binárky aplikace v \`/Applications/\` (macOS) nebo \`Program Files\\Auxology\\\` (Windows); vaše data v uvedené profilové složce zůstanou beze změny. Nová verze otevře existující IndexedDB, ověří uložené číslo verze schématu a migraci spustí jen tehdy, když se struktura mezi verzemi změnila.
+
+Doporučený postup aktualizace:
+
+1. Otevřít Auxology a kliknout **Export** na úvodní stránce; uložit JSON někam bokem.
+2. Zavřít Auxology.
+3. Nainstalovat novou verzi (drag-and-drop \`.app\` na macOS, spustit \`.exe\` na Windows).
+4. Spustit novou verzi a ověřit, že je seznam pacientů pořád vidět.
+5. Kdyby cokoli nesedělo, pošlete mi JSON uložený v kroku 1.
+
+Při **odinstalaci** konkrétní verze instalátor defaultně datovou složku ponechá. Databáze se smaže až ručním odstraněním \`~/Library/Application Support/auxology/\` (macOS) nebo \`%APPDATA%\\auxology\\\` (Windows), případně zaškrtnutím volby „odstranit uživatelská data", pokud je při odinstalaci nabídnuta.
+
 ---
 
 ## Další informace
@@ -954,6 +1063,45 @@ function generateCzechHTML(cs, en) {
     <p>Sekce <strong>Profil</strong> umožňuje zadat vaše profesní údaje: titul před jménem, jméno, příjmení, titul za jménem a pracoviště.</p>
 
     ${img(cs.doctorProfile)}
+
+    <hr />
+
+    <h2>Zálohování a aktualizace</h2>
+
+    <p>Aplikace ukládá data výhradně na vašem počítači. Neexistuje cloudová záloha ani synchronizace — pokud se počítač ztratí, rozbije nebo přeinstaluje, mizí s ním i data. Dva praktické způsoby, jak mít bezpečnostní kopii:</p>
+
+    <h3>Ruční export z aplikace</h3>
+
+    <p>Na úvodní obrazovce je vpravo nahoře tlačítko <strong>Export</strong>. Klepnutím se stáhne soubor <code>auxology-export.json</code> s kompletní databází — pacienti, vyšetření, údaje o rodičích. Uložte ho někam mimo aplikaci: sdílený disk, OneDrive, externí disk. Týdenní rytmus je rozumné minimum; export určitě udělejte před větší změnou (import více pacientů, aktualizace aplikace).</p>
+
+    <p>Pokud by se cokoli stalo s vaší instalací, pošlete mi ten JSON e-mailem a data obnovíme. Aplikace zatím nemá tlačítko <strong>Import</strong> pro svépomocnou obnovu — pokud to bude potřeba, napište mi a doplním ho.</p>
+
+    <h3>Zálohování celé složky (pro IT nemocnice)</h3>
+
+    <p>Databáze leží v uživatelském profilu operačního systému:</p>
+
+    <ul>
+      <li><strong>Windows:</strong> <code>C:\\Users\\&lt;uživatel&gt;\\AppData\\Roaming\\auxology\\IndexedDB\\</code></li>
+      <li><strong>macOS:</strong> <code>~/Library/Application Support/auxology/IndexedDB/</code></li>
+    </ul>
+
+    <p>Celá složka <code>IndexedDB</code> je kompletní databáze. IT oddělení může tuto cestu zahrnout do standardní zálohy uživatelských profilů (Windows Backup, roaming profily, Time Machine, OneDrive Known Folder Move). V okamžiku zálohy by aplikace měla být zavřená — soubor LevelDB může být uzamčen běžící aplikací a záloha by pak byla nekonzistentní. Ideální je plánovaná noční záloha mimo pracovní dobu.</p>
+
+    <h3>Aktualizace na novou verzi</h3>
+
+    <p>Instalace novější verze se <strong>nedotkne</strong> databáze. Instalátor nahrazuje jen binárky aplikace v <code>/Applications/</code> (macOS) nebo <code>Program Files\\Auxology\\</code> (Windows); vaše data v uvedené profilové složce zůstanou beze změny. Nová verze otevře existující IndexedDB, ověří uložené číslo verze schématu a migraci spustí jen tehdy, když se struktura mezi verzemi změnila.</p>
+
+    <p>Doporučený postup aktualizace:</p>
+
+    <ol>
+      <li>Otevřít Auxology a kliknout <strong>Export</strong> na úvodní stránce; uložit JSON někam bokem.</li>
+      <li>Zavřít Auxology.</li>
+      <li>Nainstalovat novou verzi (drag-and-drop <code>.app</code> na macOS, spustit <code>.exe</code> na Windows).</li>
+      <li>Spustit novou verzi a ověřit, že je seznam pacientů pořád vidět.</li>
+      <li>Kdyby cokoli nesedělo, pošlete mi JSON uložený v kroku 1.</li>
+    </ol>
+
+    <p>Při <strong>odinstalaci</strong> konkrétní verze instalátor defaultně datovou složku ponechá. Databáze se smaže až ručním odstraněním <code>~/Library/Application Support/auxology/</code> (macOS) nebo <code>%APPDATA%\\auxology\\</code> (Windows), případně zaškrtnutím volby „odstranit uživatelská data", pokud je při odinstalaci nabídnuta.</p>
 
     <hr />
 
