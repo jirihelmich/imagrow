@@ -1,6 +1,7 @@
 import { GrowthChart } from './GrowthChart';
 import { useT } from '../../i18n/LanguageContext';
 import type { ChartDataPoint } from '../../hooks/useChartData';
+import type { Gender, WeightCategory } from '../../types/statistical';
 
 interface GrowthChartGridProps {
   weightData: ChartDataPoint[];
@@ -13,6 +14,8 @@ interface GrowthChartGridProps {
   birthWeight?: number;
   patientName?: string;
   onZoom?: (chart: 'weight' | 'length' | 'headCircumference' | 'weightForLength') => void;
+  gender?: Gender;
+  weightCategory?: WeightCategory;
 }
 
 export function GrowthChartGrid({
@@ -26,6 +29,8 @@ export function GrowthChartGrid({
   birthWeight,
   patientName,
   onZoom,
+  gender,
+  weightCategory,
 }: GrowthChartGridProps) {
   const { t } = useT();
   const suffix = t.chartSuffix(genderName, weightCategoryName);
@@ -41,6 +46,9 @@ export function GrowthChartGrid({
         patientName={patientName}
         yMin={35}
         onClick={onZoom ? () => onZoom('length') : undefined}
+        gender={gender}
+        weightCategory={weightCategory}
+        measureType="length"
       />
       <GrowthChart
         data={weightData}
@@ -50,6 +58,9 @@ export function GrowthChartGrid({
         genderColor={genderColor}
         patientName={patientName}
         onClick={onZoom ? () => onZoom('weight') : undefined}
+        gender={gender}
+        weightCategory={weightCategory}
+        measureType="weight"
       />
       <GrowthChart
         data={weightForLengthData}
@@ -59,6 +70,9 @@ export function GrowthChartGrid({
         genderColor={genderColor}
         patientName={patientName}
         onClick={onZoom ? () => onZoom('weightForLength') : undefined}
+        gender={gender}
+        weightCategory={weightCategory}
+        measureType="weightForLength"
       />
       <GrowthChart
         data={headCircumferenceData}
@@ -68,6 +82,9 @@ export function GrowthChartGrid({
         genderColor={genderColor}
         patientName={patientName}
         onClick={onZoom ? () => onZoom('headCircumference') : undefined}
+        gender={gender}
+        weightCategory={weightCategory}
+        measureType="headCircumference"
       />
     </div>
   );

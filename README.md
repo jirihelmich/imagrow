@@ -1,30 +1,34 @@
-# electron-quick-start
+# Auxology
 
-**Clone and run for a quick way to see an Electron in action.**
+Desktop aplikace pro sledování růstu nedonošených dětí na základě referenčních auxologických dat Centra komplexní péče KDDL VFN Praha (LMS kvantilová regrese, 1 781 dětí, 5 676 vyšetření, 2001–2015).
 
-This is a minimal Electron application based on the [Quick Start Guide](http://electron.atom.io/docs/latest/tutorial/quick-start) within the Electron documentation.
+Auxology běží plně offline v prostředí Electron, data zůstávají na uživatelském počítači (IndexedDB / LoveField).
 
-A basic Electron application needs just these files:
+## Dokumentace
 
-- `index.html` - A web page to render.
-- `main.js` - Starts the app and creates a browser window to render HTML.
-- `package.json` - Points to the app's main file and lists its details and dependencies.
+- 🇨🇿 [Uživatelská příručka (CZ)](docs/user-guide-cs.html)
+- 🇬🇧 [User guide (EN)](docs/user-guide.html)
 
-You can learn more about each of these components within the [Quick Start Guide](http://electron.atom.io/docs/latest/tutorial/quick-start).
+## Instalace
 
-## To Use
+Stáhněte si nejnovější build pro macOS nebo Windows z [Releases](https://github.com/jirihelmich/auxology/releases/latest).
 
-To clone and run this repository you'll need [Git](https://git-scm.com) and [Node.js](https://nodejs.org/en/download/) (which comes with [npm](http://npmjs.com)) installed on your computer. From your command line:
+## Vývoj
 
 ```bash
-# Clone this repository
-git clone https://github.com/atom/electron-quick-start
-# Go into the repository
-cd electron-quick-start
-# Install dependencies and run the app
-npm install && npm start
+npm install          # nainstalovat závislosti
+npm run dev          # Vite dev server (pouze browser, hot reload)
+npm start            # sestavit + spustit jako Electron
+npm run build:mac    # macOS .dmg do dist/
+npm run build:win    # Windows NSIS do dist/
+npm run build        # obojí
+npx tsc --noEmit     # typecheck
 ```
 
-Learn more about Electron and its API in the [documentation](http://electron.atom.io/docs/latest).
+## Stack
 
-#### License [CC0 (Public Domain)](LICENSE.md)
+React 19 + TypeScript + Tailwind CSS 4 · Recharts · LoveField (IndexedDB) · Electron.
+
+## Licence
+
+Kód je uvolněn pod [CC0 1.0](LICENSE.md). Referenční auxologická data pocházejí z projektu KDDL VFN Praha (viz přihlašovací obrazovka aplikace pro plné uvedení autorů).

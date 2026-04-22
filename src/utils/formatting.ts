@@ -23,6 +23,14 @@ export function mmToCm(mm: number | null | undefined): string {
   return '' + cm;
 }
 
+export function cmToMm(value: string | number | null | undefined): number {
+  if (value === null || value === undefined || value === '') return NaN;
+  const str = typeof value === 'number' ? String(value) : value.replace(',', '.').trim();
+  const parsed = parseFloat(str);
+  if (isNaN(parsed)) return NaN;
+  return Math.round(parsed * 10);
+}
+
 export function numerize(value: string | number | null | undefined): number {
   if (value === null || value === undefined) return NaN;
   if (typeof value === 'number') return value;

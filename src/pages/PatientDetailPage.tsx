@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback, useMemo } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
-import { Plus, Pencil, Trash2, Printer, ZoomIn } from 'lucide-react';
+import { Plus, Pencil, Trash2, Printer, ArrowLeft } from 'lucide-react';
 import { usePatients } from '../hooks/usePatients';
 import { useExaminations } from '../hooks/useExaminations';
 import { useT } from '../i18n/LanguageContext';
@@ -177,7 +177,12 @@ export function PatientDetailPage() {
           { label: `${patient.Person.firstName} ${patient.Person.lastName}` },
         ]}
         actions={
-          <Button onClick={() => window.print()}><Printer size={14} /> {t.print}</Button>
+          <>
+            <Button variant="white" onClick={() => navigate('/patients/dashboard')}>
+              <ArrowLeft size={14} /> {t.backToList}
+            </Button>
+            <Button onClick={() => window.print()}><Printer size={14} /> {t.print}</Button>
+          </>
         }
       />
 
@@ -340,6 +345,8 @@ export function PatientDetailPage() {
               birthWeight={patient.Patient.birthWeight}
               patientName={`${patient.Person.firstName} ${patient.Person.lastName}`}
               onZoom={setZoomedChart}
+              gender={gender}
+              weightCategory={weightCategory}
             />
           </Card>
         )}
@@ -374,24 +381,37 @@ export function PatientDetailPage() {
                   </tr>
                 </thead>
                 <tbody>
-                  {examinations.map((e, idx) => (
-                    <tr key={e.id} className="border-b border-gray-100 hover:bg-gray-50">
-                      <td className="py-1.5 px-1">{examinations.length - idx}</td>
-                      <td className="py-1.5 px-1">{formatDateTime(e.dateTime)}</td>
-                      <td className="py-1.5 px-1">{correctedAge(patient, e.dateTime)}</td>
-                      <td className="py-1.5 px-1 whitespace-nowrap">{e.weight}</td>
-                      <td className="py-1.5 px-1">{computePercentile(e.weight, 'weight', e.dateTime)}</td>
-                      <td className="py-1.5 px-1 border-r border-gray-300 whitespace-nowrap">{computeZScore(e.weight, 'weight', e.dateTime)}</td>
-                      <td className="py-1.5 px-1">{mmToCm(e.length)}</td>
-                      <td className="py-1.5 px-1">{computePercentile(e.length, 'length', e.dateTime)}</td>
-                      <td className="py-1.5 px-1 border-r border-gray-300 whitespace-nowrap">{computeZScore(e.length, 'length', e.dateTime)}</td>
-                      <td className="py-1.5 px-1">{mmToCm(e.headCircumference)}</td>
-                      <td className="py-1.5 px-1">{computePercentile(e.headCircumference, 'headCircumference', e.dateTime)}</td>
-                      <td className="py-1.5 px-1 border-r border-gray-300 whitespace-nowrap">{computeZScore(e.headCircumference, 'headCircumference', e.dateTime)}</td>
-                      <td className="py-1.5 px-1">{computeWfLPercentile(e.weight, e.length)}</td>
-                      <td className="py-1.5 px-1 whitespace-nowrap">{computeZScoreWfl(e.weight, e.length)}</td>
-                    </tr>
-                  ))}
+                  {examinations.map((e, idx) => {
+                    const pWeight = computePercentile(e.weight, 'weight', e.dateTime);
+                    const pLength = computePercentile(e.length, 'length', e.dateTime);
+                    const pHead = computePercentile(e.headCircumference, 'headCircumference', e.dateTime);
+                    const pWfl = computeWfLPercentile(e.weight, e.length);
+                    const extremeClass = (p: string) => {
+                      const n = parseFloat(p);
+                      if (isNaN(n)) return '';
+                      if (n < 1) return 'bg-red-100 text-red-800 font-semibold';
+                      if (n > 99) return 'bg-red-100 text-red-800 font-semibold';
+                      return '';
+                    };
+                    return (
+                      <tr key={e.id} className="border-b border-gray-100 hover:bg-gray-50">
+                        <td className="py-1.5 px-1">{examinations.length - idx}</td>
+                        <td className="py-1.5 px-1">{formatDateTime(e.dateTime)}</td>
+                        <td className="py-1.5 px-1">{correctedAge(patient, e.dateTime)}</td>
+                        <td className={`py-1.5 px-1 whitespace-nowrap ${extremeClass(pWeight)}`}>{e.weight}</td>
+                        <td className={`py-1.5 px-1 ${extremeClass(pWeight)}`}>{pWeight}</td>
+                        <td className={`py-1.5 px-1 border-r border-gray-300 whitespace-nowrap ${extremeClass(pWeight)}`}>{computeZScore(e.weight, 'weight', e.dateTime)}</td>
+                        <td className={`py-1.5 px-1 ${extremeClass(pLength)}`}>{mmToCm(e.length)}</td>
+                        <td className={`py-1.5 px-1 ${extremeClass(pLength)}`}>{pLength}</td>
+                        <td className={`py-1.5 px-1 border-r border-gray-300 whitespace-nowrap ${extremeClass(pLength)}`}>{computeZScore(e.length, 'length', e.dateTime)}</td>
+                        <td className={`py-1.5 px-1 ${extremeClass(pHead)}`}>{mmToCm(e.headCircumference)}</td>
+                        <td className={`py-1.5 px-1 ${extremeClass(pHead)}`}>{pHead}</td>
+                        <td className={`py-1.5 px-1 border-r border-gray-300 whitespace-nowrap ${extremeClass(pHead)}`}>{computeZScore(e.headCircumference, 'headCircumference', e.dateTime)}</td>
+                        <td className={`py-1.5 px-1 ${extremeClass(pWfl)}`}>{pWfl}</td>
+                        <td className={`py-1.5 px-1 whitespace-nowrap ${extremeClass(pWfl)}`}>{computeZScoreWfl(e.weight, e.length)}</td>
+                      </tr>
+                    );
+                  })}
                 </tbody>
               </table>
             </div>
@@ -443,6 +463,9 @@ export function PatientDetailPage() {
           genderColor={color}
           patientName={patient ? `${patient.Person.firstName} ${patient.Person.lastName}` : undefined}
           onClose={() => setZoomedChart(null)}
+          gender={gender}
+          weightCategory={weightCategory}
+          measureType={zoomedChart}
         />
       )}
 

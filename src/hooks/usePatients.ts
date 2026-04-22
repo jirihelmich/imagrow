@@ -4,7 +4,7 @@ import dayjs from 'dayjs';
 import { useDatabase } from '../contexts/DatabaseContext';
 import { useAuth } from '../contexts/AuthContext';
 import { urlSlug } from '../utils/slug';
-import { numerize } from '../utils/formatting';
+import { cmToMm } from '../utils/formatting';
 import type { PatientWithPerson, PatientDetail, PatientWithExamination } from '../types/database';
 
 export interface PatientFormData {
@@ -57,8 +57,8 @@ function buildPerson(data: PatientFormData | ParentFormData, id?: number) {
     phone: ('phone' in data ? data.phone : undefined) || null,
     description: data.description || null,
     weight: ('weight' in data ? data.weight : undefined) || null,
-    length: ('length' in data ? numerize(data.length) : undefined) || null,
-    headCircumference: ('headCircumference' in data ? numerize(data.headCircumference) : undefined) || null,
+    length: ('length' in data ? cmToMm(data.length) : undefined) || null,
+    headCircumference: ('headCircumference' in data ? cmToMm(data.headCircumference) : undefined) || null,
   };
 }
 
@@ -101,8 +101,8 @@ export function usePatients() {
         birthWeek: patientData.birthWeek,
         expectedBirthDate: dayjs(patientData.expectedBirthDate, 'D. M. YYYY').toDate(),
         birthWeight: patientData.birthWeight,
-        birthLength: numerize(patientData.birthLength),
-        birthHeadCircumference: numerize(patientData.birthHeadCircumference),
+        birthLength: cmToMm(patientData.birthLength),
+        birthHeadCircumference: cmToMm(patientData.birthHeadCircumference),
       });
       const [savedPatient] = await db!.insertOrReplace().into(patientTable).values([patientRow]).exec() as Record<string, unknown>[];
       return savedPatient;

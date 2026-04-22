@@ -1,6 +1,7 @@
-import { useState, type FormEvent } from 'react';
+import { useState, type FormEvent, type KeyboardEvent } from 'react';
 import { useNavigate } from 'react-router-dom';
 import toast from 'react-hot-toast';
+import { ChevronDown, ChevronRight } from 'lucide-react';
 import { usePatients, type PatientFormData, type ParentFormData } from '../../hooks/usePatients';
 import { useT } from '../../i18n/LanguageContext';
 import { Card } from '../ui/Card';
@@ -26,6 +27,11 @@ export function PatientForm({ initialPatient, initialMother, initialFather, isEd
   const { createOrUpdate } = usePatients();
   const { t } = useT();
   const navigate = useNavigate();
+
+  const hasMotherData = !!(initialMother && (initialMother.birthNumber || initialMother.firstname || initialMother.lastname));
+  const hasFatherData = !!(initialFather && (initialFather.birthNumber || initialFather.firstname || initialFather.lastname));
+  const [motherOpen, setMotherOpen] = useState(hasMotherData);
+  const [fatherOpen, setFatherOpen] = useState(hasFatherData);
 
   const [patient, setPatient] = useState<PatientFormData>(initialPatient || {
     birthNumber: '', gender: '', birthWeight: 0, birthWeek: 0, expectedBirthDate: '',
@@ -110,8 +116,14 @@ export function PatientForm({ initialPatient, initialMother, initialFather, isEd
 
   const updatePatient = (field: string, value: unknown) => setPatient((p) => ({ ...p, [field]: value }));
 
+  const handleKeyDown = (e: KeyboardEvent<HTMLFormElement>) => {
+    if (e.key === 'Enter' && (e.target as HTMLElement).tagName !== 'TEXTAREA') {
+      e.preventDefault();
+    }
+  };
+
   return (
-    <form onSubmit={handleSubmit} className="space-y-6">
+    <form onSubmit={handleSubmit} onKeyDown={handleKeyDown} className="space-y-6">
       <Card title={isEdit ? t.patientFormEditTitle : t.patientFormNewTitle} subtitle={t.patientFormSubtitle}>
         <div className="space-y-4">
           <Input label={t.labelBirthNumber} placeholder="260212/2457" required value={patient.birthNumber} onChange={(e) => updatePatient('birthNumber', e.target.value)} />
@@ -149,36 +161,66 @@ export function PatientForm({ initialPatient, initialMother, initialFather, isEd
           <hr className="border-dashed" />
 
           <MeasurementInput label={t.labelBirthLength} value={String(patient.birthLength || '')} onChange={(v) => updatePatient('birthLength', v)} />
-          <MeasurementInput label={t.labelBirthHeadCirc} value={String(patient.birthHeadCircumference || '')} onChange={(v) => updatePatient('birthHeadCircumference', v)} placeholder="375" />
+          <MeasurementInput label={t.labelBirthHeadCirc} value={String(patient.birthHeadCircumference || '')} onChange={(v) => updatePatient('birthHeadCircumference', v)} placeholder="37.5" />
         </div>
       </Card>
 
-      <Card title={t.motherCardTitle} subtitle={t.motherCardSubtitle}>
-        <PersonSubForm
-          data={mother}
-          onChange={(f, v) => setMother((m) => ({ ...m, [f]: v }))}
-          genderLabel={t.genderLabelFemale}
-        />
-        <hr className="border-dashed my-4" />
-        <AddressSubForm
-          data={motherAddress as { street: string; city: string; country: string; zipcode: string }}
-          onChange={(f, v) => setMotherAddress((a) => ({ ...a, [f]: v }))}
-        />
+      <Card
+        title={t.motherCardTitle}
+        subtitle={t.motherCardSubtitle}
+        headerActions={
+          <button type="button" onClick={() => setMotherOpen((o) => !o)} className="text-sm text-gray-500 hover:text-primary flex items-center gap-1">
+            {motherOpen ? <ChevronDown size={16} /> : <ChevronRight size={16} />}
+            {motherOpen ? t.hideSection : t.showSection}
+          </button>
+        }
+      >
+        {motherOpen ? (
+          <>
+            <PersonSubForm
+              data={mother}
+              onChange={(f, v) => setMother((m) => ({ ...m, [f]: v }))}
+              genderLabel={t.genderLabelFemale}
+            />
+            <hr className="border-dashed my-4" />
+            <AddressSubForm
+              data={motherAddress as { street: string; city: string; country: string; zipcode: string }}
+              onChange={(f, v) => setMotherAddress((a) => ({ ...a, [f]: v }))}
+            />
+          </>
+        ) : (
+          <p className="text-sm text-gray-400">{t.sectionCollapsedHint}</p>
+        )}
       </Card>
 
-      <Card title={t.fatherCardTitle} subtitle={t.fatherCardSubtitle}>
-        <PersonSubForm
-          data={father}
-          onChange={(f, v) => setFather((fa) => ({ ...fa, [f]: v }))}
-          genderLabel={t.genderLabelMale}
-          firstnamePlaceholder="Jan"
-          lastnamePlaceholder="Novák"
-        />
-        <hr className="border-dashed my-4" />
-        <AddressSubForm
-          data={fatherAddress as { street: string; city: string; country: string; zipcode: string }}
-          onChange={(f, v) => setFatherAddress((a) => ({ ...a, [f]: v }))}
-        />
+      <Card
+        title={t.fatherCardTitle}
+        subtitle={t.fatherCardSubtitle}
+        headerActions={
+          <button type="button" onClick={() => setFatherOpen((o) => !o)} className="text-sm text-gray-500 hover:text-primary flex items-center gap-1">
+            {fatherOpen ? <ChevronDown size={16} /> : <ChevronRight size={16} />}
+            {fatherOpen ? t.hideSection : t.showSection}
+          </button>
+        }
+      >
+        {fatherOpen ? (
+          <>
+            <PersonSubForm
+              data={father}
+              onChange={(f, v) => setFather((fa) => ({ ...fa, [f]: v }))}
+              genderLabel={t.genderLabelMale}
+              firstnamePlaceholder="Jan"
+              lastnamePlaceholder="Novák"
+            />
+            <hr className="border-dashed my-4" />
+            <AddressSubForm
+              data={fatherAddress as { street: string; city: string; country: string; zipcode: string }}
+              onChange={(f, v) => setFatherAddress((a) => ({ ...a, [f]: v }))}
+            />
+          </>
+        ) : (
+          <p className="text-sm text-gray-400">{t.sectionCollapsedHint}</p>
+        )}
       </Card>
 
       <Card title={isEdit ? t.editPatientDetailsTitle : t.createPatientTitle}>

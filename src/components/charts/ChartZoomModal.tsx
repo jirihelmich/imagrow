@@ -1,6 +1,7 @@
 import { X } from 'lucide-react';
 import { GrowthChart } from './GrowthChart';
 import type { ChartDataPoint } from '../../hooks/useChartData';
+import type { Gender, WeightCategory, MeasureType } from '../../types/statistical';
 
 interface ChartZoomModalProps {
   data: ChartDataPoint[];
@@ -10,9 +11,12 @@ interface ChartZoomModalProps {
   yLabel?: string;
   patientName?: string;
   onClose: () => void;
+  gender?: Gender;
+  weightCategory?: WeightCategory;
+  measureType?: MeasureType;
 }
 
-export function ChartZoomModal({ data, title, genderColor, xLabel, yLabel, patientName, onClose }: ChartZoomModalProps) {
+export function ChartZoomModal({ data, title, genderColor, xLabel, yLabel, patientName, onClose, gender, weightCategory, measureType }: ChartZoomModalProps) {
   return (
     <div className="fixed inset-0 bg-white z-50 flex flex-col">
       <div className="flex justify-end p-4">
@@ -30,6 +34,9 @@ export function ChartZoomModal({ data, title, genderColor, xLabel, yLabel, patie
           height={700}
           showLegend
           patientName={patientName}
+          gender={gender}
+          weightCategory={weightCategory}
+          measureType={measureType}
         />
       </div>
     </div>

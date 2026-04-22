@@ -3,7 +3,7 @@ import lf from 'lovefield';
 import dayjs from 'dayjs';
 import { useDatabase } from '../contexts/DatabaseContext';
 import { useAuth } from '../contexts/AuthContext';
-import { numerize } from '../utils/formatting';
+import { numerize, cmToMm } from '../utils/formatting';
 import type { Examination } from '../types/database';
 
 export interface ExaminationFormData {
@@ -28,11 +28,11 @@ export function useExaminations() {
       id: examination.id,
       doctorId: currentUser.id,
       patientId,
-      length: numerize(examination.length),
+      length: cmToMm(examination.length),
       description: examination.description || null,
-      headCircumference: numerize(examination.headCircumference),
+      headCircumference: cmToMm(examination.headCircumference),
       weight: numerize(examination.weight),
-      dateTime: dayjs(examination.dateTime, 'D. M. YYYY H:m').toDate(),
+      dateTime: dayjs(examination.dateTime, ['D. M. YYYY H:m', 'D. M. YYYY']).toDate(),
       image: examination.image || null,
     };
 

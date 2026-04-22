@@ -36,11 +36,11 @@ export function PersonSubForm({ data, onChange, genderLabel, firstnamePlaceholde
 
       <hr className="border-dashed" />
 
-      <MeasurementInput label={t.personHeight} value={data.length} onChange={(v) => onChange('length', v)} />
+      <MeasurementInput label={t.personHeight} value={data.length} onChange={(v) => onChange('length', v)} placeholder="170" />
 
-      <Input label={t.personWeight} type="number" placeholder="520" suffix="g" value={data.weight} onChange={(e) => onChange('weight', e.target.value)} />
+      <Input label={t.personWeight} type="number" placeholder="70000" suffix="g" value={data.weight} onChange={(e) => onChange('weight', e.target.value)} />
 
-      <MeasurementInput label={t.personHeadCirc} value={data.headCircumference} onChange={(v) => onChange('headCircumference', v)} placeholder="375" />
+      <MeasurementInput label={t.personHeadCirc} value={data.headCircumference} onChange={(v) => onChange('headCircumference', v)} placeholder="55" />
 
       <hr className="border-dashed" />
 
