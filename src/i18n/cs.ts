@@ -27,13 +27,15 @@ export const cs = {
   loginDescription2: 'Percentilové grafy a referenční data jsou založena na zpracování souboru auxologických dat 1781 dětí (846 dívek, 935 chlapců) vyšetřovaných ve věku od 37. týdne do 109. týdne GA v Centru komplexní péče KDDL VFN Praha v letech 2001 až 2015. Celkem bylo statisticky zpracováno 5676 vyšetření (využita metoda LMS kvantilové regrese).',
   loginPlaceholderUsername: 'Uživatelské jméno',
   loginPlaceholderPassword: 'Heslo',
+  loginFormTitle: 'Přihlášení',
+  loginFormSubtitle: 'Zadejte své uživatelské jméno a heslo.',
   loginButton: 'Přihlásit se',
   loginCreateAccount: 'Vytvořit účet',
   loginFailed: 'Přihlášení selhalo. Zkontrolujte své přihlašovací údaje.',
   loginSuccess: 'Přihlášení proběhlo úspěšně.',
   logoutSuccess: 'Odhlášení proběhlo úspěšně.',
   loginFooterCopyright: '\u00A9 2016\u20132026 RNDr. Ji\u0159\u00ED Helmich \u00B7 odborný dohled: doc. RNDr. Hana Krásničanová CSc \u00B7 statistické zpracování dat: Mgr. Marie Hladíková',
-  loginFooterGrant: 'Tento program byl podpořen v rámci projektu \u201ENové metody v následné péči o děti s perinatální zátěží v CKP KDDL VFN\u201C, reg.\u00A0č.\u00A0NF\u2011CZ11\u2011OV\u20111\u2011009\u20112015.',
+  loginFooterGrant: 'Tento program byl podpořen v rámci projektu\n\u201ENové metody v následné péči o děti s perinatální zátěží v CKP KDDL VFN\u201C,\nreg.\u00A0č.\u00A0NF\u2011CZ11\u2011OV\u20111\u2011009\u20112015.',
   loginFooterNorway: 'Podpořeno grantem z Norska. Supported by a grant from Norway.',
 
   // Register

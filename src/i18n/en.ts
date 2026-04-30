@@ -29,13 +29,15 @@ export const en: Translations = {
   loginDescription2: 'Percentile charts and reference data are based on processing auxological data of 1,781 children (846 girls, 935 boys) examined from 37th to 109th week of gestational age at the Centre of Comprehensive Care, KDDL VFN Prague, between 2001 and 2015. A total of 5,676 examinations were statistically processed (LMS quantile regression method).',
   loginPlaceholderUsername: 'Username',
   loginPlaceholderPassword: 'Password',
+  loginFormTitle: 'Sign in',
+  loginFormSubtitle: 'Enter your username and password.',
   loginButton: 'Sign in',
   loginCreateAccount: 'Create account',
   loginFailed: 'Login failed. Check your credentials.',
   loginSuccess: 'Signed in successfully.',
   logoutSuccess: 'Signed out successfully.',
   loginFooterCopyright: '\u00A9 2016\u20132026 RNDr. Ji\u0159\u00ED Helmich \u00B7 expert supervision: doc. RNDr. Hana Kr\u00E1sni\u010Danov\u00E1 CSc \u00B7 statistical data processing: Mgr. Marie Hlad\u00EDkov\u00E1',
-  loginFooterGrant: 'This program was supported within the project \u201CNew methods in follow-up care for children with perinatal burden at CKP KDDL VFN\u201D, reg.\u00A0no.\u00A0NF\u2011CZ11\u2011OV\u20111\u2011009\u20112015.',
+  loginFooterGrant: 'This program was supported within the project\n\u201CNew methods in follow-up care for children with perinatal burden at CKP KDDL VFN\u201D,\nreg.\u00A0no.\u00A0NF\u2011CZ11\u2011OV\u20111\u2011009\u20112015.',
   loginFooterNorway: 'Supported by a grant from Norway.',
 
   // Register

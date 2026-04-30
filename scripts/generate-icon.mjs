@@ -1,0 +1,74 @@
+import { chromium } from 'playwright';
+import { writeFileSync, copyFileSync } from 'fs';
+import path from 'path';
+import { fileURLToPath } from 'url';
+
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
+const root = path.resolve(__dirname, '..');
+const outPng = path.join(root, 'public', 'img', 'icon.png');
+const outSvg = path.join(root, 'public', 'img', 'icon.svg');
+
+const svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1c84c6"/>
+      <stop offset="100%" stop-color="#2f4050"/>
+    </linearGradient>
+    <filter id="dotShadow" x="-50%" y="-50%" width="200%" height="200%">
+      <feDropShadow dx="0" dy="2" stdDeviation="2" flood-color="#0a1f2f" flood-opacity="0.35"/>
+    </filter>
+  </defs>
+
+  <!-- Rounded square background -->
+  <rect width="512" height="512" rx="96" ry="96" fill="url(#bg)"/>
+
+  <!-- Subtle baseline + left axis -->
+  <g stroke="rgba(255,255,255,0.18)" stroke-width="2" stroke-linecap="round">
+    <line x1="80" y1="412" x2="432" y2="412"/>
+    <line x1="80" y1="100" x2="80" y2="412"/>
+  </g>
+
+  <!-- 95th percentile (faint) -->
+  <path d="M 80 320 C 180 280, 260 200, 432 130"
+        stroke="rgba(255,255,255,0.32)" stroke-width="6" fill="none" stroke-linecap="round"/>
+
+  <!-- 5th percentile (faint) -->
+  <path d="M 80 392 C 180 376, 260 320, 432 264"
+        stroke="rgba(255,255,255,0.32)" stroke-width="6" fill="none" stroke-linecap="round"/>
+
+  <!-- 50th percentile / patient curve (bold) -->
+  <path d="M 80 360 C 180 332, 260 252, 432 192"
+        stroke="white" stroke-width="16" fill="none"
+        stroke-linecap="round" stroke-linejoin="round"/>
+
+  <!-- Patient measurement dots -->
+  <g fill="white" filter="url(#dotShadow)">
+    <circle cx="120" cy="350" r="16"/>
+    <circle cx="220" cy="320" r="16"/>
+    <circle cx="320" cy="262" r="16"/>
+    <circle cx="412" cy="200" r="16"/>
+  </g>
+</svg>`;
+
+const html = `<!DOCTYPE html><html><body style="margin:0;padding:0;background:transparent;">${svg}</body></html>`;
+
+const browser = await chromium.launch();
+try {
+  const ctx = await browser.newContext({
+    viewport: { width: 512, height: 512 },
+    deviceScaleFactor: 1,
+  });
+  const page = await ctx.newPage();
+  await page.setContent(html, { waitUntil: 'load' });
+  await page.evaluate(() => document.fonts.ready);
+  await page.screenshot({
+    path: outPng,
+    omitBackground: true,
+    clip: { x: 0, y: 0, width: 512, height: 512 },
+  });
+  writeFileSync(outSvg, svg);
+  console.log(`Wrote ${outPng}`);
+  console.log(`Wrote ${outSvg}`);
+} finally {
+  await browser.close();
+}

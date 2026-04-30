@@ -36,67 +36,107 @@ export function LoginPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-100 flex items-center justify-center p-4">
-      <div className="max-w-4xl w-full">
-        <div className="flex justify-end mb-4">
+    <div className="min-h-screen grid md:grid-cols-[2fr_3fr]">
+      {/* Brand panel — all narrative content lives here */}
+      <aside className="relative bg-gradient-to-br from-[#1c84c6] via-[#256ea0] to-[#2f4050] text-white px-8 py-10 lg:px-12 lg:py-14 flex flex-col overflow-hidden">
+        <div
+          aria-hidden="true"
+          className="absolute -top-32 -right-32 w-96 h-96 rounded-full bg-white/5 blur-3xl pointer-events-none"
+        />
+        <div
+          aria-hidden="true"
+          className="absolute -bottom-40 -left-20 w-[28rem] h-[28rem] rounded-full bg-white/5 blur-3xl pointer-events-none"
+        />
+
+        <div className="relative z-10 mb-8">
+          <h1 className="text-3xl font-bold tracking-tight leading-tight">Auxology</h1>
+          <p className="text-sm text-white/85 mt-1">{t.loginTitle}</p>
+        </div>
+
+        <div className="relative z-10 space-y-4 max-w-xl">
+          <p className="text-sm text-white/85 leading-relaxed">{t.loginDescription1}</p>
+          <p className="text-sm text-white/85 leading-relaxed">{t.loginDescription2}</p>
+        </div>
+
+        <div className="relative z-10 flex-1 flex items-center justify-center my-8">
+          <img
+            src="./img/login-hero.png"
+            alt=""
+            aria-hidden="true"
+            className="w-72 h-72 lg:w-80 lg:h-80 xl:w-96 xl:h-96 drop-shadow-2xl"
+          />
+        </div>
+
+        <div className="relative z-10 space-y-3 text-xs text-white/75">
+          <p
+            className="text-white/65 leading-relaxed"
+            dangerouslySetInnerHTML={{ __html: t.loginFooterCopyright }}
+          />
+          <p className="whitespace-pre-line leading-relaxed">{t.loginFooterGrant}</p>
+          <p>{t.loginFooterNorway}</p>
+          <div className="flex items-center gap-4 pt-2">
+            <img
+              src="./img/norsko.png"
+              alt="Norsko"
+              className="h-10 bg-white rounded px-2 py-1"
+            />
+            <img
+              src="./img/vfn.jpg"
+              alt="VFN"
+              className="h-9 bg-white rounded px-2 py-1"
+            />
+          </div>
+        </div>
+      </aside>
+
+      {/* Form panel — login form only */}
+      <main className="bg-gray-50 flex flex-col px-6 py-8 lg:px-12 lg:py-10">
+        <div className="flex justify-end">
           <LanguageSwitcher />
         </div>
-        <div className="grid md:grid-cols-2 gap-8">
-          <div className="flex flex-col justify-center">
-            <h2 className="text-2xl font-bold text-gray-800 mb-4">{t.loginTitle}</h2>
-            <p className="text-gray-600 text-sm mb-3">{t.loginDescription1}</p>
-            <p className="text-gray-600 text-sm">{t.loginDescription2}</p>
-          </div>
 
-          <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
-            <form onSubmit={handleSubmit} className="space-y-4">
-              <input
-                type="text"
-                className="w-full rounded border border-gray-300 px-3 py-2.5 text-sm outline-none focus:border-primary focus:ring-1 focus:ring-primary"
-                placeholder={t.loginPlaceholderUsername}
-                required
-                value={username}
-                onChange={(e) => setUsername(e.target.value)}
-              />
-              <input
-                type="password"
-                className="w-full rounded border border-gray-300 px-3 py-2.5 text-sm outline-none focus:border-primary focus:ring-1 focus:ring-primary"
-                placeholder={t.loginPlaceholderPassword}
-                required
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-              />
-              <button
-                type="submit"
-                disabled={submitting}
-                className="w-full bg-primary text-white py-2.5 rounded font-medium hover:bg-primary-dark transition-colors disabled:opacity-50"
-              >
-                {t.loginButton}
-              </button>
-              <Link
-                to="/register"
-                className="block text-center w-full border border-gray-300 text-gray-700 py-2 rounded text-sm hover:bg-gray-50 transition-colors"
-              >
-                {t.loginCreateAccount}
-              </Link>
-            </form>
-          </div>
+        <div className="flex-1 flex items-center justify-center">
+          <form
+            onSubmit={handleSubmit}
+            className="bg-white rounded-lg shadow-sm border border-gray-200 p-8 w-full max-w-sm space-y-4"
+          >
+            <header className="mb-2">
+              <h2 className="text-xl font-semibold text-gray-900">{t.loginFormTitle}</h2>
+              <p className="text-sm text-gray-500 mt-1">{t.loginFormSubtitle}</p>
+            </header>
+
+            <input
+              type="text"
+              className="w-full rounded border border-gray-300 px-3 py-2.5 text-sm outline-none focus:border-primary focus:ring-1 focus:ring-primary"
+              placeholder={t.loginPlaceholderUsername}
+              required
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
+            />
+            <input
+              type="password"
+              className="w-full rounded border border-gray-300 px-3 py-2.5 text-sm outline-none focus:border-primary focus:ring-1 focus:ring-primary"
+              placeholder={t.loginPlaceholderPassword}
+              required
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
+            <button
+              type="submit"
+              disabled={submitting}
+              className="w-full bg-primary text-white py-2.5 rounded font-medium hover:bg-primary-dark transition-colors disabled:opacity-50"
+            >
+              {t.loginButton}
+            </button>
+            <Link
+              to="/register"
+              className="block text-center w-full border border-gray-300 text-gray-700 py-2 rounded text-sm hover:bg-gray-50 transition-colors"
+            >
+              {t.loginCreateAccount}
+            </Link>
+          </form>
         </div>
-
-        <hr className="my-8 border-gray-300" />
-
-        <div className="text-center">
-          <p className="text-xs text-gray-500 mb-4" dangerouslySetInnerHTML={{ __html: t.loginFooterCopyright }} />
-          <div className="bg-white rounded-lg p-4 inline-block">
-            <p className="text-xs text-gray-500 mb-3">{t.loginFooterGrant}</p>
-            <p className="text-xs text-gray-500 mb-3">{t.loginFooterNorway}</p>
-            <div className="flex items-center justify-center gap-6">
-              <img src="./img/norsko.png" alt="Norsko" className="h-12" />
-              <img src="./img/vfn.jpg" alt="VFN" className="h-10" />
-            </div>
-          </div>
-        </div>
-      </div>
+      </main>
     </div>
   );
 }
