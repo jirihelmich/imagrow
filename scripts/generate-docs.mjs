@@ -329,7 +329,14 @@ ${img(s.loginEn)}
 
 After signing in, you land on the patient dashboard. This is the central screen of the application — from here you can search for existing patients, create new ones, export your data, or navigate to reference charts and your profile via the sidebar.
 
-The search bar accepts patient surnames and birth numbers. Results appear in a table that shows each patient's ID, name, gender, birth number, date of birth, gestational age at birth, and birth weight. Clicking a patient's name takes you to their detail page. Clicking the info icon on the right opens a preview panel with a timeline of examinations and quick-action links.
+The search bar understands four types of input:
+
+- **Name or surname** (with or without diacritics, e.g. "novak", "Nováková").
+- **Full birth number** including the slash, e.g. \`260212/2457\`.
+- **Partial birth number** — the first six digits (the date of birth encoded in the birth number) are sufficient.
+- **Date of birth** in \`1.4.2025\`, \`01.04.2025\` or \`1. 4. 2025\` format — the application converts the date and finds all children born on that day (handling the +50 month offset for girls and other technical variants).
+
+Results appear in a table that shows each patient's ID, name, gender, birth number, date of birth, gestational age at birth, and birth weight. Clicking a patient's name takes you to their detail page. Clicking the info icon on the right opens a preview panel with a timeline of examinations and quick-action links.
 ${img(s.dashboardPreview)}
 ---
 
@@ -368,12 +375,13 @@ The core purpose of Auxology is to track how a premature child grows relative to
 
 From the patient detail page, click **New examination**. The form asks for:
 
-- **Examination date and time** — pre-filled with the current date.
-- **Body length** — in centimetres (stored internally in millimetres for precision).
+- **Examination date** — pre-filled with today's date (no time).
+- **Body length** — in centimetres (decimal point or comma accepted; stored internally in millimetres for precision).
 - **Body weight** — in grams.
 - **Head circumference** — in centimetres.
 - **Notes** — free text for clinical observations.
-- **Photo** — an optional image of the child.
+
+Pressing **Enter** in the form does not submit it — moving between fields is done with Tab, and the form is saved only by the button at the bottom right.
 
 If a previous examination exists, its values are displayed above the input fields for quick reference. If this is the first examination, birth measurements are shown instead.
 ${img(s.examFilled)}
@@ -477,7 +485,7 @@ All patient data is stored in a local IndexedDB database within your browser/Ele
 
 ### Auto-Logout
 
-For security, the application automatically logs you out after **2 minutes** of inactivity. You will be returned to the login screen and need to sign in again to continue.
+For security, the application automatically logs you out after **60 minutes** of inactivity. **10 minutes before expiry**, a yellow banner appears at the top with a countdown (e.g. "You will be logged out in 9:42") and a **"Stay signed in"** button that resets the timer.
 
 ### Statistical Background
 
@@ -543,6 +551,7 @@ function generateHTML(s) {
 <body>
   <div class="hero" style="position: relative;">
     <div class="lang-switch"><a href="user-guide-cs.html">Česky</a></div>
+    <img src="../public/img/login-hero.png" alt="" aria-hidden="true" style="width: 140px; height: 140px; margin: 0 auto 1.25rem; display: block; filter: drop-shadow(0 4px 12px rgba(0,0,0,0.15));" />
     <h1>Auxology</h1>
     <p>User Guide</p>
   </div>
@@ -576,7 +585,14 @@ function generateHTML(s) {
 
     <p>After signing in, you land on the patient dashboard. This is the central screen of the application — from here you can search for existing patients, create new ones, export your data, or navigate to reference charts and your profile via the sidebar.</p>
 
-    <p>The search bar accepts patient surnames and birth numbers. Results appear in a table that shows each patient's ID, name, gender, birth number, date of birth, gestational age at birth, and birth weight. Clicking a patient's name takes you to their detail page. Clicking the info icon on the right opens a preview panel with a timeline of examinations and quick-action links.</p>
+    <p>The search bar understands four types of input:</p>
+    <ul>
+      <li><strong>Name or surname</strong> (with or without diacritics, e.g. &ldquo;novak&rdquo;, &ldquo;Nov&aacute;kov&aacute;&rdquo;).</li>
+      <li><strong>Full birth number</strong> including the slash, e.g. <code>260212/2457</code>.</li>
+      <li><strong>Partial birth number</strong> &mdash; the first six digits (the date of birth encoded in the birth number) are sufficient.</li>
+      <li><strong>Date of birth</strong> in <code>1.4.2025</code>, <code>01.04.2025</code> or <code>1. 4. 2025</code> format &mdash; the application converts the date and finds all children born on that day (handling the +50 month offset for girls and other technical variants).</li>
+    </ul>
+    <p>Results appear in a table that shows each patient's ID, name, gender, birth number, date of birth, gestational age at birth, and birth weight. Clicking a patient's name takes you to their detail page. Clicking the info icon on the right opens a preview panel with a timeline of examinations and quick-action links.</p>
 
     ${img(s.dashboardPreview)}
 
@@ -617,7 +633,9 @@ function generateHTML(s) {
 
     <h3>Recording an Examination</h3>
 
-    <p>From the patient detail page, click <strong>New examination</strong>. The form asks for the examination date and time (pre-filled with the current moment), body length in centimetres, body weight in grams, head circumference in centimetres, optional notes, and an optional photo of the child.</p>
+    <p>From the patient detail page, click <strong>New examination</strong>. The form asks for the examination date (pre-filled with today, no time), body length and head circumference in centimetres (decimal point or comma accepted; stored internally in millimetres for precision), body weight in grams, and optional notes.</p>
+
+    <p>Pressing <strong>Enter</strong> in the form does not submit it &mdash; moving between fields is done with Tab, and the form is saved only by the button at the bottom right.</p>
 
     <p>If a previous examination exists, its values are displayed above the input fields for quick reference. If this is the first examination, birth measurements are shown instead.</p>
 
@@ -708,7 +726,7 @@ function generateHTML(s) {
 
     <h3>Auto-Logout</h3>
 
-    <p>For security, the application automatically logs you out after <strong>2 minutes</strong> of inactivity. You will be returned to the login screen and need to sign in again to continue.</p>
+    <p>For security, the application automatically logs you out after <strong>60 minutes</strong> of inactivity. <strong>10 minutes before expiry</strong>, a yellow banner appears at the top with a countdown (e.g. &ldquo;You will be logged out in 9:42&rdquo;) and a <strong>&ldquo;Stay signed in&rdquo;</strong> button that resets the timer.</p>
 
     <h3>Statistical Background</h3>
 
@@ -766,7 +784,14 @@ Pro přepnutí jazyka rozhraní před přihlášením použijte přepínač **EN
 
 Po přihlášení se zobrazí přehled pacientů. Toto je centrální obrazovka aplikace — odsud můžete vyhledávat existující pacienty, vytvářet nové, exportovat data nebo přejít k referenčním grafům a profilu přes postranní menu.
 
-Vyhledávací pole přijímá příjmení pacientů a rodná čísla. Výsledky se zobrazí v tabulce s ID, jménem, pohlavím, rodným číslem, datem narození, gestačním stářím při narození a porodní hmotností. Kliknutím na jméno pacienta přejdete na jeho detail. Kliknutím na ikonu info se otevře panel náhledu s časovou osou vyšetření.
+Vyhledávací pole rozumí čtyřem typům vstupu:
+
+- **Jméno nebo příjmení** (s diakritikou i bez ní, např. „novak", „Nováková").
+- **Rodné číslo v plném tvaru** včetně lomítka, např. \`260212/2457\`.
+- **Část rodného čísla** — stačí prvních 6 číslic (datum narození zakódované v r.č.).
+- **Datum narození** ve tvaru \`1.4.2025\`, \`01.04.2025\` nebo \`1. 4. 2025\` — aplikace si datum převede a najde všechny děti narozené ten den (s ohledem na +50 měsíc u dívek).
+
+Výsledky se zobrazí v tabulce s ID, jménem, pohlavím, rodným číslem, datem narození, gestačním stářím při narození a porodní hmotností. Kliknutím na jméno pacienta přejdete na jeho detail. Kliknutím na ikonu info se otevře panel náhledu s časovou osou vyšetření.
 ${img(cs.dashboardPreview)}
 ---
 
@@ -799,7 +824,9 @@ Hlavním účelem aplikace Auxologie je sledovat, jak předčasně narozené dí
 
 ### Záznam vyšetření
 
-Na stránce detailu pacienta klikněte na **Nové vyšetření**. Formulář požaduje datum a čas vyšetření, délku těla v centimetrech, hmotnost v gramech, obvod hlavy v centimetrech, volitelné poznámky a volitelnou fotografii dítěte.
+Na stránce detailu pacienta klikněte na **Nové vyšetření**. Formulář požaduje datum vyšetření, délku těla a obvod hlavy v centimetrech (s desetinnou čárkou nebo tečkou), hmotnost v gramech a volitelné poznámky.
+
+Klávesa **Enter** ve formuláři neodesílá — mezi poli se přechází tabulátorem a pro uložení slouží tlačítko vpravo dole.
 
 Pokud existuje předchozí vyšetření, jeho hodnoty se zobrazí nad vstupními poli pro rychlou referenci.
 ${img(cs.examFilled)}
@@ -886,7 +913,7 @@ Všechna data pacientů jsou uložena v lokální databázi IndexedDB ve vaší 
 
 ### Automatické odhlášení
 
-Z bezpečnostních důvodů vás aplikace automaticky odhlásí po **2 minutách** nečinnosti.
+Z bezpečnostních důvodů vás aplikace automaticky odhlásí po **60 minutách** nečinnosti. **10 minut před vypršením** se v horní části aplikace objeví žlutý pruh s odpočtem (např. „Pro nečinnost budete za 9:42 odhlášeni") a tlačítkem **„Zůstat přihlášen"**, kterým se odpočet zruší.
 
 ### Statistické pozadí
 
@@ -952,6 +979,7 @@ function generateCzechHTML(cs, en) {
 <body>
   <div class="hero" style="position: relative;">
     <div class="lang-switch"><a href="user-guide.html">English</a></div>
+    <img src="../public/img/login-hero.png" alt="" aria-hidden="true" style="width: 140px; height: 140px; margin: 0 auto 1.25rem; display: block; filter: drop-shadow(0 4px 12px rgba(0,0,0,0.15));" />
     <h1>Auxologie</h1>
     <p>Uživatelská příručka</p>
   </div>
@@ -983,7 +1011,14 @@ function generateCzechHTML(cs, en) {
 
     <p>Po přihlášení se zobrazí přehled pacientů. Toto je centrální obrazovka aplikace — odsud můžete vyhledávat existující pacienty, vytvářet nové, exportovat data nebo přejít k referenčním grafům a profilu přes postranní menu.</p>
 
-    <p>Vyhledávací pole přijímá příjmení pacientů a rodná čísla. Výsledky se zobrazí v tabulce s ID, jménem, pohlavím, rodným číslem, datem narození, gestačním stářím při narození a porodní hmotností.</p>
+    <p>Vyhledávací pole rozumí čtyřem typům vstupu:</p>
+    <ul>
+      <li><strong>Jméno nebo příjmení</strong> (s diakritikou i bez ní, např. &bdquo;novak&ldquo;, &bdquo;Nov&aacute;kov&aacute;&ldquo;).</li>
+      <li><strong>Rodné číslo v plném tvaru</strong> včetně lomítka, např. <code>260212/2457</code>.</li>
+      <li><strong>Část rodného čísla</strong> &mdash; stačí prvních 6 číslic (datum narození zakódované v r.č.).</li>
+      <li><strong>Datum narození</strong> ve tvaru <code>1.4.2025</code>, <code>01.04.2025</code> nebo <code>1. 4. 2025</code> &mdash; aplikace si datum převede a najde všechny děti narozené ten den (s ohledem na +50 měsíc u dívek).</li>
+    </ul>
+    <p>Výsledky se zobrazí v tabulce s ID, jménem, pohlavím, rodným číslem, datem narození, gestačním stářím při narození a porodní hmotností.</p>
 
     ${img(cs.dashboardPreview)}
 
@@ -1024,7 +1059,9 @@ function generateCzechHTML(cs, en) {
 
     <h3>Záznam vyšetření</h3>
 
-    <p>Na stránce detailu pacienta klikněte na <strong>Nové vyšetření</strong>. Formulář požaduje datum a čas vyšetření, délku těla v centimetrech, hmotnost v gramech, obvod hlavy v centimetrech, volitelné poznámky a volitelnou fotografii dítěte.</p>
+    <p>Na stránce detailu pacienta klikněte na <strong>Nové vyšetření</strong>. Formulář požaduje datum vyšetření, délku těla a obvod hlavy v centimetrech (s desetinnou čárkou nebo tečkou), hmotnost v gramech a volitelné poznámky.</p>
+
+    <p>Klávesa <strong>Enter</strong> ve formuláři neodesílá &mdash; mezi poli se přechází tabulátorem a pro uložení slouží tlačítko vpravo dole.</p>
 
     ${img(cs.examFilled)}
 
@@ -1113,7 +1150,7 @@ function generateCzechHTML(cs, en) {
 
     <h3>Automatické odhlášení</h3>
 
-    <p>Z bezpečnostních důvodů vás aplikace automaticky odhlásí po <strong>2 minutách</strong> nečinnosti.</p>
+    <p>Z bezpečnostních důvodů vás aplikace automaticky odhlásí po <strong>60 minutách</strong> nečinnosti. <strong>10 minut před vypršením</strong> se v horní části aplikace objeví žlutý pruh s odpočtem (např. &bdquo;Pro nečinnost budete za 9:42 odhlášeni&ldquo;) a tlačítkem <strong>&bdquo;Zůstat přihlášen&ldquo;</strong>, kterým se odpočet zruší.</p>
 
     <h3>Statistické pozadí</h3>
 

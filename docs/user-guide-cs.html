@@ -34,6 +34,7 @@
 <body>
   <div class="hero" style="position: relative;">
     <div class="lang-switch"><a href="user-guide.html">English</a></div>
+    <img src="../public/img/login-hero.png" alt="" aria-hidden="true" style="width: 140px; height: 140px; margin: 0 auto 1.25rem; display: block; filter: drop-shadow(0 4px 12px rgba(0,0,0,0.15));" />
     <h1>Auxologie</h1>
     <p>Uživatelská příručka</p>
   </div>
@@ -69,7 +70,14 @@
 
     <p>Po přihlášení se zobrazí přehled pacientů. Toto je centrální obrazovka aplikace — odsud můžete vyhledávat existující pacienty, vytvářet nové, exportovat data nebo přejít k referenčním grafům a profilu přes postranní menu.</p>
 
-    <p>Vyhledávací pole přijímá příjmení pacientů a rodná čísla. Výsledky se zobrazí v tabulce s ID, jménem, pohlavím, rodným číslem, datem narození, gestačním stářím při narození a porodní hmotností.</p>
+    <p>Vyhledávací pole rozumí čtyřem typům vstupu:</p>
+    <ul>
+      <li><strong>Jméno nebo příjmení</strong> (s diakritikou i bez ní, např. &bdquo;novak&ldquo;, &bdquo;Nov&aacute;kov&aacute;&ldquo;).</li>
+      <li><strong>Rodné číslo v plném tvaru</strong> včetně lomítka, např. <code>260212/2457</code>.</li>
+      <li><strong>Část rodného čísla</strong> &mdash; stačí prvních 6 číslic (datum narození zakódované v r.č.).</li>
+      <li><strong>Datum narození</strong> ve tvaru <code>1.4.2025</code>, <code>01.04.2025</code> nebo <code>1. 4. 2025</code> &mdash; aplikace si datum převede a najde všechny děti narozené ten den (s ohledem na +50 měsíc u dívek).</li>
+    </ul>
+    <p>Výsledky se zobrazí v tabulce s ID, jménem, pohlavím, rodným číslem, datem narození, gestačním stářím při narození a porodní hmotností.</p>
 
     
       <figure>
@@ -92,7 +100,9 @@
       <li><strong>Gestační týden při narození</strong> — týden gestace (maximum 37).</li>
     </ol>
 
-    <p>Volitelně můžete zadat jméno dítěte, plánovaný termín porodu, porodní délku, obvod hlavy při narození a poznámky. Formulář obsahuje také oddíly pro údaje o matce a otci.</p>
+    <p>Volitelně můžete zadat jméno dítěte, plánovaný termín porodu, porodní délku v cm, obvod hlavy při narození v cm a poznámky.</p>
+
+    <p>Sekce <strong>Matka</strong> a <strong>Otec</strong> jsou ve formuláři <strong>defaultně sbalené</strong>, protože pro běžnou auxologii nejsou potřeba &mdash; rozbalí se kliknutím na &bdquo;Zobrazit&ldquo; v hlavičce sekce. Pokud při editaci pacienta už údaje o rodičích vyplněné jsou, sekce se rozbalí automaticky.</p>
 
     
       <figure>
@@ -108,6 +118,8 @@
 
     <p>Pravý sloupec zobrazuje karty vyšetření — každá karta ukazuje datum, korigovaný věk, délku těla, hmotnost, obvod hlavy a poznámky.</p>
 
+    <p>V hlavičce stránky vpravo nahoře je tlačítko <strong>&bdquo;&larr; Seznam pacientů&ldquo;</strong> pro rychlý návrat zpátky.</p>
+
     
       <figure>
         <img src="screenshots/cs-09-patient-growth.png" alt="Přehled pacienta s historií vyšetření" loading="lazy" />
@@ -122,7 +134,9 @@
 
     <h3>Záznam vyšetření</h3>
 
-    <p>Na stránce detailu pacienta klikněte na <strong>Nové vyšetření</strong>. Formulář požaduje datum a čas vyšetření, délku těla v centimetrech, hmotnost v gramech, obvod hlavy v centimetrech, volitelné poznámky a volitelnou fotografii dítěte.</p>
+    <p>Na stránce detailu pacienta klikněte na <strong>Nové vyšetření</strong>. Formulář požaduje datum vyšetření, délku těla a obvod hlavy v centimetrech (s desetinnou čárkou nebo tečkou), hmotnost v gramech a volitelné poznámky.</p>
+
+    <p>Klávesa <strong>Enter</strong> ve formuláři neodesílá &mdash; mezi poli se přechází tabulátorem a pro uložení slouží tlačítko vpravo dole.</p>
 
     
       <figure>
@@ -138,6 +152,10 @@
 
     <p>Referenční křivky jsou vybrány automaticky na základě pohlaví dítěte a zda jeho porodní hmotnost byla nad nebo pod 1500 g. Datové body dítěte jsou spojeny barevnou linií (modrá pro chlapce, červená pro dívky).</p>
 
+    <p>Při najetí myší na bod pacienta tooltip ukazuje korigovaný věk, naměřenou hodnotu a vypočtený <strong>percentil</strong>.</p>
+
+    <p>V pravém horním rohu každého grafu je tlačítko <strong>Stáhnout (PNG)</strong> &mdash; kliknutím se uloží obrázek grafu ve dvojnásobném rozlišení, s bílým pozadím a názvem grafu. Soubor má jméno ve tvaru <code>Jm&eacute;no-P&rcaron;&iacute;jmen&iacute;-T&ecaron;lesn&aacute;-d&eacute;lka.png</code> a hodí se k vložení do propouštěcí zprávy.</p>
+
     
       <figure>
         <img src="screenshots/cs-10-growth-charts.png" alt="Růstové grafy s percentilovými křivkami" loading="lazy" />
@@ -148,7 +166,7 @@
 
     <p>Pod grafy je souhrnná tabulka se všemi vyšetřeními. Pro každou návštěvu tabulka ukazuje datum, korigovaný věk a pro každé měření naměřenou hodnotu, <strong>percentil</strong> a <strong>SDS/Z-skóre</strong>.</p>
 
-    <p>Z-skóre 0 odpovídá 50. percentilu. Hodnoty pod −2 nebo nad +2 indikují měření mimo normální rozsah a mohou vyžadovat klinickou pozornost.</p>
+    <p>Z-skóre 0 odpovídá 50. percentilu. Hodnoty pod −2 nebo nad +2 indikují měření mimo normální rozsah a mohou vyžadovat klinickou pozornost. Buňky s percentilem <strong>pod 1.</strong> nebo <strong>nad 99.</strong> se v tabulce zvýrazňují červeně, aby šly extrémní záznamy snadno najít.</p>
 
     
       <figure>
@@ -231,7 +249,7 @@
 
     <h3>Automatické odhlášení</h3>
 
-    <p>Z bezpečnostních důvodů vás aplikace automaticky odhlásí po <strong>2 minutách</strong> nečinnosti.</p>
+    <p>Z bezpečnostních důvodů vás aplikace automaticky odhlásí po <strong>60 minutách</strong> nečinnosti. <strong>10 minut před vypršením</strong> se v horní části aplikace objeví žlutý pruh s odpočtem (např. &bdquo;Pro nečinnost budete za 9:42 odhlášeni&ldquo;) a tlačítkem <strong>&bdquo;Zůstat přihlášen&ldquo;</strong>, kterým se odpočet zruší.</p>
 
     <h3>Statistické pozadí</h3>
 

@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="public/img/login-hero.png" alt="Auxology" width="200" />
+</p>
+
 # Auxology
 
 Desktop aplikace pro sledování růstu nedonošených dětí na základě referenčních auxologických dat Centra komplexní péče KDDL VFN Praha (LMS kvantilová regrese, 1 781 dětí, 5 676 vyšetření, 2001–2015).
@@ -8,6 +12,7 @@ Auxology běží plně offline v prostředí Electron, data zůstávají na uži
 
 - 🇨🇿 [Uživatelská příručka (CZ)](docs/user-guide-cs.html)
 - 🇬🇧 [User guide (EN)](docs/user-guide.html)
+- [CHANGELOG](CHANGELOG.md)
 
 ## Instalace
 

@@ -28,7 +28,14 @@ To switch the interface language before logging in, use the **EN/CZ** toggle in 
 
 After signing in, you land on the patient dashboard. This is the central screen of the application — from here you can search for existing patients, create new ones, export your data, or navigate to reference charts and your profile via the sidebar.
 
-The search bar accepts patient surnames and birth numbers. Results appear in a table that shows each patient's ID, name, gender, birth number, date of birth, gestational age at birth, and birth weight. Clicking a patient's name takes you to their detail page. Clicking the info icon on the right opens a preview panel with a timeline of examinations and quick-action links.
+The search bar understands four types of input:
+
+- **Name or surname** (with or without diacritics, e.g. "novak", "Nováková").
+- **Full birth number** including the slash, e.g. `260212/2457`.
+- **Partial birth number** — the first six digits (the date of birth encoded in the birth number) are sufficient.
+- **Date of birth** in `1.4.2025`, `01.04.2025` or `1. 4. 2025` format — the application converts the date and finds all children born on that day (handling the +50 month offset for girls and other technical variants).
+
+Results appear in a table that shows each patient's ID, name, gender, birth number, date of birth, gestational age at birth, and birth weight. Clicking a patient's name takes you to their detail page. Clicking the info icon on the right opens a preview panel with a timeline of examinations and quick-action links.
 
 ![Dashboard with patient preview](screenshots/12-dashboard-preview.png)
 
@@ -45,7 +52,9 @@ Click **New patient** on the dashboard to open the registration form. Four field
 3. **Birth weight** — in grams. The maximum is 2500 g (the threshold for prematurity).
 4. **Gestational week at birth** — the week of gestation when the child was born (maximum 37).
 
-You can optionally provide the child's name, planned due date, birth length, head circumference at birth, and free-text notes. The form also includes sections for mother and father details — personal data, anthropometric measurements, contact information, and address.
+You can optionally provide the child's name, planned due date, birth length in cm, head circumference at birth in cm, and free-text notes.
+
+The **Mother** and **Father** sections are **collapsed by default**, since they are not required for routine auxology — expand them via the "Show" button in the section header. When editing a patient who already has parent data on record, the sections expand automatically.
 
 ![Filled patient form](screenshots/06-new-patient-filled.png)
 
@@ -61,6 +70,8 @@ The patient detail page is the main workspace for a single child. The left colum
 
 The right column shows the **examination cards** — each card displays the date, corrected age at the time of the examination, body length, weight, head circumference, and any notes. Cards can be edited or deleted individually.
 
+The page header has a **"← Patient list"** button (top right) for quick navigation back to the dashboard.
+
 ![Patient overview with examination history](screenshots/09-patient-growth.png)
 
 ---
@@ -73,14 +84,15 @@ The core purpose of Auxology is to track how a premature child grows relative to
 
 From the patient detail page, click **New examination**. The form asks for:
 
-- **Examination date and time** — pre-filled with the current date.
-- **Body length** — in centimetres (stored internally in millimetres for precision).
+- **Examination date** — pre-filled with today's date (no time).
+- **Body length** — in centimetres (decimal point or comma accepted; stored internally in millimetres for precision).
 - **Body weight** — in grams.
 - **Head circumference** — in centimetres.
 - **Notes** — free text for clinical observations.
-- **Photo** — an optional image of the child.
 
 If a previous examination exists, its values are displayed above the input fields for quick reference. If this is the first examination, birth measurements are shown instead.
+
+Pressing **Enter** in the form does not submit it — moving between fields is done with Tab, and the form is saved only by the button at the bottom right.
 
 ![Examination form with measurements](screenshots/08-examination-filled.png)
 
@@ -97,7 +109,11 @@ The four charts are:
 
 The reference curves are selected automatically based on the child's gender and whether their birth weight was above or below 1500 g. The child's own data points are connected by a coloured line (blue for boys, red for girls), making it easy to see at a glance whether growth is following, crossing, or deviating from the expected percentile bands.
 
-Clicking any chart opens it in a full-screen view for closer inspection or discussion with colleagues.
+Hovering over a patient data point shows a tooltip with the corrected age, the measured value, and the calculated **percentile**.
+
+In the top-right corner of every chart there is a **Download (PNG)** button — clicking it saves a 2× resolution PNG of the chart with a white background and the chart title baked in. The file name has the form `Firstname-Surname-Body-length.png` and is ready for inclusion in a discharge report.
+
+Clicking the body of any chart opens it in a full-screen view for closer inspection or discussion with colleagues.
 
 ![Growth charts with percentile curves](screenshots/10-growth-charts.png)
 
@@ -118,7 +134,7 @@ Below the charts, a summary table lists every examination chronologically. For e
 | **Head circ. P / SDS** | Head circumference percentile and Z-score |
 | **Weight-for-length P / SDS** | How the child's weight relates to their length |
 
-Percentiles and Z-scores are computed against the appropriate reference dataset (gender × weight category). A Z-score of 0 corresponds to the 50th percentile; values below −2 or above +2 indicate measurements outside the normal range and may warrant clinical attention.
+Percentiles and Z-scores are computed against the appropriate reference dataset (gender × weight category). A Z-score of 0 corresponds to the 50th percentile; values below −2 or above +2 indicate measurements outside the normal range and may warrant clinical attention. Cells with a percentile **below 1** or **above 99** are highlighted in red so extreme values stand out.
 
 ![Tabulated data with percentiles and Z-scores](screenshots/11-growth-table.png)
 
@@ -192,7 +208,7 @@ All patient data is stored in a local IndexedDB database within your browser/Ele
 
 ### Auto-Logout
 
-For security, the application automatically logs you out after **2 minutes** of inactivity. You will be returned to the login screen and need to sign in again to continue.
+For security, the application automatically logs you out after **60 minutes** of inactivity. **10 minutes before expiry**, a yellow banner appears at the top with a countdown (e.g. "You will be logged out in 9:42") and a **"Stay signed in"** button that resets the timer.
 
 ### Statistical Background
 

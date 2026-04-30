@@ -34,6 +34,7 @@
 <body>
   <div class="hero" style="position: relative;">
     <div class="lang-switch"><a href="user-guide-cs.html">Česky</a></div>
+    <img src="../public/img/login-hero.png" alt="" aria-hidden="true" style="width: 140px; height: 140px; margin: 0 auto 1.25rem; display: block; filter: drop-shadow(0 4px 12px rgba(0,0,0,0.15));" />
     <h1>Auxology</h1>
     <p>User Guide</p>
   </div>
@@ -75,7 +76,14 @@
 
     <p>After signing in, you land on the patient dashboard. This is the central screen of the application — from here you can search for existing patients, create new ones, export your data, or navigate to reference charts and your profile via the sidebar.</p>
 
-    <p>The search bar accepts patient surnames and birth numbers. Results appear in a table that shows each patient's ID, name, gender, birth number, date of birth, gestational age at birth, and birth weight. Clicking a patient's name takes you to their detail page. Clicking the info icon on the right opens a preview panel with a timeline of examinations and quick-action links.</p>
+    <p>The search bar understands four types of input:</p>
+    <ul>
+      <li><strong>Name or surname</strong> (with or without diacritics, e.g. &ldquo;novak&rdquo;, &ldquo;Nov&aacute;kov&aacute;&rdquo;).</li>
+      <li><strong>Full birth number</strong> including the slash, e.g. <code>260212/2457</code>.</li>
+      <li><strong>Partial birth number</strong> &mdash; the first six digits (the date of birth encoded in the birth number) are sufficient.</li>
+      <li><strong>Date of birth</strong> in <code>1.4.2025</code>, <code>01.04.2025</code> or <code>1. 4. 2025</code> format &mdash; the application converts the date and finds all children born on that day (handling the +50 month offset for girls and other technical variants).</li>
+    </ul>
+    <p>Results appear in a table that shows each patient's ID, name, gender, birth number, date of birth, gestational age at birth, and birth weight. Clicking a patient's name takes you to their detail page. Clicking the info icon on the right opens a preview panel with a timeline of examinations and quick-action links.</p>
 
     
       <figure>
@@ -98,7 +106,9 @@
       <li><strong>Gestational week at birth</strong> — the week of gestation when the child was born (maximum 37).</li>
     </ol>
 
-    <p>You can optionally provide the child's name, planned due date, birth length, head circumference at birth, and free-text notes. The form also includes sections for mother and father details — personal data, anthropometric measurements, contact information, and address.</p>
+    <p>You can optionally provide the child's name, planned due date, birth length in cm, head circumference at birth in cm, and free-text notes.</p>
+
+    <p>The <strong>Mother</strong> and <strong>Father</strong> sections are <strong>collapsed by default</strong>, since they are not required for routine auxology &mdash; expand them via the &ldquo;Show&rdquo; button in the section header. When editing a patient who already has parent data on record, the sections expand automatically.</p>
 
     
       <figure>
@@ -114,6 +124,8 @@
 
     <p>The right column shows the examination cards — each card displays the date, corrected age at the time of the examination, body length, weight, head circumference, and any notes. Cards can be edited or deleted individually.</p>
 
+    <p>The page header has a <strong>&ldquo;&larr; Patient list&rdquo;</strong> button (top right) for quick navigation back to the dashboard.</p>
+
     
       <figure>
         <img src="screenshots/09-patient-growth.png" alt="Patient overview with examination history" loading="lazy" />
@@ -128,9 +140,11 @@
 
     <h3>Recording an Examination</h3>
 
-    <p>From the patient detail page, click <strong>New examination</strong>. The form asks for the examination date and time (pre-filled with the current moment), body length in centimetres, body weight in grams, head circumference in centimetres, optional notes, and an optional photo of the child.</p>
+    <p>From the patient detail page, click <strong>New examination</strong>. The form asks for the examination date (pre-filled with today, no time), body length and head circumference in centimetres (decimal point or comma accepted; stored internally in millimetres for precision), body weight in grams, and optional notes.</p>
 
     <p>If a previous examination exists, its values are displayed above the input fields for quick reference. If this is the first examination, birth measurements are shown instead.</p>
+
+    <p>Pressing <strong>Enter</strong> in the form does not submit it &mdash; moving between fields is done with Tab, and the form is saved only by the button at the bottom right.</p>
 
     
       <figure>
@@ -144,7 +158,13 @@
 
     <p>The four charts are: body length vs. corrected age, body weight vs. corrected age, head circumference vs. corrected age, and weight for length (weight plotted against body length rather than age).</p>
 
-    <p>The reference curves are selected automatically based on the child's gender and whether their birth weight was above or below 1500 g. The child's own data points are connected by a coloured line (blue for boys, red for girls), making it easy to see at a glance whether growth is following, crossing, or deviating from the expected percentile bands. Clicking any chart opens it in a full-screen view for closer inspection.</p>
+    <p>The reference curves are selected automatically based on the child's gender and whether their birth weight was above or below 1500 g. The child's own data points are connected by a coloured line (blue for boys, red for girls), making it easy to see at a glance whether growth is following, crossing, or deviating from the expected percentile bands.</p>
+
+    <p>Hovering over a patient data point shows a tooltip with the corrected age, the measured value, and the calculated <strong>percentile</strong>.</p>
+
+    <p>In the top-right corner of every chart there is a <strong>Download (PNG)</strong> button &mdash; clicking it saves a 2&times; resolution PNG of the chart with a white background and the chart title baked in. The file name has the form <code>Firstname-Surname-Body-length.png</code> and is ready for inclusion in a discharge report.</p>
+
+    <p>Clicking the body of any chart opens it in a full-screen view for closer inspection.</p>
 
     
       <figure>
@@ -156,7 +176,7 @@
 
     <p>Below the charts, a summary table lists every examination chronologically. For each visit, the table shows the date, corrected age, and for each of the three measurements (weight, length, head circumference) both the raw value and the computed <strong>percentile</strong> and <strong>SDS/Z-score</strong>. A separate column shows the weight-for-length percentile and Z-score.</p>
 
-    <p>A Z-score of 0 corresponds to the 50th percentile. Values below −2 or above +2 indicate measurements outside the normal range and may warrant clinical attention. This tabulated view gives clinicians a concise numerical summary to complement the visual growth charts.</p>
+    <p>A Z-score of 0 corresponds to the 50th percentile. Values below −2 or above +2 indicate measurements outside the normal range and may warrant clinical attention. Cells with a percentile <strong>below 1</strong> or <strong>above 99</strong> are highlighted in red so extreme values stand out. This tabulated view gives clinicians a concise numerical summary to complement the visual growth charts.</p>
 
     
       <figure>
@@ -239,7 +259,7 @@
 
     <h3>Auto-Logout</h3>
 
-    <p>For security, the application automatically logs you out after <strong>2 minutes</strong> of inactivity. You will be returned to the login screen and need to sign in again to continue.</p>
+    <p>For security, the application automatically logs you out after <strong>60 minutes</strong> of inactivity. <strong>10 minutes before expiry</strong>, a yellow banner appears at the top with a countdown (e.g. &ldquo;You will be logged out in 9:42&rdquo;) and a <strong>&ldquo;Stay signed in&rdquo;</strong> button that resets the timer.</p>
 
     <h3>Statistical Background</h3>
 
