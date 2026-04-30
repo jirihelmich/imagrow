@@ -68,5 +68,30 @@ export function useExaminations() {
     return results as unknown as Examination[];
   }, [db, currentUser]);
 
-  return { createOrUpdate, getById, deleteById, getAllByPatient };
+  const getLatestPerPatient = useCallback(async (): Promise<Map<number, Date>> => {
+    if (!db || !currentUser) return new Map();
+    const t = db.getSchema().table('Examination');
+    const results = await db.select().from(t)
+      .where(t['doctorId'].eq(currentUser.id))
+      .orderBy(t['dateTime'], lf.Order.DESC)
+      .exec() as unknown as Examination[];
+    const latest = new Map<number, Date>();
+    for (const row of results) {
+      if (!latest.has(row.patientId)) latest.set(row.patientId, row.dateTime);
+    }
+    return latest;
+  }, [db, currentUser]);
+
+  const countSince = useCallback(async (since: Date): Promise<number> => {
+    if (!db || !currentUser) return 0;
+    const t = db.getSchema().table('Examination');
+    const result = await db.select(lf.fn.count(t['id']))
+      .from(t)
+      .where(lf.op.and(t['doctorId'].eq(currentUser.id), t['dateTime'].gte(since)))
+      .exec() as unknown as { COUNT: number }[];
+    const row = result[0] as Record<string, number> | undefined;
+    return row ? Number(Object.values(row)[0]) : 0;
+  }, [db, currentUser]);
+
+  return { createOrUpdate, getById, deleteById, getAllByPatient, getLatestPerPatient, countSince };
 }

@@ -264,6 +264,29 @@ export function usePatients() {
     return results as unknown as PatientWithPerson[];
   }, [db, currentUser]);
 
+  const count = useCallback(async (): Promise<number> => {
+    if (!db || !currentUser) return 0;
+    const patientTable = db.getSchema().table('Patient');
+    const result = await db.select(lf.fn.count(patientTable['id']))
+      .from(patientTable)
+      .where(patientTable['doctorId'].eq(currentUser.id))
+      .exec() as unknown as Record<string, number>[];
+    const row = result[0];
+    return row ? Number(Object.values(row)[0]) : 0;
+  }, [db, currentUser]);
+
+  const findByIds = useCallback(async (ids: number[]): Promise<PatientWithPerson[]> => {
+    if (!db || !currentUser || ids.length === 0) return [];
+    const patientTable = db.getSchema().table('Patient');
+    const personTable = db.getSchema().table('Person');
+    const results = await db.select()
+      .from(patientTable)
+      .innerJoin(personTable, personTable['id'].eq(patientTable['personId']))
+      .where(lf.op.and(patientTable['doctorId'].eq(currentUser.id), patientTable['id'].in(ids)))
+      .exec();
+    return results as unknown as PatientWithPerson[];
+  }, [db, currentUser]);
+
   const all = useCallback(async (): Promise<PatientWithPerson[]> => {
     if (!db || !currentUser) return [];
 
@@ -291,5 +314,5 @@ export function usePatients() {
     URL.revokeObjectURL(a.href);
   }, [db]);
 
-  return { createOrUpdate, getById, getDetail, deleteById, search, recent, all, exportDB };
+  return { createOrUpdate, getById, getDetail, deleteById, search, recent, all, exportDB, count, findByIds };
 }

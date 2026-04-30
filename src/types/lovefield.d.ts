@@ -55,6 +55,7 @@ declare module 'lovefield' {
         gte(value: unknown): Predicate;
         match(regex: RegExp): Predicate;
         between(from: unknown, to: unknown): Predicate;
+        in(values: unknown[]): Predicate;
         isNull(): Predicate;
         isNotNull(): Predicate;
       }
@@ -98,6 +99,14 @@ declare module 'lovefield' {
       function and(...predicates: Predicate[]): Predicate;
       function or(...predicates: Predicate[]): Predicate;
       function not(predicate: Predicate): Predicate;
+    }
+
+    namespace fn {
+      function count(column?: schema.Column): unknown;
+      function sum(column: schema.Column): unknown;
+      function avg(column: schema.Column): unknown;
+      function min(column: schema.Column): unknown;
+      function max(column: schema.Column): unknown;
     }
 
     interface Predicate {}

@@ -3,12 +3,14 @@ interface MeasurementInputProps {
   value: string;
   onChange: (value: string) => void;
   placeholder?: string;
+  hint?: string;
 }
 
-export function MeasurementInput({ label, value, onChange, placeholder = '52.0' }: MeasurementInputProps) {
+export function MeasurementInput({ label, value, onChange, placeholder = '52.0', hint }: MeasurementInputProps) {
   return (
     <div className="flex items-center gap-4">
       <label className="w-40 shrink-0 text-right text-sm font-medium text-gray-700">{label}</label>
+      {hint && <span className="w-32 shrink-0 text-xs text-gray-500">{hint}</span>}
       <div className="flex flex-1">
         <input
           type="text"

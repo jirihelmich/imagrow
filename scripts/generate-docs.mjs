@@ -327,7 +327,9 @@ To switch the interface language before logging in, use the **EN/CZ** toggle in 
 ${img(s.loginEn)}
 ### The Dashboard
 
-After signing in, you land on the patient dashboard. This is the central screen of the application — from here you can search for existing patients, create new ones, export your data, or navigate to reference charts and your profile via the sidebar.
+After signing in, you land on the dashboard. The top row contains **four stat cards** (total patients, examinations in the last 7 / 30 days, and a count of patients needing attention). Below them is a prominent **search bar** and the recent-patients table, with a **"Needs attention"** panel on the right listing patients who haven't been examined in over 30 days. If everybody is current, a green check confirms "All caught up".
+
+Search is **live** — results refresh as you type, no Enter or button click required.
 
 The search bar understands four types of input:
 
@@ -357,13 +359,11 @@ After saving, you are taken directly to the new patient's detail page.
 
 ### The Patient Detail Page
 
-The patient detail page is the main workspace for a single child. The left column shows a summary card with:
+The patient detail page is the main workspace for a single child. The left column shows **four stat boxes** with the most important facts — gestational age at birth, birth weight, corrected age, and calendar age. Below them are sparkline charts of the latest length, weight, and head circumference, then a single row of actions (New examination, Edit, Delete). Less common dates (calculated and planned due date, current gestational age) live behind a **"More dates and age info"** toggle.
 
-- **Age information** — date of birth (derived from the birth number), calculated and planned due dates, gestational age at birth, current gestational age, corrected age, and calendar age. Corrected age is automatically calculated by subtracting (40 − birth week) weeks from the actual age.
-- **Sparkline charts** — small inline graphs showing the trend of length, weight, and head circumference across all recorded examinations.
-- **Action buttons** — links to add a new examination, edit the patient, or delete the patient and all associated data.
+The right column shows the **examination history** as a compact timeline — each examination is one row with the date, corrected age, and the three measurements inline. Edit / delete icons appear on hover.
 
-The right column shows the **examination cards** — each card displays the date, corrected age at the time of the examination, body length, weight, head circumference, and any notes. Cards can be edited or deleted individually.
+The **parent information card** is hidden entirely if neither parent has any data on record; otherwise it is collapsed by default and skips empty fields when expanded.
 ${img(s.patientGrowth)}
 ---
 
@@ -381,9 +381,9 @@ From the patient detail page, click **New examination**. The form asks for:
 - **Head circumference** — in centimetres.
 - **Notes** — free text for clinical observations.
 
-Pressing **Enter** in the form does not submit it — moving between fields is done with Tab, and the form is saved only by the button at the bottom right.
+A subtle **hint** next to each input field shows the most recent measured value (e.g. "last 52.0 cm"). When no examination yet exists, the birth measurement is shown instead. Pressing **Enter** in the form does not submit it — moving between fields is done with Tab, and the form is saved only by the button at the bottom right.
 
-If a previous examination exists, its values are displayed above the input fields for quick reference. If this is the first examination, birth measurements are shown instead.
+A **live preview** below the form shows four growth charts that update with every keystroke. The clinician sees immediately where the new measurement will fall against the reference percentile bands, before saving.
 ${img(s.examFilled)}
 ### Growth Charts
 
@@ -583,7 +583,9 @@ function generateHTML(s) {
 
     <h3>The Dashboard</h3>
 
-    <p>After signing in, you land on the patient dashboard. This is the central screen of the application — from here you can search for existing patients, create new ones, export your data, or navigate to reference charts and your profile via the sidebar.</p>
+    <p>After signing in, you land on the dashboard. The top row contains <strong>four stat cards</strong> (total patients, examinations in the last 7 / 30 days, and a count of patients needing attention). Below them is a prominent <strong>search bar</strong> and the recent-patients table, with a <strong>&ldquo;Needs attention&rdquo;</strong> panel on the right listing patients who haven't been examined in over 30 days. If everybody is current, a green check confirms &ldquo;All caught up&rdquo;.</p>
+
+    <p>Search is <strong>live</strong> &mdash; results refresh as you type, no Enter or button click required.</p>
 
     <p>The search bar understands four types of input:</p>
     <ul>
@@ -617,11 +619,11 @@ function generateHTML(s) {
 
     <h3>The Patient Detail Page</h3>
 
-    <p>The patient detail page is the main workspace for a single child. The left column shows a summary card with age information — date of birth (derived from the birth number), calculated and planned due dates, gestational age at birth, current gestational age, corrected age, and calendar age. Corrected age is automatically calculated by subtracting (40 − birth week) weeks from the actual age.</p>
+    <p>The patient detail page is the main workspace for a single child. The left column shows <strong>four stat boxes</strong> with the most important facts &mdash; gestational age at birth, birth weight, corrected age, and calendar age. Below them are sparkline charts of the latest length, weight, and head circumference, then a single row of actions (New examination, Edit, Delete). Less common dates (calculated and planned due date, current gestational age) live behind a <strong>&ldquo;More dates and age info&rdquo;</strong> toggle.</p>
 
-    <p>Below the age table, sparkline charts show the trend of length, weight, and head circumference across all recorded examinations. Action buttons let you add a new examination, edit the patient, or delete the patient and all associated data.</p>
+    <p>The right column shows the <strong>examination history</strong> as a compact timeline &mdash; each examination is one row with the date, corrected age, and the three measurements inline. Edit / delete icons appear on hover.</p>
 
-    <p>The right column shows the examination cards — each card displays the date, corrected age at the time of the examination, body length, weight, head circumference, and any notes. Cards can be edited or deleted individually.</p>
+    <p>The <strong>parent information card</strong> is hidden entirely if neither parent has any data on record; otherwise it is collapsed by default and skips empty fields when expanded.</p>
 
     ${img(s.patientGrowth)}
 
@@ -637,7 +639,9 @@ function generateHTML(s) {
 
     <p>Pressing <strong>Enter</strong> in the form does not submit it &mdash; moving between fields is done with Tab, and the form is saved only by the button at the bottom right.</p>
 
-    <p>If a previous examination exists, its values are displayed above the input fields for quick reference. If this is the first examination, birth measurements are shown instead.</p>
+    <p>A subtle <strong>hint</strong> next to each input field shows the most recent measured value (e.g. &ldquo;last 52.0 cm&rdquo;). When no examination yet exists, the birth measurement is shown instead.</p>
+
+    <p>A <strong>live preview</strong> below the form shows four growth charts that update with every keystroke. The clinician sees immediately where the new measurement will fall against the reference percentile bands, before saving.</p>
 
     ${img(s.examFilled)}
 
@@ -782,7 +786,9 @@ Pro přepnutí jazyka rozhraní před přihlášením použijte přepínač **EN
 
 ### Přehled pacientů
 
-Po přihlášení se zobrazí přehled pacientů. Toto je centrální obrazovka aplikace — odsud můžete vyhledávat existující pacienty, vytvářet nové, exportovat data nebo přejít k referenčním grafům a profilu přes postranní menu.
+Po přihlášení se zobrazí přehled. Nahoře jsou **čtyři statistické karty** (počet pacientů celkem, vyšetření za 7 / 30 dní, počet pacientů vyžadujících pozornost), pod nimi prominentní **vyhledávací pole** a tabulka nedávných pacientů. Vpravo je panel **„Vyžaduje pozornost"** — pacienti, kteří nebyli vyšetřeni přes 30 dní, seřazení podle nejdéle čekajících. Pokud není koho upozorňovat, zobrazí se zelený check „Vše v pořádku".
+
+Vyhledávání je **živé** — výsledky se ukazují s krátkou prodlevou při psaní, není potřeba klikat na tlačítko.
 
 Vyhledávací pole rozumí čtyřem typům vstupu:
 
@@ -810,11 +816,11 @@ Volitelně můžete zadat jméno dítěte, plánovaný termín porodu, porodní 
 ${img(cs.newPatientForm)}
 ### Detail pacienta
 
-Detail pacienta je hlavní pracovní prostor pro jednotlivé dítě. Levý sloupec zobrazuje souhrnnou kartu s informacemi o věku — datum narození (odvozené z rodného čísla), vypočtený a plánovaný termín porodu, gestační stáří při narození, aktuální gestační stáří, korigovaný věk a kalendářní věk. Korigovaný věk je automaticky vypočten odečtením (40 − týden narození) týdnů od skutečného věku.
+Detail pacienta je hlavní pracovní prostor pro jednotlivé dítě. Levý sloupec ukazuje **čtyři statistické boxy** s nejdůležitějšími fakty — gestační týden při porodu, porodní hmotnost, korigovaný věk a kalendářní věk. Pod nimi jsou sparkline grafy posledních hodnot a v jednom řádku akce (Nové vyšetření, Upravit, Smazat). Méně časté údaje (kalkulovaný a plánovaný termín porodu, aktuální gestační věk) jsou skryté pod tlačítkem **„Další údaje o věku a termínu"**.
 
-Pod tabulkou věku jsou sparkline grafy ukazující trend délky, hmotnosti a obvodu hlavy. Akční tlačítka umožňují přidat nové vyšetření, upravit pacienta nebo smazat pacienta a všechna přidružená data.
+Pravý sloupec ukazuje **historii vyšetření** jako kompaktní timeline — každé vyšetření jako jeden řádek s datem, korigovaným věkem a třemi naměřenými hodnotami. Edit/smazat ikony se objeví při najetí myší.
 
-Pravý sloupec zobrazuje karty vyšetření — každá karta ukazuje datum, korigovaný věk, délku těla, hmotnost, obvod hlavy a poznámky.
+Karta s **údaji o rodičích** se zobrazí jen tehdy, když má alespoň jeden z nich vyplněná data; standardně je sklopená a uvnitř se nezobrazují prázdná pole.
 ${img(cs.patientGrowth)}
 ---
 
@@ -826,7 +832,9 @@ Hlavním účelem aplikace Auxologie je sledovat, jak předčasně narozené dí
 
 Na stránce detailu pacienta klikněte na **Nové vyšetření**. Formulář požaduje datum vyšetření, délku těla a obvod hlavy v centimetrech (s desetinnou čárkou nebo tečkou), hmotnost v gramech a volitelné poznámky.
 
-Klávesa **Enter** ve formuláři neodesílá — mezi poli se přechází tabulátorem a pro uložení slouží tlačítko vpravo dole.
+Vedle každého vstupního pole se zobrazuje **subtilní hint** s poslední naměřenou hodnotou (např. „naposledy 52.0 cm"). Pokud ještě žádné vyšetření neexistuje, ukáže se porodní hodnota. Klávesa **Enter** ve formuláři neodesílá — mezi poli se přechází tabulátorem a pro uložení slouží tlačítko vpravo dole.
+
+**Živý náhled** pod formulářem ukazuje čtyři růstové grafy, které se aktualizují s každým úhozem klávesy. Doktor okamžitě vidí, kde nová hodnota padne v percentilových pásmech, ještě před uložením.
 
 Pokud existuje předchozí vyšetření, jeho hodnoty se zobrazí nad vstupními poli pro rychlou referenci.
 ${img(cs.examFilled)}
@@ -1009,7 +1017,9 @@ function generateCzechHTML(cs, en) {
 
     <h3>Přehled pacientů</h3>
 
-    <p>Po přihlášení se zobrazí přehled pacientů. Toto je centrální obrazovka aplikace — odsud můžete vyhledávat existující pacienty, vytvářet nové, exportovat data nebo přejít k referenčním grafům a profilu přes postranní menu.</p>
+    <p>Po přihlášení se zobrazí přehled. Nahoře jsou <strong>čtyři statistické karty</strong> (počet pacientů celkem, vyšetření za 7 / 30 dní, počet pacientů vyžadujících pozornost), pod nimi prominentní <strong>vyhledávací pole</strong> a tabulka nedávných pacientů. Vpravo je panel <strong>&bdquo;Vyžaduje pozornost&ldquo;</strong> &mdash; pacienti, kteří nebyli vyšetřeni přes 30 dní, seřazení podle nejdéle čekajících. Pokud není koho upozorňovat, zobrazí se zelený check &bdquo;Vše v pořádku&ldquo;.</p>
+
+    <p>Vyhledávání je <strong>živé</strong> &mdash; výsledky se ukazují s krátkou prodlevou při psaní, není potřeba klikat na tlačítko.</p>
 
     <p>Vyhledávací pole rozumí čtyřem typům vstupu:</p>
     <ul>
@@ -1043,11 +1053,11 @@ function generateCzechHTML(cs, en) {
 
     <h3>Detail pacienta</h3>
 
-    <p>Detail pacienta je hlavní pracovní prostor pro jednotlivé dítě. Levý sloupec zobrazuje souhrnnou kartu s informacemi o věku — datum narození, vypočtený a plánovaný termín porodu, gestační stáří při narození, aktuální gestační stáří, korigovaný věk a kalendářní věk.</p>
+    <p>Detail pacienta je hlavní pracovní prostor pro jednotlivé dítě. Levý sloupec ukazuje <strong>čtyři statistické boxy</strong> s nejdůležitějšími fakty &mdash; gestační týden při porodu, porodní hmotnost, korigovaný věk a kalendářní věk. Pod nimi jsou sparkline grafy posledních hodnot a v jednom řádku akce (Nové vyšetření, Upravit, Smazat). Méně časté údaje (kalkulovaný a plánovaný termín porodu, aktuální gestační věk) jsou skryté pod tlačítkem <strong>&bdquo;Další údaje o věku a termínu&ldquo;</strong>.</p>
 
-    <p>Pod tabulkou věku jsou sparkline grafy ukazující trend délky, hmotnosti a obvodu hlavy. Akční tlačítka umožňují přidat nové vyšetření, upravit pacienta nebo smazat pacienta.</p>
+    <p>Pravý sloupec ukazuje <strong>historii vyšetření</strong> jako kompaktní timeline &mdash; každé vyšetření jako jeden řádek s datem, korigovaným věkem a třemi naměřenými hodnotami. Edit/smazat ikony se objeví při najetí myší.</p>
 
-    <p>Pravý sloupec zobrazuje karty vyšetření — každá karta ukazuje datum, korigovaný věk, délku těla, hmotnost, obvod hlavy a poznámky.</p>
+    <p>Karta s <strong>údaji o rodičích</strong> se zobrazí jen tehdy, když má alespoň jeden z nich vyplněná data; standardně je sklopená a uvnitř se nezobrazují prázdná pole.</p>
 
     ${img(cs.patientGrowth)}
 
@@ -1061,7 +1071,9 @@ function generateCzechHTML(cs, en) {
 
     <p>Na stránce detailu pacienta klikněte na <strong>Nové vyšetření</strong>. Formulář požaduje datum vyšetření, délku těla a obvod hlavy v centimetrech (s desetinnou čárkou nebo tečkou), hmotnost v gramech a volitelné poznámky.</p>
 
-    <p>Klávesa <strong>Enter</strong> ve formuláři neodesílá &mdash; mezi poli se přechází tabulátorem a pro uložení slouží tlačítko vpravo dole.</p>
+    <p>Vedle každého vstupního pole se zobrazuje <strong>subtilní hint</strong> s poslední naměřenou hodnotou (např. &bdquo;naposledy 52.0 cm&ldquo;). Pokud ještě žádné vyšetření neexistuje, ukáže se porodní hodnota. Klávesa <strong>Enter</strong> ve formuláři neodesílá &mdash; mezi poli se přechází tabulátorem a pro uložení slouží tlačítko vpravo dole.</p>
+
+    <p><strong>Živý náhled</strong> pod formulářem ukazuje čtyři růstové grafy, které se aktualizují s každým úhozem klávesy. Doktor okamžitě vidí, kde nová hodnota padne v percentilových pásmech, ještě před uložením.</p>
 
     ${img(cs.examFilled)}
 

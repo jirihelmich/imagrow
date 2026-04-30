@@ -2,6 +2,36 @@
 
 Všechny významné změny v Auxology jsou popsané v tomto souboru. Verze odpovídají [SemVer](https://semver.org/lang/cs/) a jsou zveřejňovány jako [GitHub releases](https://github.com/jirihelmich/auxology/releases).
 
+## [3.5.0] — 2026-04-30
+
+### Přidáno
+- **Živý náhled při zadávání vyšetření.** Pod formulářem nového / editovaného vyšetření jsou teď čtyři růstové grafy (vedle sebe), které se aktualizují s každým úhozem klávesy — délka, hmotnost, obvod hlavy a hmotnost k délce. Doktor okamžitě vidí, kde nová hodnota padne v percentilových pásmech, ještě než klikne uložit.
+- **Hint vedle vstupních polí** ukazuje poslední naměřenou hodnotu (např. „naposledy 52.0 cm") nebo porodní hodnotu, pokud ještě žádné vyšetření není.
+- **Dashboard má 4 statistické karty** nahoře: počet pacientů, vyšetření za 7 dní, vyšetření za 30 dní, počet pacientů „Vyžaduje pozornost".
+- **„Vyžaduje pozornost"** panel — pacienti, kteří nebyli vyšetřeni přes 30 dní, seřazení podle délky absence.
+- **Filtrovací pole + řazení** na seznamu pacientů (jméno, r. č., datum narození; řadit lze podle data narození / jména / posledního vyšetření / GA).
+- **„Naposledy viděn"** údaj na každé kartě v seznamu pacientů.
+- **Tlačítko „+ Vyšetření"** v rohu každé karty pacienta v seznamu — zkratka pro nové vyšetření bez nutnosti chodit přes detail.
+
+### Změněno
+- **Sjednocené barvy do modré.** Primární barva aplikace (tlačítka, focus ringy, aktivní položky v menu) byla teal-zelená z legacy Inspinia šablony, teď je modrá `#1c84c6`, která sedí s ikonou aplikace, login obrazovkou i celkovým brandingem.
+- **Live search na dashboardu** s 250 ms debounce — nahradil ruční submit form. Při psaní se výsledky aktualizují automaticky.
+- **Detail pacienta přepracován**:
+  - Page header ukazuje jen jméno (bez „Detail pacienta" prefixu)
+  - Místo 7řádkové tabulky věku 4 prominentní statistické boxy (GA při porodu, porodní hmotnost, korigovaný věk, kalendářní věk)
+  - Méně časté údaje (kalkulovaný/plánovaný termín porodu, GA dnes) jsou skryté pod „Další údaje"
+  - Sparklines mají větší typografii a hodnotu
+  - Akce v jedné řadě místo 2×2 mřížky s prázdnou buňkou
+  - Historie vyšetření je teď kompaktní timeline místo 2sloupcového gridu objemných karet
+  - Karta rodičů se vůbec nerenderuje, pokud nikdo nemá data; jinak je default sklopená
+  - Prázdné řádky v rodičovských údajích se přeskakují
+- **Seznam pacientů** má zelený levý okraj v gender barvě, kompaktní informaci o GA a porodní hmotnosti, „naposledy viděn" datum.
+- **Přejmenováno**: „Karta pacienta" → „Historie vyšetření". Title dashboardu „Pacienti" → „Přehled".
+
+### Opraveno
+- **Kurzor na tlačítkách** byl po Tailwind v4 default. Globální fix v CSS vrátil `cursor: pointer` na `<button>` a `<a>`.
+- **Kurzor `zoom-in` nad grafy** signalizuje, že kliknutím se zvětší.
+
 ## [3.4.1] — 2026-04-30
 
 ### Změněno
@@ -56,6 +86,7 @@ Všechny významné změny v Auxology jsou popsané v tomto souboru. Verze odpov
 ### Změněno
 - **Kompletní přepis frontendu** z AngularJS 1.x na React 19 + TypeScript + Tailwind CSS 4. Aplikační logika a databáze (LoveField/IndexedDB) zůstávají; změnila se pouze prezentační vrstva.
 
+[3.5.0]: https://github.com/jirihelmich/auxology/releases/tag/v3.5.0
 [3.4.1]: https://github.com/jirihelmich/auxology/releases/tag/v3.4.1
 [3.4.0]: https://github.com/jirihelmich/auxology/releases/tag/v3.4.0
 [3.3.0]: https://github.com/jirihelmich/auxology/releases/tag/v3.3.0

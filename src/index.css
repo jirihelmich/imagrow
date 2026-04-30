@@ -1,8 +1,8 @@
 @import "tailwindcss";
 
 @theme {
-  --color-primary: #1ab394;
-  --color-primary-dark: #18a689;
+  --color-primary: #1c84c6;
+  --color-primary-dark: #176fa8;
   --color-male: #1c84c6;
   --color-female: #ed5565;
   --color-navy: #1a7bb5;
@@ -11,6 +11,15 @@
 
 body {
   @apply bg-gray-bg text-gray-800 font-sans text-sm;
+}
+
+/* Tailwind v4 dropped the default `cursor: pointer` on <button>; restore it */
+@layer base {
+  button:not(:disabled),
+  [role="button"]:not(:disabled),
+  a {
+    cursor: pointer;
+  }
 }
 
 @media print {

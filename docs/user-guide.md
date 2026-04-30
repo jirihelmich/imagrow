@@ -26,7 +26,9 @@ To switch the interface language before logging in, use the **EN/CZ** toggle in 
 
 ### The Dashboard
 
-After signing in, you land on the patient dashboard. This is the central screen of the application — from here you can search for existing patients, create new ones, export your data, or navigate to reference charts and your profile via the sidebar.
+After signing in, you land on the dashboard. The top row contains **four stat cards** (total patients, examinations in the last 7 / 30 days, and a count of patients needing attention). Below them is a prominent **search bar** and the recent-patients table, with a **"Needs attention"** panel on the right listing patients who haven't been examined in over 30 days. If everybody is current, a green check confirms "All caught up".
+
+Search is **live** — results refresh as you type, no Enter or button click required.
 
 The search bar understands four types of input:
 
@@ -62,15 +64,13 @@ After saving, you are taken directly to the new patient's detail page.
 
 ### The Patient Detail Page
 
-The patient detail page is the main workspace for a single child. The left column shows a summary card with:
+The patient detail page is the main workspace for a single child. The left column shows **four stat boxes** with the most important facts — gestational age at birth, birth weight, corrected age, and calendar age. Below them are sparkline charts of the latest length, weight, and head circumference, then a single row of actions (New examination, Edit, Delete). Less common dates (calculated and planned due date, current gestational age) live behind a **"More dates and age info"** toggle.
 
-- **Age information** — date of birth (derived from the birth number), calculated and planned due dates, gestational age at birth, current gestational age, corrected age, and calendar age. Corrected age is automatically calculated by subtracting (40 − birth week) weeks from the actual age.
-- **Sparkline charts** — small inline graphs showing the trend of length, weight, and head circumference across all recorded examinations.
-- **Action buttons** — links to add a new examination, edit the patient, or delete the patient and all associated data.
-
-The right column shows the **examination cards** — each card displays the date, corrected age at the time of the examination, body length, weight, head circumference, and any notes. Cards can be edited or deleted individually.
+The right column shows the **examination history** as a compact timeline — each examination is one row with the date, corrected age, and the three measurements inline. Edit / delete icons appear on hover.
 
 The page header has a **"← Patient list"** button (top right) for quick navigation back to the dashboard.
+
+The **parent information card** is hidden entirely if neither parent has any data on record; otherwise it is collapsed by default and skips empty fields when expanded.
 
 ![Patient overview with examination history](screenshots/09-patient-growth.png)
 
@@ -90,9 +90,9 @@ From the patient detail page, click **New examination**. The form asks for:
 - **Head circumference** — in centimetres.
 - **Notes** — free text for clinical observations.
 
-If a previous examination exists, its values are displayed above the input fields for quick reference. If this is the first examination, birth measurements are shown instead.
+A subtle **hint** next to each input field shows the most recent measured value (e.g. "last 52.0 cm"). When no examination yet exists, the birth measurement is shown instead. Pressing **Enter** in the form does not submit it — moving between fields is done with Tab, and the form is saved only by the button at the bottom right.
 
-Pressing **Enter** in the form does not submit it — moving between fields is done with Tab, and the form is saved only by the button at the bottom right.
+A **live preview** below the form shows four growth charts that update with every keystroke. The clinician sees immediately where the new measurement will fall against the reference percentile bands, before saving.
 
 ![Examination form with measurements](screenshots/08-examination-filled.png)
 

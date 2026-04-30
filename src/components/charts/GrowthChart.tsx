@@ -78,7 +78,11 @@ export function GrowthChart({
   };
 
   return (
-    <div ref={containerRef} className="relative" onClick={onClick} style={onClick ? { cursor: 'pointer' } : undefined}>
+    <div
+      ref={containerRef}
+      className={`relative ${onClick ? 'cursor-zoom-in [&_*]:cursor-zoom-in [&_button]:!cursor-pointer' : ''}`}
+      onClick={onClick}
+    >
       <h6 className="text-sm font-semibold text-gray-700 mb-2 text-center">{title}</h6>
       <button
         type="button"

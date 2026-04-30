@@ -68,7 +68,9 @@
 
     <h3>Přehled pacientů</h3>
 
-    <p>Po přihlášení se zobrazí přehled pacientů. Toto je centrální obrazovka aplikace — odsud můžete vyhledávat existující pacienty, vytvářet nové, exportovat data nebo přejít k referenčním grafům a profilu přes postranní menu.</p>
+    <p>Po přihlášení se zobrazí přehled. Nahoře jsou <strong>čtyři statistické karty</strong> (počet pacientů celkem, vyšetření za 7 / 30 dní, počet pacientů vyžadujících pozornost), pod nimi prominentní <strong>vyhledávací pole</strong> a tabulka nedávných pacientů. Vpravo je panel <strong>&bdquo;Vyžaduje pozornost&ldquo;</strong> &mdash; pacienti, kteří nebyli vyšetřeni přes 30 dní, seřazení podle nejdéle čekajících. Pokud není koho upozorňovat, zobrazí se zelený check &bdquo;Vše v pořádku&ldquo;.</p>
+
+    <p>Vyhledávání je <strong>živé</strong> &mdash; výsledky se ukazují s krátkou prodlevou při psaní, není potřeba klikat na tlačítko.</p>
 
     <p>Vyhledávací pole rozumí čtyřem typům vstupu:</p>
     <ul>
@@ -112,13 +114,13 @@
 
     <h3>Detail pacienta</h3>
 
-    <p>Detail pacienta je hlavní pracovní prostor pro jednotlivé dítě. Levý sloupec zobrazuje souhrnnou kartu s informacemi o věku — datum narození, vypočtený a plánovaný termín porodu, gestační stáří při narození, aktuální gestační stáří, korigovaný věk a kalendářní věk.</p>
+    <p>Detail pacienta je hlavní pracovní prostor pro jednotlivé dítě. Levý sloupec ukazuje <strong>čtyři statistické boxy</strong> s nejdůležitějšími fakty &mdash; gestační týden při porodu, porodní hmotnost, korigovaný věk a kalendářní věk. Pod nimi jsou sparkline grafy posledních hodnot a v jednom řádku akce (Nové vyšetření, Upravit, Smazat). Méně časté údaje (kalkulovaný a plánovaný termín porodu, aktuální gestační věk) jsou skryté pod tlačítkem <strong>&bdquo;Další údaje o věku a termínu&ldquo;</strong>.</p>
 
-    <p>Pod tabulkou věku jsou sparkline grafy ukazující trend délky, hmotnosti a obvodu hlavy. Akční tlačítka umožňují přidat nové vyšetření, upravit pacienta nebo smazat pacienta.</p>
-
-    <p>Pravý sloupec zobrazuje karty vyšetření — každá karta ukazuje datum, korigovaný věk, délku těla, hmotnost, obvod hlavy a poznámky.</p>
+    <p>Pravý sloupec ukazuje <strong>historii vyšetření</strong> jako kompaktní timeline &mdash; každé vyšetření jako jeden řádek s datem, korigovaným věkem a třemi naměřenými hodnotami. Edit/smazat ikony se objeví při najetí myší.</p>
 
     <p>V hlavičce stránky vpravo nahoře je tlačítko <strong>&bdquo;&larr; Seznam pacientů&ldquo;</strong> pro rychlý návrat zpátky.</p>
+
+    <p>Karta s <strong>údaji o rodičích</strong> se zobrazí jen tehdy, když má alespoň jeden z nich vyplněná data; standardně je sklopená a uvnitř se nezobrazují prázdná pole.</p>
 
     
       <figure>
@@ -136,7 +138,9 @@
 
     <p>Na stránce detailu pacienta klikněte na <strong>Nové vyšetření</strong>. Formulář požaduje datum vyšetření, délku těla a obvod hlavy v centimetrech (s desetinnou čárkou nebo tečkou), hmotnost v gramech a volitelné poznámky.</p>
 
-    <p>Klávesa <strong>Enter</strong> ve formuláři neodesílá &mdash; mezi poli se přechází tabulátorem a pro uložení slouží tlačítko vpravo dole.</p>
+    <p>Vedle každého vstupního pole se zobrazuje <strong>subtilní hint</strong> s poslední naměřenou hodnotou (např. &bdquo;naposledy 52.0 cm&ldquo;). Pokud ještě žádné vyšetření neexistuje, ukáže se porodní hodnota. Klávesa <strong>Enter</strong> ve formuláři neodesílá &mdash; mezi poli se přechází tabulátorem a pro uložení slouží tlačítko vpravo dole.</p>
+
+    <p><strong>Živý náhled</strong> pod formulářem ukazuje čtyři růstové grafy, které se aktualizují s každým úhozem klávesy. Doktor okamžitě vidí, kde nová hodnota padne v percentilových pásmech, ještě před uložením.</p>
 
     
       <figure>

@@ -16,6 +16,8 @@ interface GrowthChartGridProps {
   onZoom?: (chart: 'weight' | 'length' | 'headCircumference' | 'weightForLength') => void;
   gender?: Gender;
   weightCategory?: WeightCategory;
+  columns?: 2 | 4;
+  height?: number;
 }
 
 export function GrowthChartGrid({
@@ -31,12 +33,18 @@ export function GrowthChartGrid({
   onZoom,
   gender,
   weightCategory,
+  columns = 2,
+  height,
 }: GrowthChartGridProps) {
   const { t } = useT();
   const suffix = t.chartSuffix(genderName, weightCategoryName);
+  const gridClass =
+    columns === 4
+      ? 'grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6'
+      : 'grid grid-cols-1 md:grid-cols-2 gap-6';
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+    <div className={gridClass}>
       <GrowthChart
         data={lengthData}
         title={`${t.chartLength}${suffix}`}
@@ -44,6 +52,7 @@ export function GrowthChartGrid({
         yLabel={t.chartLengthUnit}
         genderColor={genderColor}
         patientName={patientName}
+        height={height}
         yMin={35}
         onClick={onZoom ? () => onZoom('length') : undefined}
         gender={gender}
@@ -57,6 +66,7 @@ export function GrowthChartGrid({
         yLabel={t.chartWeightUnit}
         genderColor={genderColor}
         patientName={patientName}
+        height={height}
         onClick={onZoom ? () => onZoom('weight') : undefined}
         gender={gender}
         weightCategory={weightCategory}
@@ -69,6 +79,7 @@ export function GrowthChartGrid({
         yLabel={t.chartWeightUnit}
         genderColor={genderColor}
         patientName={patientName}
+        height={height}
         onClick={onZoom ? () => onZoom('weightForLength') : undefined}
         gender={gender}
         weightCategory={weightCategory}
@@ -81,6 +92,7 @@ export function GrowthChartGrid({
         yLabel={t.chartHeadCircUnit}
         genderColor={genderColor}
         patientName={patientName}
+        height={height}
         onClick={onZoom ? () => onZoom('headCircumference') : undefined}
         gender={gender}
         weightCategory={weightCategory}

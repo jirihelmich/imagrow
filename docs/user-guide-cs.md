@@ -24,9 +24,9 @@ Pro přepnutí jazyka rozhraní před přihlášením použijte přepínač **EN
 
 ### Přehled pacientů
 
-Po přihlášení se zobrazí přehled pacientů. Toto je centrální obrazovka aplikace — odsud můžete vyhledávat existující pacienty, vytvářet nové, exportovat data nebo přejít k referenčním grafům a profilu přes postranní menu.
+Po přihlášení se zobrazí přehled. Nahoře jsou **čtyři statistické karty** (počet pacientů celkem, vyšetření za 7 / 30 dní, počet pacientů vyžadujících pozornost), pod nimi prominentní **vyhledávací pole** a tabulka nedávných pacientů. Vpravo je panel **„Vyžaduje pozornost"** — pacienti, kteří nebyli vyšetřeni přes 30 dní, seřazení podle nejdéle čekajících. Pokud není koho upozorňovat, zobrazí se zelený check „Vše v pořádku".
 
-Vyhledávací pole rozumí čtyřem typům vstupu:
+Vyhledávání je **živé** — výsledky se ukazují s krátkou prodlevou při psaní, není potřeba klikat na tlačítko. Pole rozumí čtyřem typům vstupu:
 
 - **Jméno nebo příjmení** (s diakritikou i bez ní, např. „novak", „Nováková").
 - **Rodné číslo v plném tvaru** včetně lomítka, např. `260212/2457`.
@@ -58,13 +58,13 @@ Sekce **Matka** a **Otec** jsou ve formuláři **defaultně sbalené**, protože
 
 ### Detail pacienta
 
-Detail pacienta je hlavní pracovní prostor pro jednotlivé dítě. Levý sloupec zobrazuje souhrnnou kartu s informacemi o věku — datum narození (odvozené z rodného čísla), vypočtený a plánovaný termín porodu, gestační stáří při narození, aktuální gestační stáří, korigovaný věk a kalendářní věk. Korigovaný věk je automaticky vypočten odečtením (40 − týden narození) týdnů od skutečného věku.
+Detail pacienta je hlavní pracovní prostor pro jednotlivé dítě. Levý sloupec ukazuje **čtyři statistické boxy** s nejdůležitějšími fakty — gestační týden při porodu, porodní hmotnost, korigovaný věk a kalendářní věk. Pod nimi jsou sparkline grafy posledních hodnot délky, hmotnosti a obvodu hlavy a v jednom řádku akce (Nové vyšetření, Upravit, Smazat). Méně časté údaje (kalkulovaný a plánovaný termín porodu, aktuální gestační věk) jsou skryté pod tlačítkem **„Další údaje o věku a termínu"**.
 
-Pod tabulkou věku jsou sparkline grafy ukazující trend délky, hmotnosti a obvodu hlavy. Akční tlačítka umožňují přidat nové vyšetření, upravit pacienta nebo smazat pacienta a všechna přidružená data.
-
-Pravý sloupec zobrazuje karty vyšetření — každá karta ukazuje datum, korigovaný věk, délku těla, hmotnost, obvod hlavy a poznámky.
+Pravý sloupec ukazuje **historii vyšetření** jako kompaktní timeline — každé vyšetření jako jeden řádek s datem, korigovaným věkem a třemi naměřenými hodnotami. Edit/smazat ikony se objeví při najetí myší.
 
 V hlavičce stránky vpravo nahoře je tlačítko **„← Seznam pacientů"** pro rychlý návrat zpátky.
+
+Karta s **údaji o rodičích** se zobrazí jen tehdy, když má alespoň jeden z nich vyplněná data; standardně je sklopená a uvnitř se nezobrazují prázdná pole.
 
 ![Přehled pacienta s historií vyšetření](screenshots/cs-09-patient-growth.png)
 
@@ -78,7 +78,9 @@ Hlavním účelem aplikace Auxologie je sledovat, jak předčasně narozené dí
 
 Na stránce detailu pacienta klikněte na **Nové vyšetření**. Formulář požaduje datum vyšetření, délku těla a obvod hlavy v centimetrech (s desetinnou čárkou nebo tečkou), hmotnost v gramech a volitelné poznámky.
 
-Pokud existuje předchozí vyšetření, jeho hodnoty se zobrazí nad vstupními poli pro rychlou referenci. Klávesa **Enter** ve formuláři neodesílá – mezi poli se přechází tabulátorem a pro uložení slouží tlačítko vpravo dole.
+Vedle každého vstupního pole se zobrazuje **subtilní hint** s poslední naměřenou hodnotou (např. „naposledy 52.0 cm"). Pokud ještě žádné vyšetření neexistuje, ukáže se porodní hodnota. Klávesa **Enter** ve formuláři neodesílá — mezi poli se přechází tabulátorem a pro uložení slouží tlačítko vpravo dole.
+
+**Živý náhled** pod formulářem ukazuje čtyři růstové grafy, které se aktualizují s každým úhozem klávesy. Doktor okamžitě vidí, kde nová hodnota padne v percentilových pásmech, ještě před uložením.
 
 ![Formulář vyšetření s naměřenými hodnotami](screenshots/cs-08-examination-filled.png)
 

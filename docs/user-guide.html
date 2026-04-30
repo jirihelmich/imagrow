@@ -74,7 +74,9 @@
 
     <h3>The Dashboard</h3>
 
-    <p>After signing in, you land on the patient dashboard. This is the central screen of the application — from here you can search for existing patients, create new ones, export your data, or navigate to reference charts and your profile via the sidebar.</p>
+    <p>After signing in, you land on the dashboard. The top row contains <strong>four stat cards</strong> (total patients, examinations in the last 7 / 30 days, and a count of patients needing attention). Below them is a prominent <strong>search bar</strong> and the recent-patients table, with a <strong>&ldquo;Needs attention&rdquo;</strong> panel on the right listing patients who haven't been examined in over 30 days. If everybody is current, a green check confirms &ldquo;All caught up&rdquo;.</p>
+
+    <p>Search is <strong>live</strong> &mdash; results refresh as you type, no Enter or button click required.</p>
 
     <p>The search bar understands four types of input:</p>
     <ul>
@@ -118,13 +120,13 @@
 
     <h3>The Patient Detail Page</h3>
 
-    <p>The patient detail page is the main workspace for a single child. The left column shows a summary card with age information — date of birth (derived from the birth number), calculated and planned due dates, gestational age at birth, current gestational age, corrected age, and calendar age. Corrected age is automatically calculated by subtracting (40 − birth week) weeks from the actual age.</p>
+    <p>The patient detail page is the main workspace for a single child. The left column shows <strong>four stat boxes</strong> with the most important facts &mdash; gestational age at birth, birth weight, corrected age, and calendar age. Below them are sparkline charts of the latest length, weight, and head circumference, then a single row of actions (New examination, Edit, Delete). Less common dates (calculated and planned due date, current gestational age) live behind a <strong>&ldquo;More dates and age info&rdquo;</strong> toggle.</p>
 
-    <p>Below the age table, sparkline charts show the trend of length, weight, and head circumference across all recorded examinations. Action buttons let you add a new examination, edit the patient, or delete the patient and all associated data.</p>
-
-    <p>The right column shows the examination cards — each card displays the date, corrected age at the time of the examination, body length, weight, head circumference, and any notes. Cards can be edited or deleted individually.</p>
+    <p>The right column shows the <strong>examination history</strong> as a compact timeline &mdash; each examination is one row with the date, corrected age, and the three measurements inline. Edit / delete icons appear on hover.</p>
 
     <p>The page header has a <strong>&ldquo;&larr; Patient list&rdquo;</strong> button (top right) for quick navigation back to the dashboard.</p>
+
+    <p>The <strong>parent information card</strong> is hidden entirely if neither parent has any data on record; otherwise it is collapsed by default and skips empty fields when expanded.</p>
 
     
       <figure>
@@ -142,9 +144,9 @@
 
     <p>From the patient detail page, click <strong>New examination</strong>. The form asks for the examination date (pre-filled with today, no time), body length and head circumference in centimetres (decimal point or comma accepted; stored internally in millimetres for precision), body weight in grams, and optional notes.</p>
 
-    <p>If a previous examination exists, its values are displayed above the input fields for quick reference. If this is the first examination, birth measurements are shown instead.</p>
+    <p>A subtle <strong>hint</strong> next to each input field shows the most recent measured value (e.g. &ldquo;last 52.0 cm&rdquo;). When no examination yet exists, the birth measurement is shown instead. Pressing <strong>Enter</strong> in the form does not submit it &mdash; moving between fields is done with Tab, and the form is saved only by the button at the bottom right.</p>
 
-    <p>Pressing <strong>Enter</strong> in the form does not submit it &mdash; moving between fields is done with Tab, and the form is saved only by the button at the bottom right.</p>
+    <p>A <strong>live preview</strong> below the form shows four growth charts that update with every keystroke. The clinician sees immediately where the new measurement will fall against the reference percentile bands, before saving.</p>
 
     
       <figure>
