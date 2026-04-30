@@ -201,17 +201,40 @@ export function usePatients() {
     const patientTable = db.getSchema().table('Patient');
     const personTable = db.getSchema().table('Person');
 
-    const tokens = token.split(' ');
-    const ors = tokens.map((t) => {
-      const slug = urlSlug(t);
-      return lf.op.or(
-        personTable['lastNameSearchable'].match(new RegExp(slug)),
-        personTable['firstNameSearchable'].match(new RegExp(slug)),
-        personTable['birthNumber'].match(new RegExp(slug)),
-      );
-    });
+    const trimmed = token.trim();
+    if (!trimmed) return [];
 
-    const combined = ors.length === 1 ? ors[0] : lf.op.or(...ors);
+    const conditions: ReturnType<typeof personTable['birthNumber']['match']>[] = [];
+
+    const dateMatch = trimmed.match(/^(\d{1,2})\.\s*(\d{1,2})\.\s*(\d{2,4})$/);
+    if (dateMatch) {
+      const day = parseInt(dateMatch[1]);
+      const month = parseInt(dateMatch[2]);
+      let year = parseInt(dateMatch[3]);
+      if (year >= 1000) year = year % 100;
+      const yy = String(year).padStart(2, '0');
+      const dd = String(day).padStart(2, '0');
+      const monthVariants = [month, month + 20, month + 50, month + 70]
+        .map((m) => String(m).padStart(2, '0'));
+      const dateRegex = new RegExp(`^${yy}(${monthVariants.join('|')})${dd}`);
+      conditions.push(personTable['birthNumber'].match(dateRegex));
+    } else {
+      const tokens = trimmed.split(/\s+/).filter(Boolean);
+      for (const t of tokens) {
+        const digitsOnly = t.replace(/\D/g, '');
+        if (digitsOnly.length >= 4) {
+          conditions.push(personTable['birthNumber'].match(new RegExp(digitsOnly)));
+        }
+        const slug = urlSlug(t);
+        if (slug) {
+          conditions.push(personTable['lastNameSearchable'].match(new RegExp(slug)));
+          conditions.push(personTable['firstNameSearchable'].match(new RegExp(slug)));
+        }
+      }
+    }
+
+    if (conditions.length === 0) return [];
+    const combined = conditions.length === 1 ? conditions[0] : lf.op.or(...conditions);
 
     const results = await db.select()
       .from(patientTable)

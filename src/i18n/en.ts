@@ -52,7 +52,7 @@ export const en: Translations = {
   // Dashboard
   dashboardNewPatient: 'New patient',
   dashboardPatientList: 'Patient list',
-  dashboardSearchHelp: 'You can search for a patient by surname or birth number.',
+  dashboardSearchHelp: 'You can search for a patient by name, surname, birth number (e.g. 260212/2457) or birth date (e.g. 1.4.2025).',
   dashboardSearchPlaceholder: 'Search patient',
   dashboardSearch: 'Search',
   dashboardResults: (n: number) => `${n} results`,
@@ -242,6 +242,12 @@ export const en: Translations = {
   chartLegend50: '50th percentile',
   chartWeekSuffix: (week: number) => `week ${week}`,
   chartPercentileLabel: 'Percentile',
+  chartExportTitle: 'Download chart as image (PNG)',
+  chartExportSuccess: 'Chart saved.',
+  chartExportFailed: 'Chart download failed.',
+  idleWarningTitle: 'You will be logged out soon',
+  idleWarningMessage: (time: string) => `Due to inactivity you will be logged out in ${time}. Click the button on the right to stay signed in.`,
+  idleWarningDismiss: 'Stay signed in',
 
   // Reference charts page
   refChartBoysUnder: 'Boys below 1500 g',

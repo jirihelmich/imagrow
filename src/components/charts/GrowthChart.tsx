@@ -1,7 +1,11 @@
+import { useRef, type MouseEvent } from 'react';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Legend } from 'recharts';
+import { Download } from 'lucide-react';
+import toast from 'react-hot-toast';
 import { useT } from '../../i18n/LanguageContext';
 import { getPercentileValue, getWfLPercentile } from '../../hooks/useChartData';
 import { statisticalData } from '../../lib/statistical-data';
+import { chartToPngBlob, downloadBlob, sanitizeFilename } from '../../utils/chart-export';
 import type { ChartDataPoint } from '../../hooks/useChartData';
 import type { Gender, WeightCategory, MeasureType } from '../../types/statistical';
 
@@ -38,6 +42,27 @@ export function GrowthChart({
 }: GrowthChartProps) {
   const { t } = useT();
 
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  const handleDownload = async (e: MouseEvent) => {
+    e.stopPropagation();
+    const svg = containerRef.current?.querySelector('svg.recharts-surface') as SVGSVGElement | null;
+    if (!svg) {
+      toast.error(t.chartExportFailed);
+      return;
+    }
+    try {
+      const blob = await chartToPngBlob(svg, { title, background: '#ffffff', scale: 2 });
+      const base = patientName ? `${patientName}-${title}` : title;
+      const filename = `${sanitizeFilename(base)}.png`;
+      downloadBlob(blob, filename);
+      toast.success(t.chartExportSuccess);
+    } catch (err) {
+      console.error('Chart export failed', err);
+      toast.error(t.chartExportFailed);
+    }
+  };
+
   const computePercentile = (xValue: number, patientValue: number): string | null => {
     if (!gender || !weightCategory || !measureType) return null;
     if (measureType === 'weightForLength') {
@@ -53,8 +78,17 @@ export function GrowthChart({
   };
 
   return (
-    <div className="relative" onClick={onClick} style={onClick ? { cursor: 'pointer' } : undefined}>
+    <div ref={containerRef} className="relative" onClick={onClick} style={onClick ? { cursor: 'pointer' } : undefined}>
       <h6 className="text-sm font-semibold text-gray-700 mb-2 text-center">{title}</h6>
+      <button
+        type="button"
+        onClick={handleDownload}
+        title={t.chartExportTitle}
+        aria-label={t.chartExportTitle}
+        className="absolute top-0 right-1 p-1.5 rounded text-gray-400 hover:text-primary hover:bg-gray-100 transition-colors hidden-print"
+      >
+        <Download size={14} />
+      </button>
       <ResponsiveContainer width="100%" height={height}>
         <LineChart data={data} margin={{ top: 5, right: 20, bottom: showLegend ? 55 : 20, left: 10 }}>
           <CartesianGrid strokeDasharray="3 3" stroke="#d3d3d3" />

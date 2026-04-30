@@ -3,6 +3,7 @@ import { Outlet, useLocation } from 'react-router-dom';
 import { Sidebar } from './Sidebar';
 import { TopNav } from './TopNav';
 import { ErrorBoundary } from './ErrorBoundary';
+import { IdleWarningBanner } from './IdleWarningBanner';
 import { useIdleLogout } from '../../hooks/useIdleLogout';
 import { useT } from '../../i18n/LanguageContext';
 
@@ -10,10 +11,11 @@ export function AppLayout() {
   const [collapsed, setCollapsed] = useState(false);
   const { t } = useT();
   const location = useLocation();
-  useIdleLogout();
+  const { promptOpen, remainingMs, dismiss } = useIdleLogout();
 
   return (
     <div className="min-h-screen bg-gray-bg print:bg-white">
+      {promptOpen && <IdleWarningBanner remainingMs={remainingMs} onDismiss={dismiss} />}
       <div className="hidden-print">
         <Sidebar collapsed={collapsed} />
       </div>

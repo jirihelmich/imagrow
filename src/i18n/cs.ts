@@ -50,7 +50,7 @@ export const cs = {
   // Dashboard
   dashboardNewPatient: 'Nový pacient',
   dashboardPatientList: 'Seznam pacientů',
-  dashboardSearchHelp: 'Můžete vyhledat pacienta podle příjmení nebo rodného čísla.',
+  dashboardSearchHelp: 'Pacienta můžete vyhledat podle jména, příjmení, rodného čísla (např. 260212/2457) nebo data narození (např. 1.4.2025).',
   dashboardSearchPlaceholder: 'Vyhledat pacienta',
   dashboardSearch: 'Hledat',
   dashboardResults: (n: number) => `${n} výsledků`,
@@ -240,6 +240,12 @@ export const cs = {
   chartLegend50: '50. percentil',
   chartWeekSuffix: (week: number) => `${week}. týden`,
   chartPercentileLabel: 'Percentil',
+  chartExportTitle: 'Stáhnout graf jako obrázek (PNG)',
+  chartExportSuccess: 'Graf byl uložen.',
+  chartExportFailed: 'Stažení grafu se nezdařilo.',
+  idleWarningTitle: 'Brzy budete odhlášeni',
+  idleWarningMessage: (time: string) => `Pro nečinnost budete za ${time} odhlášeni. Klepnutím na tlačítko vpravo zůstanete přihlášeni.`,
+  idleWarningDismiss: 'Zůstat přihlášen',
 
   // Reference charts page
   refChartBoysUnder: 'Chlapci pod 1500 g',
