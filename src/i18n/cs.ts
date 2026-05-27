@@ -1,6 +1,6 @@
 export const cs = {
   // Common
-  appName: 'Auxology',
+  appName: 'ImaGrow',
   breadcrumbHome: 'Monitoring růstu nedonošených dětí',
   patients: 'Pacienti',
   charts: 'Grafy',

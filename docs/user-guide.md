@@ -1,6 +1,6 @@
-# Auxology — User Guide
+# ImaGrow — User Guide
 
-Auxology is a desktop application designed for neonatologists and paediatric clinicians who need to monitor the growth of prematurely born children. The application is built around Czech reference auxological data — percentile growth charts derived from a study of 1,781 premature children (5,676 examinations) at the Centre of Comprehensive Care, KDDL VFN Prague, between 2001 and 2015.
+ImaGrow (previously released as Auxology) is a desktop application designed for neonatologists and paediatric clinicians who need to monitor the growth of prematurely born children. The application is built around Czech reference auxological data — percentile growth charts derived from a study of 1,781 premature children (5,676 examinations) at the Centre of Comprehensive Care, KDDL VFN Prague, between 2001 and 2015.
 
 All data is stored locally on your computer. There is no cloud component — the application works entirely offline. It runs on both macOS and Windows.
 
@@ -14,7 +14,7 @@ The interface is available in **Czech** and **English**. You can switch between 
 
 ### Creating an Account
 
-When you launch Auxology for the first time, you are presented with the login screen. Since the application stores data locally, your account exists only on your machine — it is not shared with anyone.
+When you launch ImaGrow for the first time, you are presented with the login screen. Since the application stores data locally, your account exists only on your machine — it is not shared with anyone.
 
 Click **Create account** to set up a username and password. Once registered, you are redirected back to the login screen where you can sign in with your new credentials.
 
@@ -78,7 +78,7 @@ The **parent information card** is hidden entirely if neither parent has any dat
 
 ## Tracking Growth Over Time
 
-The core purpose of Auxology is to track how a premature child grows relative to reference data. This is done by recording examinations at each clinical visit and reviewing the resulting charts and statistics.
+The core purpose of ImaGrow is to track how a premature child grows relative to reference data. This is done by recording examinations at each clinical visit and reviewing the resulting charts and statistics.
 
 ### Recording an Examination
 
@@ -180,23 +180,23 @@ If something happens to your installation, email that JSON to the author and the
 The underlying database lives in the operating system user profile:
 
 - **Windows:** `C:\Users\<user>\AppData\Roaming\auxology\IndexedDB\`
-- **macOS:** `~/Library/Application Support/auxology/IndexedDB/`
+- **macOS:** `~/Library/Application Support/ImaGrow/IndexedDB/`
 
-The whole `IndexedDB` folder is the complete database. Hospital IT can include this path in the standard user-profile backup (Windows Backup, roaming profiles, Time Machine, OneDrive Known Folder Move). Auxology should be closed during the backup window — the LevelDB file can be locked by a running process, which makes a backup inconsistent. A scheduled nightly backup when nobody is signed in is ideal.
+The whole `IndexedDB` folder is the complete database. Hospital IT can include this path in the standard user-profile backup (Windows Backup, roaming profiles, Time Machine, OneDrive Known Folder Move). ImaGrow should be closed during the backup window — the LevelDB file can be locked by a running process, which makes a backup inconsistent. A scheduled nightly backup when nobody is signed in is ideal.
 
 ### Upgrading to a new version
 
-Installing a newer release does **not** touch the database. The installer replaces only the application binaries in `/Applications/` (macOS) or `Program Files\Auxology\` (Windows); your data in the profile folder above stays intact. The new version reads the existing IndexedDB, checks the stored schema version, and runs a migration only if the structure changed between releases.
+Installing a newer release does **not** touch the database. The installer replaces only the application binaries in `/Applications/` (macOS) or `Program Files\ImaGrow\` (Windows); your data in the profile folder above stays intact. The new version reads the existing IndexedDB, checks the stored schema version, and runs a migration only if the structure changed between releases.
 
 Recommended upgrade routine:
 
-1. Open Auxology and click **Export** on the dashboard; save the JSON somewhere safe.
-2. Close Auxology.
+1. Open ImaGrow and click **Export** on the dashboard; save the JSON somewhere safe.
+2. Close ImaGrow.
 3. Install the new version (drag and drop the `.app` on macOS, run the `.exe` on Windows).
 4. Launch the new version and confirm the patient list is still there.
 5. If anything looks wrong, send me the JSON from step 1.
 
-During the **uninstall** of a specific version, the installer leaves the data folder in place by default. The database is only deleted by manually removing `~/Library/Application Support/auxology/` (macOS) or `%APPDATA%\auxology\` (Windows), or by ticking a "remove user data" option if one is presented during uninstall.
+During the **uninstall** of a specific version, the installer leaves the data folder in place by default. The database is only deleted by manually removing `~/Library/Application Support/ImaGrow/` (macOS) or `%APPDATA%\ImaGrow\` (Windows), or by ticking a "remove user data" option if one is presented during uninstall.
 
 ---
 

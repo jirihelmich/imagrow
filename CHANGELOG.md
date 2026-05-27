@@ -2,6 +2,23 @@
 
 Všechny významné změny v Auxology jsou popsané v tomto souboru. Verze odpovídají [SemVer](https://semver.org/lang/cs/) a jsou zveřejňovány jako [GitHub releases](https://github.com/jirihelmich/auxology/releases).
 
+## [4.0.0] — 2026-04-30
+
+**Major release: rebranded from Auxology to ImaGrow.** New domain [imagrow.app](https://imagrow.app), new landing page in English and Czech, new application name across the UI.
+
+### Změněno
+- **Rebrand Auxology → ImaGrow.** Window title, dock label, taskbar entry, installer name, in-app `appName`, and the on-disk app bundle / executable are all now `ImaGrow`. Mezinárodně se aplikace publikovala pod tímto jménem už dříve; v4.0 sjednocuje pojmenování i v kódu a uživatelském rozhraní.
+- **`appId` změněn** z `cz.helmich.auxology` na `cz.helmich.imagrow`. Z pohledu operačního systému to znamená, že nová ImaGrow instalace nenahradí starou Auxology instalaci — obě budou koexistovat na disku, dokud uživatel starou ručně neodinstaluje.
+- **Nová domain `imagrow.app`** se statickým web landingem (CS + EN), hostovaná na GitHub Pages.
+
+### Přidáno
+- **Automatická migrace databáze** při prvním spuštění v4.0: data z původního umístění `~/Library/Application Support/Auxology/` (macOS) nebo `%APPDATA%\Auxology\` (Windows) se zkopírují do nového `ImaGrow` adresáře. Stará složka zůstane na místě jako záloha.
+- **Marketing landing page** [imagrow.app](https://imagrow.app) — hero, popis funkcí, reference na český studijní datový základ + grant, download CTA, Czech a English variantu.
+
+### Pro existující uživatele
+- Po instalaci v4.0 zkontrolujte, že je váš seznam pacientů v aplikaci kompletní. Pokud ano, můžete starou **Auxology.app** smazat z `/Applications/` (macOS) nebo odinstalovat starou **Auxology** v Programs and Features (Windows). Stará data zůstanou v `~/Library/Application Support/Auxology/` jako záloha, dokud je sami nesmažete.
+- Pokud při prvním spuštění aplikace ukáže chybové okno o migraci, **nepokračujte** a kontaktujte autora ([jiri@helmich.cz](mailto:jiri@helmich.cz)).
+
 ## [3.5.0] — 2026-04-30
 
 ### Přidáno
@@ -86,6 +103,7 @@ Všechny významné změny v Auxology jsou popsané v tomto souboru. Verze odpov
 ### Změněno
 - **Kompletní přepis frontendu** z AngularJS 1.x na React 19 + TypeScript + Tailwind CSS 4. Aplikační logika a databáze (LoveField/IndexedDB) zůstávají; změnila se pouze prezentační vrstva.
 
+[4.0.0]: https://github.com/jirihelmich/auxology/releases/tag/v4.0.0
 [3.5.0]: https://github.com/jirihelmich/auxology/releases/tag/v3.5.0
 [3.4.1]: https://github.com/jirihelmich/auxology/releases/tag/v3.4.1
 [3.4.0]: https://github.com/jirihelmich/auxology/releases/tag/v3.4.0

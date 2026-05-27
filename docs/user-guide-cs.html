@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Auxologie — Uživatelská příručka</title>
+  <title>ImaGrow — Uživatelská příručka</title>
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; color: #1a1a1a; line-height: 1.75; font-size: 16px; }
@@ -34,13 +34,13 @@
 <body>
   <div class="hero" style="position: relative;">
     <div class="lang-switch"><a href="user-guide.html">English</a></div>
-    <img src="../public/img/login-hero.png" alt="" aria-hidden="true" style="width: 140px; height: 140px; margin: 0 auto 1.25rem; display: block; filter: drop-shadow(0 4px 12px rgba(0,0,0,0.15));" />
-    <h1>Auxologie</h1>
+    <img src="img/login-hero.png" alt="" aria-hidden="true" style="width: 140px; height: 140px; margin: 0 auto 1.25rem; display: block; filter: drop-shadow(0 4px 12px rgba(0,0,0,0.15));" />
+    <h1>ImaGrow</h1>
     <p>Uživatelská příručka</p>
   </div>
 
   <div class="container">
-    <p>Auxologie je desktopová aplikace určená pro neonatology a pediatrické lékaře, kteří potřebují sledovat růst předčasně narozených dětí. Aplikace je postavena na českých referenčních auxologických datech — percentilových růstových grafech odvozených ze studie 1 781 nedonošených dětí (5 676 vyšetření) v Centru komplexní péče, KDDL VFN Praha, v období 2001–2015.</p>
+    <p>ImaGrow (dříve vydávaná pod názvem Auxologie) je desktopová aplikace určená pro neonatology a pediatrické lékaře, kteří potřebují sledovat růst předčasně narozených dětí. Aplikace je postavena na českých referenčních auxologických datech — percentilových růstových grafech odvozených ze studie 1 781 nedonošených dětí (5 676 vyšetření) v Centru komplexní péče, KDDL VFN Praha, v období 2001–2015.</p>
 
     <p>Všechna data jsou uložena lokálně ve vašem počítači. Aplikace neobsahuje žádnou cloudovou komponentu — funguje zcela offline. Běží na macOS i Windows.</p>
 
@@ -132,7 +132,7 @@
 
     <h2>Sledování růstu v čase</h2>
 
-    <p>Hlavním účelem aplikace Auxologie je sledovat, jak předčasně narozené dítě roste ve srovnání s referenčními daty.</p>
+    <p>Hlavním účelem aplikace ImaGrow je sledovat, jak předčasně narozené dítě roste ve srovnání s referenčními daty.</p>
 
     <h3>Záznam vyšetření</h3>
 
@@ -222,26 +222,26 @@
 
     <ul>
       <li><strong>Windows:</strong> <code>C:\Users\&lt;uživatel&gt;\AppData\Roaming\auxology\IndexedDB\</code></li>
-      <li><strong>macOS:</strong> <code>~/Library/Application Support/auxology/IndexedDB/</code></li>
+      <li><strong>macOS:</strong> <code>~/Library/Application Support/ImaGrow/IndexedDB/</code></li>
     </ul>
 
     <p>Celá složka <code>IndexedDB</code> je kompletní databáze. IT oddělení může tuto cestu zahrnout do standardní zálohy uživatelských profilů (Windows Backup, roaming profily, Time Machine, OneDrive Known Folder Move). V okamžiku zálohy by aplikace měla být zavřená — soubor LevelDB může být uzamčen běžící aplikací a záloha by pak byla nekonzistentní. Ideální je plánovaná noční záloha mimo pracovní dobu.</p>
 
     <h3>Aktualizace na novou verzi</h3>
 
-    <p>Instalace novější verze se <strong>nedotkne</strong> databáze. Instalátor nahrazuje jen binárky aplikace v <code>/Applications/</code> (macOS) nebo <code>Program Files\Auxology\</code> (Windows); vaše data v uvedené profilové složce zůstanou beze změny. Nová verze otevře existující IndexedDB, ověří uložené číslo verze schématu a migraci spustí jen tehdy, když se struktura mezi verzemi změnila.</p>
+    <p>Instalace novější verze se <strong>nedotkne</strong> databáze. Instalátor nahrazuje jen binárky aplikace v <code>/Applications/</code> (macOS) nebo <code>Program Files\ImaGrow\</code> (Windows); vaše data v uvedené profilové složce zůstanou beze změny. Nová verze otevře existující IndexedDB, ověří uložené číslo verze schématu a migraci spustí jen tehdy, když se struktura mezi verzemi změnila.</p>
 
     <p>Doporučený postup aktualizace:</p>
 
     <ol>
-      <li>Otevřít Auxology a kliknout <strong>Export</strong> na úvodní stránce; uložit JSON někam bokem.</li>
-      <li>Zavřít Auxology.</li>
+      <li>Otevřít ImaGrow a kliknout <strong>Export</strong> na úvodní stránce; uložit JSON někam bokem.</li>
+      <li>Zavřít ImaGrow.</li>
       <li>Nainstalovat novou verzi (drag-and-drop <code>.app</code> na macOS, spustit <code>.exe</code> na Windows).</li>
       <li>Spustit novou verzi a ověřit, že je seznam pacientů pořád vidět.</li>
       <li>Kdyby cokoli nesedělo, pošlete mi JSON uložený v kroku 1.</li>
     </ol>
 
-    <p>Při <strong>odinstalaci</strong> konkrétní verze instalátor defaultně datovou složku ponechá. Databáze se smaže až ručním odstraněním <code>~/Library/Application Support/auxology/</code> (macOS) nebo <code>%APPDATA%\auxology\</code> (Windows), případně zaškrtnutím volby „odstranit uživatelská data", pokud je při odinstalaci nabídnuta.</p>
+    <p>Při <strong>odinstalaci</strong> konkrétní verze instalátor defaultně datovou složku ponechá. Databáze se smaže až ručním odstraněním <code>~/Library/Application Support/ImaGrow/</code> (macOS) nebo <code>%APPDATA%\ImaGrow\</code> (Windows), případně zaškrtnutím volby „odstranit uživatelská data", pokud je při odinstalaci nabídnuta.</p>
 
     <hr />
 

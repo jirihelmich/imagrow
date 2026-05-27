@@ -1,7 +1,7 @@
 {
   "name": "auxology",
-  "version": "3.5.0",
-  "description": "An application for charting the growth of prematurely born children.",
+  "version": "4.0.0",
+  "description": "ImaGrow — desktop app for charting the growth of prematurely born children (formerly Auxology).",
   "main": "main.js",
   "repository": {
     "type": "git",
@@ -49,8 +49,8 @@
     "docs": "npm run build:renderer && node scripts/generate-docs.mjs"
   },
   "build": {
-    "appId": "cz.helmich.auxology",
-    "productName": "Auxology",
+    "appId": "cz.helmich.imagrow",
+    "productName": "ImaGrow",
     "directories": {
       "output": "dist"
     },

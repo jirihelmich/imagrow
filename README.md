@@ -1,12 +1,18 @@
 <p align="center">
-  <img src="public/img/login-hero.png" alt="Auxology" width="200" />
+  <img src="public/img/login-hero.png" alt="ImaGrow" width="200" />
 </p>
 
-# Auxology
+# ImaGrow
+
+> Previously released as **Auxology**. As of v4.0.0 the international name is **ImaGrow**.
 
 Desktop aplikace pro sledování růstu nedonošených dětí na základě referenčních auxologických dat Centra komplexní péče KDDL VFN Praha (LMS kvantilová regrese, 1 781 dětí, 5 676 vyšetření, 2001–2015).
 
-Auxology běží plně offline v prostředí Electron, data zůstávají na uživatelském počítači (IndexedDB / LoveField).
+ImaGrow běží plně offline v prostředí Electron, data zůstávají na uživatelském počítači (IndexedDB / LoveField).
+
+## Website
+
+🌐 [**imagrow.app**](https://imagrow.app) — landing page, downloads, documentation
 
 ## Dokumentace
 
@@ -18,6 +24,8 @@ Auxology běží plně offline v prostředí Electron, data zůstávají na uži
 
 Stáhněte si nejnovější build pro macOS nebo Windows z [Releases](https://github.com/jirihelmich/auxology/releases/latest).
 
+> **Upgrading from Auxology 3.x?** Version 4.0 renames the app to ImaGrow. On first launch your data is automatically migrated from `~/Library/Application Support/Auxology/` (macOS) or `%APPDATA%\Auxology\` (Windows) to the new `ImaGrow` folder. The old Auxology.app / installation remains on your machine — you can uninstall it manually once you've confirmed everything works.
+
 ## Vývoj
 
 ```bash
@@ -28,6 +36,7 @@ npm run build:mac    # macOS .dmg do dist/
 npm run build:win    # Windows NSIS do dist/
 npm run build        # obojí
 npx tsc --noEmit     # typecheck
+npm run docs         # regenerate docs/ (Playwright required)
 ```
 
 ## Stack

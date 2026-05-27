@@ -2,7 +2,7 @@ import type { Translations } from './cs';
 
 export const en: Translations = {
   // Common
-  appName: 'Auxology',
+  appName: 'ImaGrow',
   breadcrumbHome: 'Growth monitoring of premature children',
   patients: 'Patients',
   charts: 'Charts',

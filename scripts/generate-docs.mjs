@@ -457,7 +457,7 @@ If something happens to your installation, email that JSON to the author and the
 The underlying database lives in the operating system user profile:
 
 - **Windows:** \`C:\\Users\\<user>\\AppData\\Roaming\\auxology\\IndexedDB\\\`
-- **macOS:** \`~/Library/Application Support/auxology/IndexedDB/\`
+- **macOS:** \`~/Library/Application Support/ImaGrow/IndexedDB/\`
 
 The whole \`IndexedDB\` folder is the complete database. Hospital IT can include this path in the standard user-profile backup (Windows Backup, roaming profiles, Time Machine, OneDrive Known Folder Move). Auxology should be closed during the backup window — the LevelDB file can be locked by a running process, which makes a backup inconsistent. A scheduled nightly backup when nobody is signed in is ideal.
 
@@ -473,7 +473,7 @@ Recommended upgrade routine:
 4. Launch the new version and confirm the patient list is still there.
 5. If anything looks wrong, send me the JSON from step 1.
 
-During the **uninstall** of a specific version, the installer leaves the data folder in place by default. The database is only deleted by manually removing \`~/Library/Application Support/auxology/\` (macOS) or \`%APPDATA%\\auxology\\\` (Windows), or by ticking a "remove user data" option if one is presented during uninstall.
+During the **uninstall** of a specific version, the installer leaves the data folder in place by default. The database is only deleted by manually removing \`~/Library/Application Support/ImaGrow/\` (macOS) or \`%APPDATA%\\auxology\\\` (Windows), or by ticking a "remove user data" option if one is presented during uninstall.
 
 ---
 
@@ -551,7 +551,7 @@ function generateHTML(s) {
 <body>
   <div class="hero" style="position: relative;">
     <div class="lang-switch"><a href="user-guide-cs.html">Česky</a></div>
-    <img src="../public/img/login-hero.png" alt="" aria-hidden="true" style="width: 140px; height: 140px; margin: 0 auto 1.25rem; display: block; filter: drop-shadow(0 4px 12px rgba(0,0,0,0.15));" />
+    <img src="img/login-hero.png" alt="" aria-hidden="true" style="width: 140px; height: 140px; margin: 0 auto 1.25rem; display: block; filter: drop-shadow(0 4px 12px rgba(0,0,0,0.15));" />
     <h1>Auxology</h1>
     <p>User Guide</p>
   </div>
@@ -699,7 +699,7 @@ function generateHTML(s) {
 
     <ul>
       <li><strong>Windows:</strong> <code>C:\\Users\\&lt;user&gt;\\AppData\\Roaming\\auxology\\IndexedDB\\</code></li>
-      <li><strong>macOS:</strong> <code>~/Library/Application Support/auxology/IndexedDB/</code></li>
+      <li><strong>macOS:</strong> <code>~/Library/Application Support/ImaGrow/IndexedDB/</code></li>
     </ul>
 
     <p>The whole <code>IndexedDB</code> folder is the complete database. Hospital IT can include this path in the standard user-profile backup (Windows Backup, roaming profiles, Time Machine, OneDrive Known Folder Move). Auxology should be closed during the backup window — the LevelDB file can be locked by a running process, which makes a backup inconsistent. A scheduled nightly backup when nobody is signed in is ideal.</p>
@@ -718,7 +718,7 @@ function generateHTML(s) {
       <li>If anything looks wrong, send me the JSON from step 1.</li>
     </ol>
 
-    <p>During the <strong>uninstall</strong> of a specific version, the installer leaves the data folder in place by default. The database is only deleted by manually removing <code>~/Library/Application Support/auxology/</code> (macOS) or <code>%APPDATA%\\auxology\\</code> (Windows), or by ticking a "remove user data" option if one is presented during uninstall.</p>
+    <p>During the <strong>uninstall</strong> of a specific version, the installer leaves the data folder in place by default. The database is only deleted by manually removing <code>~/Library/Application Support/ImaGrow/</code> (macOS) or <code>%APPDATA%\\auxology\\</code> (Windows), or by ticking a "remove user data" option if one is presented during uninstall.</p>
 
     <hr />
 
@@ -893,7 +893,7 @@ Pokud by se cokoli stalo s vaší instalací, pošlete mi ten JSON e-mailem a da
 Databáze leží v uživatelském profilu operačního systému:
 
 - **Windows:** \`C:\\Users\\<uživatel>\\AppData\\Roaming\\auxology\\IndexedDB\\\`
-- **macOS:** \`~/Library/Application Support/auxology/IndexedDB/\`
+- **macOS:** \`~/Library/Application Support/ImaGrow/IndexedDB/\`
 
 Celá složka \`IndexedDB\` je kompletní databáze. IT oddělení může tuto cestu zahrnout do standardní zálohy uživatelských profilů (Windows Backup, roaming profily, Time Machine, OneDrive Known Folder Move). V okamžiku zálohy by aplikace měla být zavřená — soubor LevelDB může být uzamčen běžící aplikací a záloha by pak byla nekonzistentní. Ideální je plánovaná noční záloha mimo pracovní dobu.
 
@@ -909,7 +909,7 @@ Doporučený postup aktualizace:
 4. Spustit novou verzi a ověřit, že je seznam pacientů pořád vidět.
 5. Kdyby cokoli nesedělo, pošlete mi JSON uložený v kroku 1.
 
-Při **odinstalaci** konkrétní verze instalátor defaultně datovou složku ponechá. Databáze se smaže až ručním odstraněním \`~/Library/Application Support/auxology/\` (macOS) nebo \`%APPDATA%\\auxology\\\` (Windows), případně zaškrtnutím volby „odstranit uživatelská data", pokud je při odinstalaci nabídnuta.
+Při **odinstalaci** konkrétní verze instalátor defaultně datovou složku ponechá. Databáze se smaže až ručním odstraněním \`~/Library/Application Support/ImaGrow/\` (macOS) nebo \`%APPDATA%\\auxology\\\` (Windows), případně zaškrtnutím volby „odstranit uživatelská data", pokud je při odinstalaci nabídnuta.
 
 ---
 
@@ -987,7 +987,7 @@ function generateCzechHTML(cs, en) {
 <body>
   <div class="hero" style="position: relative;">
     <div class="lang-switch"><a href="user-guide.html">English</a></div>
-    <img src="../public/img/login-hero.png" alt="" aria-hidden="true" style="width: 140px; height: 140px; margin: 0 auto 1.25rem; display: block; filter: drop-shadow(0 4px 12px rgba(0,0,0,0.15));" />
+    <img src="img/login-hero.png" alt="" aria-hidden="true" style="width: 140px; height: 140px; margin: 0 auto 1.25rem; display: block; filter: drop-shadow(0 4px 12px rgba(0,0,0,0.15));" />
     <h1>Auxologie</h1>
     <p>Uživatelská příručka</p>
   </div>
@@ -1131,7 +1131,7 @@ function generateCzechHTML(cs, en) {
 
     <ul>
       <li><strong>Windows:</strong> <code>C:\\Users\\&lt;uživatel&gt;\\AppData\\Roaming\\auxology\\IndexedDB\\</code></li>
-      <li><strong>macOS:</strong> <code>~/Library/Application Support/auxology/IndexedDB/</code></li>
+      <li><strong>macOS:</strong> <code>~/Library/Application Support/ImaGrow/IndexedDB/</code></li>
     </ul>
 
     <p>Celá složka <code>IndexedDB</code> je kompletní databáze. IT oddělení může tuto cestu zahrnout do standardní zálohy uživatelských profilů (Windows Backup, roaming profily, Time Machine, OneDrive Known Folder Move). V okamžiku zálohy by aplikace měla být zavřená — soubor LevelDB může být uzamčen běžící aplikací a záloha by pak byla nekonzistentní. Ideální je plánovaná noční záloha mimo pracovní dobu.</p>
@@ -1150,7 +1150,7 @@ function generateCzechHTML(cs, en) {
       <li>Kdyby cokoli nesedělo, pošlete mi JSON uložený v kroku 1.</li>
     </ol>
 
-    <p>Při <strong>odinstalaci</strong> konkrétní verze instalátor defaultně datovou složku ponechá. Databáze se smaže až ručním odstraněním <code>~/Library/Application Support/auxology/</code> (macOS) nebo <code>%APPDATA%\\auxology\\</code> (Windows), případně zaškrtnutím volby „odstranit uživatelská data", pokud je při odinstalaci nabídnuta.</p>
+    <p>Při <strong>odinstalaci</strong> konkrétní verze instalátor defaultně datovou složku ponechá. Databáze se smaže až ručním odstraněním <code>~/Library/Application Support/ImaGrow/</code> (macOS) nebo <code>%APPDATA%\\auxology\\</code> (Windows), případně zaškrtnutím volby „odstranit uživatelská data", pokud je při odinstalaci nabídnuta.</p>
 
     <hr />
 

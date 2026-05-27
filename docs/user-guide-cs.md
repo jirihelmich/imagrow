@@ -1,6 +1,6 @@
-# Auxologie — Uživatelská příručka
+# ImaGrow — Uživatelská příručka
 
-Auxologie je desktopová aplikace určená pro neonatology a pediatrické lékaře, kteří potřebují sledovat růst předčasně narozených dětí. Aplikace je postavena na českých referenčních auxologických datech — percentilových růstových grafech odvozených ze studie 1 781 nedonošených dětí (5 676 vyšetření) v Centru komplexní péče, KDDL VFN Praha, v období 2001–2015.
+ImaGrow (dříve vydávaná pod názvem Auxologie) je desktopová aplikace určená pro neonatology a pediatrické lékaře, kteří potřebují sledovat růst předčasně narozených dětí. Aplikace je postavena na českých referenčních auxologických datech — percentilových růstových grafech odvozených ze studie 1 781 nedonošených dětí (5 676 vyšetření) v Centru komplexní péče, KDDL VFN Praha, v období 2001–2015.
 
 Všechna data jsou uložena lokálně ve vašem počítači. Aplikace neobsahuje žádnou cloudovou komponentu — funguje zcela offline. Běží na macOS i Windows.
 
@@ -72,7 +72,7 @@ Karta s **údaji o rodičích** se zobrazí jen tehdy, když má alespoň jeden 
 
 ## Sledování růstu v čase
 
-Hlavním účelem aplikace Auxologie je sledovat, jak předčasně narozené dítě roste ve srovnání s referenčními daty. To se provádí zaznamenáváním vyšetření při každé klinické návštěvě a prohlížením výsledných grafů a statistik.
+Hlavním účelem aplikace ImaGrow je sledovat, jak předčasně narozené dítě roste ve srovnání s referenčními daty. To se provádí zaznamenáváním vyšetření při každé klinické návštěvě a prohlížením výsledných grafů a statistik.
 
 ### Záznam vyšetření
 
@@ -151,23 +151,23 @@ Pokud by se cokoli stalo s vaší instalací, pošlete mi ten JSON e-mailem a da
 Databáze leží v uživatelském profilu operačního systému:
 
 - **Windows:** `C:\Users\<uživatel>\AppData\Roaming\auxology\IndexedDB\`
-- **macOS:** `~/Library/Application Support/auxology/IndexedDB/`
+- **macOS:** `~/Library/Application Support/ImaGrow/IndexedDB/`
 
 Celá složka `IndexedDB` je kompletní databáze. IT oddělení může tuto cestu zahrnout do standardní zálohy uživatelských profilů (Windows Backup, roaming profily, Time Machine, OneDrive Known Folder Move). V okamžiku zálohy by aplikace měla být zavřená — soubor LevelDB může být uzamčen běžící aplikací a záloha by pak byla nekonzistentní. Ideální je plánovaná noční záloha mimo pracovní dobu.
 
 ### Aktualizace na novou verzi
 
-Instalace novější verze se **nedotkne** databáze. Instalátor nahrazuje jen binárky aplikace v `/Applications/` (macOS) nebo `Program Files\Auxology\` (Windows); vaše data v uvedené profilové složce zůstanou beze změny. Nová verze otevře existující IndexedDB, ověří uložené číslo verze schématu a migraci spustí jen tehdy, když se struktura mezi verzemi změnila.
+Instalace novější verze se **nedotkne** databáze. Instalátor nahrazuje jen binárky aplikace v `/Applications/` (macOS) nebo `Program Files\ImaGrow\` (Windows); vaše data v uvedené profilové složce zůstanou beze změny. Nová verze otevře existující IndexedDB, ověří uložené číslo verze schématu a migraci spustí jen tehdy, když se struktura mezi verzemi změnila.
 
 Doporučený postup aktualizace:
 
-1. Otevřít Auxology a kliknout **Export** na úvodní stránce; uložit JSON někam bokem.
-2. Zavřít Auxology.
+1. Otevřít ImaGrow a kliknout **Export** na úvodní stránce; uložit JSON někam bokem.
+2. Zavřít ImaGrow.
 3. Nainstalovat novou verzi (drag-and-drop `.app` na macOS, spustit `.exe` na Windows).
 4. Spustit novou verzi a ověřit, že je seznam pacientů pořád vidět.
 5. Kdyby cokoli nesedělo, pošlete mi JSON uložený v kroku 1.
 
-Při **odinstalaci** konkrétní verze instalátor defaultně datovou složku ponechá. Databáze se smaže až ručním odstraněním `~/Library/Application Support/auxology/` (macOS) nebo `%APPDATA%\auxology\` (Windows), případně zaškrtnutím volby „odstranit uživatelská data", pokud je při odinstalaci nabídnuta.
+Při **odinstalaci** konkrétní verze instalátor defaultně datovou složku ponechá. Databáze se smaže až ručním odstraněním `~/Library/Application Support/ImaGrow/` (macOS) nebo `%APPDATA%\ImaGrow\` (Windows), případně zaškrtnutím volby „odstranit uživatelská data", pokud je při odinstalaci nabídnuta.
 
 ---
 
