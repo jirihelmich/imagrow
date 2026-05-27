@@ -6,7 +6,7 @@ All data is stored locally on your computer. There is no cloud component — the
 
 The interface is available in **Czech** and **English**. You can switch between the two at any time, and your preference is remembered across sessions.
 
-**Download:** [macOS (DMG)](https://github.com/jirihelmich/auxology/releases/download/v3.2.0/Auxology-3.2.0-arm64.dmg) · [Windows (EXE)](https://github.com/jirihelmich/auxology/releases/download/v3.2.0/Auxology-Setup-3.2.0.exe) · [All releases](https://github.com/jirihelmich/auxology/releases/latest)
+**Download:** [macOS (DMG)](https://github.com/jirihelmich/imagrow/releases/download/v3.2.0/Auxology-3.2.0-arm64.dmg) · [Windows (EXE)](https://github.com/jirihelmich/imagrow/releases/download/v3.2.0/Auxology-Setup-3.2.0.exe) · [All releases](https://github.com/jirihelmich/imagrow/releases/latest)
 
 ---
 

@@ -1,6 +1,6 @@
 # Changelog
 
-Všechny významné změny v Auxology jsou popsané v tomto souboru. Verze odpovídají [SemVer](https://semver.org/lang/cs/) a jsou zveřejňovány jako [GitHub releases](https://github.com/jirihelmich/auxology/releases).
+Všechny významné změny v Auxology jsou popsané v tomto souboru. Verze odpovídají [SemVer](https://semver.org/lang/cs/) a jsou zveřejňovány jako [GitHub releases](https://github.com/jirihelmich/imagrow/releases).
 
 ## [4.0.0] — 2026-04-30
 
@@ -103,10 +103,10 @@ Všechny významné změny v Auxology jsou popsané v tomto souboru. Verze odpov
 ### Změněno
 - **Kompletní přepis frontendu** z AngularJS 1.x na React 19 + TypeScript + Tailwind CSS 4. Aplikační logika a databáze (LoveField/IndexedDB) zůstávají; změnila se pouze prezentační vrstva.
 
-[4.0.0]: https://github.com/jirihelmich/auxology/releases/tag/v4.0.0
-[3.5.0]: https://github.com/jirihelmich/auxology/releases/tag/v3.5.0
-[3.4.1]: https://github.com/jirihelmich/auxology/releases/tag/v3.4.1
-[3.4.0]: https://github.com/jirihelmich/auxology/releases/tag/v3.4.0
-[3.3.0]: https://github.com/jirihelmich/auxology/releases/tag/v3.3.0
-[3.2.0]: https://github.com/jirihelmich/auxology/releases/tag/v3.2.0
-[3.0.0]: https://github.com/jirihelmich/auxology/releases/tag/v3.0.0
+[4.0.0]: https://github.com/jirihelmich/imagrow/releases/tag/v4.0.0
+[3.5.0]: https://github.com/jirihelmich/imagrow/releases/tag/v3.5.0
+[3.4.1]: https://github.com/jirihelmich/imagrow/releases/tag/v3.4.1
+[3.4.0]: https://github.com/jirihelmich/imagrow/releases/tag/v3.4.0
+[3.3.0]: https://github.com/jirihelmich/imagrow/releases/tag/v3.3.0
+[3.2.0]: https://github.com/jirihelmich/imagrow/releases/tag/v3.2.0
+[3.0.0]: https://github.com/jirihelmich/imagrow/releases/tag/v3.0.0

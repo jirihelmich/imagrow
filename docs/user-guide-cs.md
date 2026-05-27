@@ -6,7 +6,7 @@ Všechna data jsou uložena lokálně ve vašem počítači. Aplikace neobsahuje
 
 Rozhraní je dostupné v **češtině** a **angličtině**. Mezi jazyky lze přepínat kdykoli a vaše preference se zapamatuje.
 
-**Stáhnout:** [macOS (DMG)](https://github.com/jirihelmich/auxology/releases/download/v3.2.0/Auxology-3.2.0-arm64.dmg) · [Windows (EXE)](https://github.com/jirihelmich/auxology/releases/download/v3.2.0/Auxology-Setup-3.2.0.exe) · [Všechny verze](https://github.com/jirihelmich/auxology/releases/latest)
+**Stáhnout:** [macOS (DMG)](https://github.com/jirihelmich/imagrow/releases/download/v3.2.0/Auxology-3.2.0-arm64.dmg) · [Windows (EXE)](https://github.com/jirihelmich/imagrow/releases/download/v3.2.0/Auxology-Setup-3.2.0.exe) · [Všechny verze](https://github.com/jirihelmich/imagrow/releases/latest)
 
 ---
 

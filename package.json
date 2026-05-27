@@ -5,15 +5,15 @@
   "main": "main.js",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/jirihelmich/auxology.git"
+    "url": "git+https://github.com/jirihelmich/imagrow.git"
   },
   "keywords": [],
   "author": "Jiri Helmich <jiri@helmich.cz>",
   "license": "CC0-1.0",
   "bugs": {
-    "url": "https://github.com/jirihelmich/auxology/issues"
+    "url": "https://github.com/jirihelmich/imagrow/issues"
   },
-  "homepage": "https://github.com/jirihelmich/auxology#readme",
+  "homepage": "https://github.com/jirihelmich/imagrow#readme",
   "dependencies": {
     "bcryptjs": "^3.0.2",
     "dayjs": "^1.11.13",

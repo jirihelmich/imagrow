@@ -22,7 +22,7 @@ ImaGrow běží plně offline v prostředí Electron, data zůstávají na uživ
 
 ## Instalace
 
-Stáhněte si nejnovější build pro macOS nebo Windows z [Releases](https://github.com/jirihelmich/auxology/releases/latest).
+Stáhněte si nejnovější build pro macOS nebo Windows z [Releases](https://github.com/jirihelmich/imagrow/releases/latest).
 
 > **Upgrading from Auxology 3.x?** Version 4.0 renames the app to ImaGrow. On first launch your data is automatically migrated from `~/Library/Application Support/Auxology/` (macOS) or `%APPDATA%\Auxology\` (Windows) to the new `ImaGrow` folder. The old Auxology.app / installation remains on your machine — you can uninstall it manually once you've confirmed everything works.
 
