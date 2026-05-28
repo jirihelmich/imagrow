@@ -9,8 +9,8 @@ const pkg = JSON.parse(readFileSync(path.join(root, 'package.json'), 'utf8'));
 const VERSION = pkg.version;
 const REPO = 'jirihelmich/imagrow';
 const RELEASE_URL = `https://github.com/${REPO}/releases/latest`;
-const DMG_URL = `https://github.com/${REPO}/releases/download/v${VERSION}/ImaGrow-${VERSION}-arm64.dmg`;
-const EXE_URL = `https://github.com/${REPO}/releases/download/v${VERSION}/ImaGrow-Setup-${VERSION}.exe`;
+const DMG_URL = `https://github.com/${REPO}/releases/latest/download/ImaGrow-arm64.dmg`;
+const EXE_URL = `https://github.com/${REPO}/releases/latest/download/ImaGrow-Setup.exe`;
 const screenshotDir = path.join(root, 'docs', 'screenshots');
 
 const TEST_USER = 'docs-test-user-' + Date.now();
