@@ -1,6 +1,6 @@
 {
   "name": "auxology",
-  "version": "4.0.0",
+  "version": "4.0.1",
   "description": "ImaGrow — desktop app for charting the growth of prematurely born children (formerly Auxology).",
   "main": "main.js",
   "repository": {

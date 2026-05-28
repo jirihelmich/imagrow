@@ -49,7 +49,7 @@ export function LoginPage() {
         />
 
         <div className="relative z-10 mb-8">
-          <h1 className="text-3xl font-bold tracking-tight leading-tight">Auxology</h1>
+          <h1 className="text-3xl font-bold tracking-tight leading-tight">ImaGrow</h1>
           <p className="text-sm text-white/85 mt-1">{t.loginTitle}</p>
         </div>
 

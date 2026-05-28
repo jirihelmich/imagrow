@@ -2,13 +2,29 @@
 
 Všechny významné změny v Auxology jsou popsané v tomto souboru. Verze odpovídají [SemVer](https://semver.org/lang/cs/) a jsou zveřejňovány jako [GitHub releases](https://github.com/jirihelmich/imagrow/releases).
 
-## [4.0.0] — 2026-04-30
+## [4.0.1] — 2026-05-28
+
+**Post-rebrand polish + appId correction.** Drobné dokončení po v4.0.0: oprava login obrazovky, sjednocení `appId` s doménou, redesign webu, přímé odkazy na binárky.
+
+### Změněno
+- **`appId`** změněn z `cz.helmich.imagrow` na `app.imagrow` (reverse-DNS domény `imagrow.app`). Stejné chování jako v4.0.0 — nová instalace bude pro OS jiná aplikace než v4.0.0 (instaluje se vedle, ne přes).
+- **Název souboru exportu** změněn z `auxology-export.json` na `imagrow-export.json`. Existující JSON zálohy s původním názvem zůstávají platné — formát se nezměnil.
+- **Název binárek** je nově bez čísla verze (`ImaGrow-arm64.dmg`, `ImaGrow-Setup.exe`), aby `/releases/latest/download/...` URL fungovaly napříč budoucími verzemi.
+- **Landing page imagrow.app** kompletně přepracován — moderní typografie (Inter + JetBrains Mono), referenční data prezentovaná jako akademická citace, přímé odkazy na binárky bez mezikroku přes GitHub release stránku.
+
+### Opraveno
+- **Login obrazovka** ukazovala starý nadpis „Auxology" — opraveno na „ImaGrow".
+
+### Pro existující uživatele
+- Stejně jako u v4.0.0: nová verze se nainstaluje vedle staré (kvůli změně `appId`); starou Auxology / ImaGrow v4.0.0 odinstalujte ručně.
+
+## [4.0.0] — 2026-05-27
 
 **Major release: rebranded from Auxology to ImaGrow.** New domain [imagrow.app](https://imagrow.app), new landing page in English and Czech, new application name across the UI.
 
 ### Změněno
-- **Rebrand Auxology → ImaGrow.** Window title, dock label, taskbar entry, installer name, in-app `appName`, and the on-disk app bundle / executable are all now `ImaGrow`. Mezinárodně se aplikace publikovala pod tímto jménem už dříve; v4.0 sjednocuje pojmenování i v kódu a uživatelském rozhraní.
-- **`appId` změněn** z `cz.helmich.auxology` na `app.imagrow` (reverse-DNS domény `imagrow.app`). Z pohledu operačního systému to znamená, že nová ImaGrow instalace nenahradí starou Auxology instalaci — obě budou koexistovat na disku, dokud uživatel starou ručně neodinstaluje.
+- **Rebrand Auxology → ImaGrow.** Window title, dock label, taskbar entry, installer name, in-app `appName`, a on-disk app bundle / executable jsou všechny teď `ImaGrow`.
+- **`appId`** změněn z `cz.helmich.auxology` na `cz.helmich.imagrow`. Z pohledu operačního systému to znamená, že nová ImaGrow instalace nenahradí starou Auxology instalaci — obě budou koexistovat na disku, dokud uživatel starou ručně neodinstaluje.
 - **Nová domain `imagrow.app`** se statickým web landingem (CS + EN), hostovaná na GitHub Pages.
 
 ### Přidáno
