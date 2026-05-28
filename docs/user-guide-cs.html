@@ -13,6 +13,8 @@
     .lang-switch { position: absolute; top: 1.5rem; right: 2rem; }
     .lang-switch a { color: white; text-decoration: none; opacity: 0.8; font-size: 0.9rem; padding: 0.4rem 0.8rem; border: 1px solid rgba(255,255,255,0.3); border-radius: 4px; }
     .lang-switch a:hover { opacity: 1; background: rgba(255,255,255,0.1); }
+    .home-link { position: absolute; top: 1.5rem; left: 2rem; color: white; text-decoration: none; opacity: 0.8; font-size: 0.9rem; padding: 0.4rem 0.8rem; border: 1px solid rgba(255,255,255,0.3); border-radius: 4px; }
+    .home-link:hover { opacity: 1; background: rgba(255,255,255,0.1); }
     .container { max-width: 780px; margin: 0 auto; padding: 3rem 2rem; }
     h2 { color: #2f4050; margin: 3rem 0 1.25rem; padding-bottom: 0.5rem; border-bottom: 2px solid #e5e7eb; font-size: 1.5rem; }
     h3 { color: #1c84c6; margin: 2rem 0 0.75rem; font-size: 1.2rem; }
@@ -33,6 +35,7 @@
 </head>
 <body>
   <div class="hero" style="position: relative;">
+    <a class="home-link" href="cs.html">← imagrow.app</a>
     <div class="lang-switch"><a href="user-guide.html">English</a></div>
     <img src="img/login-hero.png" alt="" aria-hidden="true" style="width: 140px; height: 140px; margin: 0 auto 1.25rem; display: block; filter: drop-shadow(0 4px 12px rgba(0,0,0,0.15));" />
     <h1>ImaGrow</h1>
@@ -212,7 +215,7 @@
 
     <h3>Ruční export z aplikace</h3>
 
-    <p>Na úvodní obrazovce je vpravo nahoře tlačítko <strong>Export</strong>. Klepnutím se stáhne soubor <code>auxology-export.json</code> s kompletní databází — pacienti, vyšetření, údaje o rodičích. Uložte ho někam mimo aplikaci: sdílený disk, OneDrive, externí disk. Týdenní rytmus je rozumné minimum; export určitě udělejte před větší změnou (import více pacientů, aktualizace aplikace).</p>
+    <p>Na úvodní obrazovce je vpravo nahoře tlačítko <strong>Export</strong>. Klepnutím se stáhne soubor <code>imagrow-export.json</code> s kompletní databází — pacienti, vyšetření, údaje o rodičích. Uložte ho někam mimo aplikaci: sdílený disk, OneDrive, externí disk. Týdenní rytmus je rozumné minimum; export určitě udělejte před větší změnou (import více pacientů, aktualizace aplikace).</p>
 
     <p>Pokud by se cokoli stalo s vaší instalací, pošlete mi ten JSON e-mailem a data obnovíme. Aplikace zatím nemá tlačítko <strong>Import</strong> pro svépomocnou obnovu — pokud to bude potřeba, napište mi a doplním ho.</p>
 
@@ -221,7 +224,7 @@
     <p>Databáze leží v uživatelském profilu operačního systému:</p>
 
     <ul>
-      <li><strong>Windows:</strong> <code>C:\Users\&lt;uživatel&gt;\AppData\Roaming\auxology\IndexedDB\</code></li>
+      <li><strong>Windows:</strong> <code>C:\Users\&lt;uživatel&gt;\AppData\Roaming\ImaGrow\IndexedDB\</code></li>
       <li><strong>macOS:</strong> <code>~/Library/Application Support/ImaGrow/IndexedDB/</code></li>
     </ul>
 

@@ -49,7 +49,7 @@
     "docs": "npm run build:renderer && node scripts/generate-docs.mjs"
   },
   "build": {
-    "appId": "cz.helmich.imagrow",
+    "appId": "app.imagrow",
     "productName": "ImaGrow",
     "directories": {
       "output": "dist"
@@ -61,11 +61,13 @@
     ],
     "mac": {
       "target": "dmg",
-      "icon": "public/img/icon.png"
+      "icon": "public/img/icon.png",
+      "artifactName": "${productName}-${arch}.${ext}"
     },
     "win": {
       "target": "nsis",
-      "icon": "public/img/icon.png"
+      "icon": "public/img/icon.png",
+      "artifactName": "${productName}-Setup.${ext}"
     }
   }
 }

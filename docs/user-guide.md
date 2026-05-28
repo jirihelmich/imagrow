@@ -171,7 +171,7 @@ The application stores data entirely on your computer. There is no cloud backup 
 
 ### Manual export from the app
 
-On the dashboard, the **Export** button (top right) downloads a single `auxology-export.json` file containing your complete database — patients, examinations, and parent data. Save it somewhere outside the app's storage: a shared drive, OneDrive, or an external disk. A weekly cadence is a reasonable default; do the export before any larger change (import of many patients, upgrade of the app).
+On the dashboard, the **Export** button (top right) downloads a single `imagrow-export.json` file containing your complete database — patients, examinations, and parent data. Save it somewhere outside the app's storage: a shared drive, OneDrive, or an external disk. A weekly cadence is a reasonable default; do the export before any larger change (import of many patients, upgrade of the app).
 
 If something happens to your installation, email that JSON to the author and the data will be restored. The app does not yet have a self-service Import button — if this becomes important, let me know and I'll add it.
 
@@ -179,7 +179,7 @@ If something happens to your installation, email that JSON to the author and the
 
 The underlying database lives in the operating system user profile:
 
-- **Windows:** `C:\Users\<user>\AppData\Roaming\auxology\IndexedDB\`
+- **Windows:** `C:\Users\<user>\AppData\Roaming\ImaGrow\IndexedDB\`
 - **macOS:** `~/Library/Application Support/ImaGrow/IndexedDB/`
 
 The whole `IndexedDB` folder is the complete database. Hospital IT can include this path in the standard user-profile backup (Windows Backup, roaming profiles, Time Machine, OneDrive Known Folder Move). ImaGrow should be closed during the backup window — the LevelDB file can be locked by a running process, which makes a backup inconsistent. A scheduled nightly backup when nobody is signed in is ideal.

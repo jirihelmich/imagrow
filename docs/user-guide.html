@@ -13,6 +13,8 @@
     .lang-switch { position: absolute; top: 1.5rem; right: 2rem; }
     .lang-switch a { color: white; text-decoration: none; opacity: 0.8; font-size: 0.9rem; padding: 0.4rem 0.8rem; border: 1px solid rgba(255,255,255,0.3); border-radius: 4px; }
     .lang-switch a:hover { opacity: 1; background: rgba(255,255,255,0.1); }
+    .home-link { position: absolute; top: 1.5rem; left: 2rem; color: white; text-decoration: none; opacity: 0.8; font-size: 0.9rem; padding: 0.4rem 0.8rem; border: 1px solid rgba(255,255,255,0.3); border-radius: 4px; }
+    .home-link:hover { opacity: 1; background: rgba(255,255,255,0.1); }
     .container { max-width: 780px; margin: 0 auto; padding: 3rem 2rem; }
     h2 { color: #2f4050; margin: 3rem 0 1.25rem; padding-bottom: 0.5rem; border-bottom: 2px solid #e5e7eb; font-size: 1.5rem; }
     h3 { color: #1c84c6; margin: 2rem 0 0.75rem; font-size: 1.2rem; }
@@ -33,6 +35,7 @@
 </head>
 <body>
   <div class="hero" style="position: relative;">
+    <a class="home-link" href="/">← imagrow.app</a>
     <div class="lang-switch"><a href="user-guide-cs.html">Česky</a></div>
     <img src="img/login-hero.png" alt="" aria-hidden="true" style="width: 140px; height: 140px; margin: 0 auto 1.25rem; display: block; filter: drop-shadow(0 4px 12px rgba(0,0,0,0.15));" />
     <h1>ImaGrow</h1>
@@ -220,7 +223,7 @@
 
     <h3>Manual export from the app</h3>
 
-    <p>On the dashboard, the <strong>Export</strong> button (top right) downloads a single <code>auxology-export.json</code> file containing your complete database — patients, examinations, and parent data. Save it somewhere outside the app's storage: a shared drive, OneDrive, or an external disk. A weekly cadence is a reasonable default; do the export before any larger change (import of many patients, upgrade of the app).</p>
+    <p>On the dashboard, the <strong>Export</strong> button (top right) downloads a single <code>imagrow-export.json</code> file containing your complete database — patients, examinations, and parent data. Save it somewhere outside the app's storage: a shared drive, OneDrive, or an external disk. A weekly cadence is a reasonable default; do the export before any larger change (import of many patients, upgrade of the app).</p>
 
     <p>If something happens to your installation, email that JSON to the author and the data will be restored. The app does not yet have a self-service Import button — if this becomes important, let me know and I'll add it.</p>
 
@@ -229,7 +232,7 @@
     <p>The underlying database lives in the operating system user profile:</p>
 
     <ul>
-      <li><strong>Windows:</strong> <code>C:\Users\&lt;user&gt;\AppData\Roaming\auxology\IndexedDB\</code></li>
+      <li><strong>Windows:</strong> <code>C:\Users\&lt;user&gt;\AppData\Roaming\ImaGrow\IndexedDB\</code></li>
       <li><strong>macOS:</strong> <code>~/Library/Application Support/ImaGrow/IndexedDB/</code></li>
     </ul>
 

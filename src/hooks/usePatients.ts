@@ -309,7 +309,7 @@ export function usePatients() {
     const blob = new Blob([JSON.stringify(data)], { type: 'application/json' });
     const a = document.createElement('a');
     a.href = URL.createObjectURL(blob);
-    a.download = 'auxology-export.json';
+    a.download = 'imagrow-export.json';
     a.click();
     URL.revokeObjectURL(a.href);
   }, [db]);
