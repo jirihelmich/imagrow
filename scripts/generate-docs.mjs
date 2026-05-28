@@ -520,43 +520,106 @@ function generateHTML(s) {
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>ImaGrow — User Guide</title>
+  <link rel="icon" href="img/favicon.ico" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
   <style>
+    :root {
+      --bg:         #ffffff;
+      --bg-alt:     #f6f9fc;
+      --text:       #0f172a;
+      --text-dim:   #334155;
+      --muted:      #64748b;
+      --accent:     #1c84c6;
+      --accent-dk:  #176fa8;
+      --accent-lt:  #e6f2fb;
+      --border:     #e4e9f0;
+      --border-strong: #cdd6e2;
+    }
     * { margin: 0; padding: 0; box-sizing: border-box; }
-    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; color: #1a1a1a; line-height: 1.75; font-size: 16px; }
-    .hero { background: linear-gradient(135deg, #2f4050 0%, #1c84c6 100%); color: white; padding: 5rem 2rem; text-align: center; }
-    .hero h1 { font-size: 2.8rem; margin-bottom: 0.75rem; font-weight: 700; }
-    .hero p { font-size: 1.15rem; opacity: 0.9; max-width: 550px; margin: 0 auto; }
-    .lang-switch { position: absolute; top: 1.5rem; right: 2rem; }
-    .lang-switch a { color: white; text-decoration: none; opacity: 0.8; font-size: 0.9rem; padding: 0.4rem 0.8rem; border: 1px solid rgba(255,255,255,0.3); border-radius: 4px; }
-    .lang-switch a:hover { opacity: 1; background: rgba(255,255,255,0.1); }
-    .home-link { position: absolute; top: 1.5rem; left: 2rem; color: white; text-decoration: none; opacity: 0.8; font-size: 0.9rem; padding: 0.4rem 0.8rem; border: 1px solid rgba(255,255,255,0.3); border-radius: 4px; }
-    .home-link:hover { opacity: 1; background: rgba(255,255,255,0.1); }
-    .container { max-width: 780px; margin: 0 auto; padding: 3rem 2rem; }
-    h2 { color: #2f4050; margin: 3rem 0 1.25rem; padding-bottom: 0.5rem; border-bottom: 2px solid #e5e7eb; font-size: 1.5rem; }
-    h3 { color: #1c84c6; margin: 2rem 0 0.75rem; font-size: 1.2rem; }
-    p { margin-bottom: 1rem; }
-    ul, ol { padding-left: 1.75rem; margin-bottom: 1.25rem; }
-    li { margin-bottom: 0.5rem; }
-    strong { color: #2f4050; }
-    hr { border: none; border-top: 1px solid #e5e7eb; margin: 3rem 0; }
-    figure { margin: 2rem 0; border: 1px solid #e2e5e9; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 12px rgba(0,0,0,0.06); }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      color: var(--text); background: var(--bg);
+      line-height: 1.7; font-size: 16px;
+      -webkit-font-smoothing: antialiased;
+      font-feature-settings: 'cv11', 'ss01', 'ss03';
+    }
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { color: var(--accent-dk); text-decoration: underline; text-underline-offset: 3px; }
+    nav { position: sticky; top: 0; z-index: 10; background: rgba(255,255,255,0.78); backdrop-filter: saturate(180%) blur(14px); -webkit-backdrop-filter: saturate(180%) blur(14px); border-bottom: 1px solid var(--border); }
+    nav .inner { max-width: 1200px; margin: 0 auto; padding: 1rem 1.75rem; display: flex; align-items: center; justify-content: space-between; }
+    nav .wordmark { font-weight: 700; font-size: 1.1rem; color: var(--text); letter-spacing: -0.02em; text-decoration: none; }
+    nav .wordmark:hover { text-decoration: none; }
+    nav .wordmark span { color: var(--accent); }
+    nav .links { display: flex; gap: 1.75rem; align-items: center; font-size: 0.91rem; font-weight: 500; }
+    nav .links a { color: var(--text-dim); text-decoration: none; }
+    nav .links a:hover { color: var(--accent); text-decoration: none; }
+    nav .links a.active { color: var(--accent); }
+    nav .lang { padding: 0.3rem 0.7rem; border: 1px solid var(--border-strong); border-radius: 6px; color: var(--text-dim); }
+    nav .lang:hover { border-color: var(--accent); color: var(--accent); text-decoration: none; }
+    .doc-header { max-width: 760px; margin: 0 auto; padding: 4rem 1.75rem 2.5rem; text-align: center; }
+    .doc-eyebrow { display: inline-flex; align-items: center; gap: 0.5rem; font-family: 'JetBrains Mono', monospace; font-size: 0.78rem; font-weight: 500; color: var(--accent); background: var(--accent-lt); padding: 0.35rem 0.7rem; border-radius: 6px; margin-bottom: 1.5rem; letter-spacing: -0.01em; }
+    .doc-header h1 { font-weight: 700; font-size: clamp(2.25rem, 4.5vw, 3rem); line-height: 1.1; letter-spacing: -0.03em; margin-bottom: 0.75rem; }
+    .doc-header h1 .accent { color: var(--accent); }
+    .doc-header .subtitle { font-size: 1.1rem; color: var(--muted); max-width: 50ch; margin: 0 auto; }
+    .container { max-width: 760px; margin: 0 auto; padding: 1.5rem 1.75rem 5rem; }
+    .container > p { font-size: 1.02rem; color: var(--text-dim); margin-bottom: 1.1rem; line-height: 1.7; }
+    .container > p strong { color: var(--text); font-weight: 600; }
+    h2 { color: var(--text); font-weight: 700; font-size: 1.6rem; letter-spacing: -0.025em; margin: 4rem 0 1.25rem; padding-bottom: 0.6rem; border-bottom: 1px solid var(--border); line-height: 1.2; }
+    h3 { color: var(--text); font-weight: 600; font-size: 1.2rem; letter-spacing: -0.015em; margin: 2.25rem 0 0.75rem; line-height: 1.3; }
+    h3::before { content: ''; display: inline-block; width: 3px; height: 0.95em; background: var(--accent); margin-right: 0.7rem; vertical-align: -0.05em; border-radius: 1px; }
+    ul, ol { padding-left: 1.5rem; margin-bottom: 1.25rem; color: var(--text-dim); }
+    li { margin-bottom: 0.5rem; line-height: 1.7; }
+    li strong { color: var(--text); font-weight: 600; }
+    strong { color: var(--text); font-weight: 600; }
+    em { font-style: italic; }
+    hr { border: none; border-top: 1px solid var(--border); margin: 3.5rem 0; }
+    code { font-family: 'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, monospace; font-size: 0.88em; background: var(--bg-alt); border: 1px solid var(--border); border-radius: 4px; padding: 0.12em 0.4em; color: var(--accent-dk); }
+    figure { margin: 2rem 0; border: 1px solid var(--border); border-radius: 10px; overflow: hidden; background: var(--bg); box-shadow: 0 1px 2px rgba(15,23,42,0.04), 0 8px 24px -12px rgba(15,23,42,0.1); }
     figure img { width: 100%; display: block; }
-    figcaption { padding: 0.6rem 1rem; background: #f8fafc; font-size: 0.85rem; color: #6b7280; text-align: center; border-top: 1px solid #e2e5e9; font-style: italic; }
-    table { width: 100%; border-collapse: collapse; margin: 1rem 0 1.5rem; font-size: 0.95rem; }
-    th, td { padding: 0.5rem 0.75rem; border-bottom: 1px solid #e5e7eb; text-align: left; }
-    th { font-weight: 600; color: #2f4050; background: #f8fafc; }
-    .tech table td:first-child { font-weight: 600; white-space: nowrap; width: 180px; color: #2f4050; }
-    footer { text-align: center; padding: 2.5rem; color: #9ca3af; font-size: 0.85rem; border-top: 1px solid #e5e7eb; margin-top: 3rem; }
+    figcaption { font-family: 'JetBrains Mono', monospace; padding: 0.7rem 1rem; background: var(--bg-alt); font-size: 0.78rem; color: var(--muted); text-align: center; border-top: 1px solid var(--border); letter-spacing: -0.005em; }
+    figcaption::before { content: '// '; opacity: 0.55; color: var(--accent); }
+    table { width: 100%; border-collapse: collapse; margin: 1.25rem 0 1.75rem; font-size: 0.93rem; border: 1px solid var(--border); border-radius: 10px; overflow: hidden; }
+    th, td { padding: 0.7rem 0.9rem; border-bottom: 1px solid var(--border); text-align: left; vertical-align: top; }
+    tr:last-child td { border-bottom: none; }
+    th { font-weight: 600; color: var(--text); background: var(--bg-alt); font-size: 0.85rem; letter-spacing: 0.01em; }
+    td { color: var(--text-dim); }
+    .tech table td:first-child { font-weight: 600; white-space: nowrap; width: 180px; color: var(--text); }
+    .download-links { display: inline-block; padding: 0.85rem 1.1rem; background: var(--bg-alt); border: 1px solid var(--border); border-radius: 8px; font-size: 0.94rem; }
+    .download-links a { font-weight: 500; }
+    footer { padding: 3rem 1.75rem 4rem; border-top: 1px solid var(--border); font-size: 0.88rem; color: var(--muted); background: var(--bg); }
+    footer .container { max-width: 1200px; padding: 0; display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 3rem; align-items: start; }
+    @media (max-width: 720px) { footer .container { grid-template-columns: 1fr; gap: 1.75rem; } }
+    footer .container > p { font-size: 0.88rem; color: var(--muted); margin: 0; }
+    footer .brand { font-weight: 700; font-size: 1.05rem; color: var(--text); margin-bottom: 0.5rem; letter-spacing: -0.02em; }
+    footer .brand span { color: var(--accent); }
+    footer h4 { font-family: 'JetBrains Mono', monospace; font-size: 0.73rem; font-weight: 500; color: var(--text); margin: 0 0 0.85rem; letter-spacing: -0.01em; }
+    footer h4::before { content: '// '; opacity: 0.5; color: var(--accent); }
+    footer ul { list-style: none; padding: 0; display: flex; flex-direction: column; gap: 0.4rem; margin: 0; }
+    footer li { margin: 0; }
+    footer a { color: var(--muted); text-decoration: none; }
+    footer a:hover { color: var(--accent); text-decoration: none; }
   </style>
 </head>
 <body>
-  <div class="hero" style="position: relative;">
-    <a class="home-link" href="/">← imagrow.app</a>
-    <div class="lang-switch"><a href="user-guide-cs.html">Česky</a></div>
-    <img src="img/login-hero.png" alt="" aria-hidden="true" style="width: 140px; height: 140px; margin: 0 auto 1.25rem; display: block; filter: drop-shadow(0 4px 12px rgba(0,0,0,0.15));" />
-    <h1>ImaGrow</h1>
-    <p>User Guide</p>
-  </div>
+  <nav>
+    <div class="inner">
+      <a href="/" class="wordmark">Ima<span>Grow</span></a>
+      <div class="links">
+        <a href="user-guide.html" class="active">User guide</a>
+        <a href="/#download">Download</a>
+        <a class="lang" href="user-guide-cs.html">Česky</a>
+      </div>
+    </div>
+  </nav>
+
+  <header class="doc-header">
+    <div class="doc-eyebrow">// User guide</div>
+    <h1>Using <span class="accent">ImaGrow</span></h1>
+    <p class="subtitle">A walk-through of the app — from creating an account to tracking growth across years of corrected-age visits.</p>
+  </header>
 
   <div class="container">
     <p>ImaGrow (previously released as Auxology) is a desktop application designed for neonatologists and paediatric clinicians who need to monitor the growth of prematurely born children. The application is built around Czech reference auxological data — percentile growth charts derived from a study of 1,781 premature children (5,676 examinations) at the Centre of Comprehensive Care, KDDL VFN Prague, between 2001 and 2015.</p>
@@ -752,7 +815,27 @@ function generateHTML(s) {
   </div>
 
   <footer>
-    <p>&copy; 2016–2026 RNDr. Jiří Helmich &middot; Supported by a grant from Norway</p>
+    <div class="container">
+      <div>
+        <div class="brand">Ima<span>Grow</span></div>
+        <p>Previously released as Auxology. Free desktop application for tracking the growth of prematurely born children. © 2016–2026 RNDr.&nbsp;Jiří&nbsp;Helmich.</p>
+        <p style="margin-top: 0.75rem;">Contact: <a href="mailto:jiri@helmich.cz">jiri@helmich.cz</a></p>
+      </div>
+      <div>
+        <h4>Project</h4>
+        <ul>
+          <li><a href="https://github.com/jirihelmich/imagrow">GitHub</a></li>
+          <li><a href="https://github.com/jirihelmich/imagrow/issues">Report an issue</a></li>
+          <li><a href="https://github.com/jirihelmich/imagrow/blob/master/CHANGELOG.md">Changelog</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Funded by</h4>
+        <p style="font-size: 0.82rem; line-height: 1.65;">
+          A grant from Norway. Project NF&#8209;CZ11&#8209;OV&#8209;1&#8209;009&#8209;2015 at CKP&nbsp;KDDL&nbsp;VFN&nbsp;Prague.
+        </p>
+      </div>
+    </div>
   </footer>
 </body>
 </html>`;
@@ -959,43 +1042,106 @@ function generateCzechHTML(cs, en) {
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>ImaGrow — Uživatelská příručka</title>
+  <link rel="icon" href="img/favicon.ico" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
   <style>
+    :root {
+      --bg:         #ffffff;
+      --bg-alt:     #f6f9fc;
+      --text:       #0f172a;
+      --text-dim:   #334155;
+      --muted:      #64748b;
+      --accent:     #1c84c6;
+      --accent-dk:  #176fa8;
+      --accent-lt:  #e6f2fb;
+      --border:     #e4e9f0;
+      --border-strong: #cdd6e2;
+    }
     * { margin: 0; padding: 0; box-sizing: border-box; }
-    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; color: #1a1a1a; line-height: 1.75; font-size: 16px; }
-    .hero { background: linear-gradient(135deg, #2f4050 0%, #1c84c6 100%); color: white; padding: 5rem 2rem; text-align: center; }
-    .hero h1 { font-size: 2.8rem; margin-bottom: 0.75rem; font-weight: 700; }
-    .hero p { font-size: 1.15rem; opacity: 0.9; max-width: 550px; margin: 0 auto; }
-    .lang-switch { position: absolute; top: 1.5rem; right: 2rem; }
-    .lang-switch a { color: white; text-decoration: none; opacity: 0.8; font-size: 0.9rem; padding: 0.4rem 0.8rem; border: 1px solid rgba(255,255,255,0.3); border-radius: 4px; }
-    .lang-switch a:hover { opacity: 1; background: rgba(255,255,255,0.1); }
-    .home-link { position: absolute; top: 1.5rem; left: 2rem; color: white; text-decoration: none; opacity: 0.8; font-size: 0.9rem; padding: 0.4rem 0.8rem; border: 1px solid rgba(255,255,255,0.3); border-radius: 4px; }
-    .home-link:hover { opacity: 1; background: rgba(255,255,255,0.1); }
-    .container { max-width: 780px; margin: 0 auto; padding: 3rem 2rem; }
-    h2 { color: #2f4050; margin: 3rem 0 1.25rem; padding-bottom: 0.5rem; border-bottom: 2px solid #e5e7eb; font-size: 1.5rem; }
-    h3 { color: #1c84c6; margin: 2rem 0 0.75rem; font-size: 1.2rem; }
-    p { margin-bottom: 1rem; }
-    ul, ol { padding-left: 1.75rem; margin-bottom: 1.25rem; }
-    li { margin-bottom: 0.5rem; }
-    strong { color: #2f4050; }
-    hr { border: none; border-top: 1px solid #e5e7eb; margin: 3rem 0; }
-    figure { margin: 2rem 0; border: 1px solid #e2e5e9; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 12px rgba(0,0,0,0.06); }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      color: var(--text); background: var(--bg);
+      line-height: 1.7; font-size: 16px;
+      -webkit-font-smoothing: antialiased;
+      font-feature-settings: 'cv11', 'ss01', 'ss03';
+    }
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { color: var(--accent-dk); text-decoration: underline; text-underline-offset: 3px; }
+    nav { position: sticky; top: 0; z-index: 10; background: rgba(255,255,255,0.78); backdrop-filter: saturate(180%) blur(14px); -webkit-backdrop-filter: saturate(180%) blur(14px); border-bottom: 1px solid var(--border); }
+    nav .inner { max-width: 1200px; margin: 0 auto; padding: 1rem 1.75rem; display: flex; align-items: center; justify-content: space-between; }
+    nav .wordmark { font-weight: 700; font-size: 1.1rem; color: var(--text); letter-spacing: -0.02em; text-decoration: none; }
+    nav .wordmark:hover { text-decoration: none; }
+    nav .wordmark span { color: var(--accent); }
+    nav .links { display: flex; gap: 1.75rem; align-items: center; font-size: 0.91rem; font-weight: 500; }
+    nav .links a { color: var(--text-dim); text-decoration: none; }
+    nav .links a:hover { color: var(--accent); text-decoration: none; }
+    nav .links a.active { color: var(--accent); }
+    nav .lang { padding: 0.3rem 0.7rem; border: 1px solid var(--border-strong); border-radius: 6px; color: var(--text-dim); }
+    nav .lang:hover { border-color: var(--accent); color: var(--accent); text-decoration: none; }
+    .doc-header { max-width: 760px; margin: 0 auto; padding: 4rem 1.75rem 2.5rem; text-align: center; }
+    .doc-eyebrow { display: inline-flex; align-items: center; gap: 0.5rem; font-family: 'JetBrains Mono', monospace; font-size: 0.78rem; font-weight: 500; color: var(--accent); background: var(--accent-lt); padding: 0.35rem 0.7rem; border-radius: 6px; margin-bottom: 1.5rem; letter-spacing: -0.01em; }
+    .doc-header h1 { font-weight: 700; font-size: clamp(2.25rem, 4.5vw, 3rem); line-height: 1.1; letter-spacing: -0.03em; margin-bottom: 0.75rem; }
+    .doc-header h1 .accent { color: var(--accent); }
+    .doc-header .subtitle { font-size: 1.1rem; color: var(--muted); max-width: 50ch; margin: 0 auto; }
+    .container { max-width: 760px; margin: 0 auto; padding: 1.5rem 1.75rem 5rem; }
+    .container > p { font-size: 1.02rem; color: var(--text-dim); margin-bottom: 1.1rem; line-height: 1.7; }
+    .container > p strong { color: var(--text); font-weight: 600; }
+    h2 { color: var(--text); font-weight: 700; font-size: 1.6rem; letter-spacing: -0.025em; margin: 4rem 0 1.25rem; padding-bottom: 0.6rem; border-bottom: 1px solid var(--border); line-height: 1.2; }
+    h3 { color: var(--text); font-weight: 600; font-size: 1.2rem; letter-spacing: -0.015em; margin: 2.25rem 0 0.75rem; line-height: 1.3; }
+    h3::before { content: ''; display: inline-block; width: 3px; height: 0.95em; background: var(--accent); margin-right: 0.7rem; vertical-align: -0.05em; border-radius: 1px; }
+    ul, ol { padding-left: 1.5rem; margin-bottom: 1.25rem; color: var(--text-dim); }
+    li { margin-bottom: 0.5rem; line-height: 1.7; }
+    li strong { color: var(--text); font-weight: 600; }
+    strong { color: var(--text); font-weight: 600; }
+    em { font-style: italic; }
+    hr { border: none; border-top: 1px solid var(--border); margin: 3.5rem 0; }
+    code { font-family: 'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, monospace; font-size: 0.88em; background: var(--bg-alt); border: 1px solid var(--border); border-radius: 4px; padding: 0.12em 0.4em; color: var(--accent-dk); }
+    figure { margin: 2rem 0; border: 1px solid var(--border); border-radius: 10px; overflow: hidden; background: var(--bg); box-shadow: 0 1px 2px rgba(15,23,42,0.04), 0 8px 24px -12px rgba(15,23,42,0.1); }
     figure img { width: 100%; display: block; }
-    figcaption { padding: 0.6rem 1rem; background: #f8fafc; font-size: 0.85rem; color: #6b7280; text-align: center; border-top: 1px solid #e2e5e9; font-style: italic; }
-    table { width: 100%; border-collapse: collapse; margin: 1rem 0 1.5rem; font-size: 0.95rem; }
-    th, td { padding: 0.5rem 0.75rem; border-bottom: 1px solid #e5e7eb; text-align: left; }
-    th { font-weight: 600; color: #2f4050; background: #f8fafc; }
-    .tech table td:first-child { font-weight: 600; white-space: nowrap; width: 180px; color: #2f4050; }
-    footer { text-align: center; padding: 2.5rem; color: #9ca3af; font-size: 0.85rem; border-top: 1px solid #e5e7eb; margin-top: 3rem; }
+    figcaption { font-family: 'JetBrains Mono', monospace; padding: 0.7rem 1rem; background: var(--bg-alt); font-size: 0.78rem; color: var(--muted); text-align: center; border-top: 1px solid var(--border); letter-spacing: -0.005em; }
+    figcaption::before { content: '// '; opacity: 0.55; color: var(--accent); }
+    table { width: 100%; border-collapse: collapse; margin: 1.25rem 0 1.75rem; font-size: 0.93rem; border: 1px solid var(--border); border-radius: 10px; overflow: hidden; }
+    th, td { padding: 0.7rem 0.9rem; border-bottom: 1px solid var(--border); text-align: left; vertical-align: top; }
+    tr:last-child td { border-bottom: none; }
+    th { font-weight: 600; color: var(--text); background: var(--bg-alt); font-size: 0.85rem; letter-spacing: 0.01em; }
+    td { color: var(--text-dim); }
+    .tech table td:first-child { font-weight: 600; white-space: nowrap; width: 180px; color: var(--text); }
+    .download-links { display: inline-block; padding: 0.85rem 1.1rem; background: var(--bg-alt); border: 1px solid var(--border); border-radius: 8px; font-size: 0.94rem; }
+    .download-links a { font-weight: 500; }
+    footer { padding: 3rem 1.75rem 4rem; border-top: 1px solid var(--border); font-size: 0.88rem; color: var(--muted); background: var(--bg); }
+    footer .container { max-width: 1200px; padding: 0; display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 3rem; align-items: start; }
+    @media (max-width: 720px) { footer .container { grid-template-columns: 1fr; gap: 1.75rem; } }
+    footer .container > p { font-size: 0.88rem; color: var(--muted); margin: 0; }
+    footer .brand { font-weight: 700; font-size: 1.05rem; color: var(--text); margin-bottom: 0.5rem; letter-spacing: -0.02em; }
+    footer .brand span { color: var(--accent); }
+    footer h4 { font-family: 'JetBrains Mono', monospace; font-size: 0.73rem; font-weight: 500; color: var(--text); margin: 0 0 0.85rem; letter-spacing: -0.01em; }
+    footer h4::before { content: '// '; opacity: 0.5; color: var(--accent); }
+    footer ul { list-style: none; padding: 0; display: flex; flex-direction: column; gap: 0.4rem; margin: 0; }
+    footer li { margin: 0; }
+    footer a { color: var(--muted); text-decoration: none; }
+    footer a:hover { color: var(--accent); text-decoration: none; }
   </style>
 </head>
 <body>
-  <div class="hero" style="position: relative;">
-    <a class="home-link" href="cs.html">← imagrow.app</a>
-    <div class="lang-switch"><a href="user-guide.html">English</a></div>
-    <img src="img/login-hero.png" alt="" aria-hidden="true" style="width: 140px; height: 140px; margin: 0 auto 1.25rem; display: block; filter: drop-shadow(0 4px 12px rgba(0,0,0,0.15));" />
-    <h1>ImaGrow</h1>
-    <p>Uživatelská příručka</p>
-  </div>
+  <nav>
+    <div class="inner">
+      <a href="cs.html" class="wordmark">Ima<span>Grow</span></a>
+      <div class="links">
+        <a href="user-guide-cs.html" class="active">Příručka</a>
+        <a href="cs.html#download">Stáhnout</a>
+        <a class="lang" href="user-guide.html">English</a>
+      </div>
+    </div>
+  </nav>
+
+  <header class="doc-header">
+    <div class="doc-eyebrow">// Uživatelská příručka</div>
+    <h1>Práce s <span class="accent">ImaGrow</span></h1>
+    <p class="subtitle">Průvodce aplikací — od vytvoření účtu po sledování růstu napříč roky korigovaných návštěv.</p>
+  </header>
 
   <div class="container">
     <p>ImaGrow (dříve vydávaná pod názvem Auxologie) je desktopová aplikace určená pro neonatology a pediatrické lékaře, kteří potřebují sledovat růst předčasně narozených dětí. Aplikace je postavena na českých referenčních auxologických datech — percentilových růstových grafech odvozených ze studie 1 781 nedonošených dětí (5 676 vyšetření) v Centru komplexní péče, KDDL VFN Praha, v období 2001–2015.</p>
@@ -1187,7 +1333,27 @@ function generateCzechHTML(cs, en) {
   </div>
 
   <footer>
-    <p>&copy; 2016–2026 RNDr. Jiří Helmich &middot; Podpořeno grantem z Norska</p>
+    <div class="container">
+      <div>
+        <div class="brand">Ima<span>Grow</span></div>
+        <p>Dříve vydáváno pod názvem Auxology. Bezplatná desktopová aplikace pro sledování růstu předčasně narozených dětí. © 2016–2026 RNDr.&nbsp;Jiří&nbsp;Helmich.</p>
+        <p style="margin-top: 0.75rem;">Kontakt: <a href="mailto:jiri@helmich.cz">jiri@helmich.cz</a></p>
+      </div>
+      <div>
+        <h4>Projekt</h4>
+        <ul>
+          <li><a href="https://github.com/jirihelmich/imagrow">GitHub</a></li>
+          <li><a href="https://github.com/jirihelmich/imagrow/issues">Nahlásit chybu</a></li>
+          <li><a href="https://github.com/jirihelmich/imagrow/blob/master/CHANGELOG.md">Changelog</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Financováno</h4>
+        <p style="font-size: 0.82rem; line-height: 1.65;">
+          Grantem z Norska. Projekt NF&#8209;CZ11&#8209;OV&#8209;1&#8209;009&#8209;2015 v CKP&nbsp;KDDL&nbsp;VFN&nbsp;Prague.
+        </p>
+      </div>
+    </div>
   </footer>
 </body>
 </html>`;
