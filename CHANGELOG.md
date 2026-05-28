@@ -2,6 +2,17 @@
 
 Všechny významné změny v Auxology jsou popsané v tomto souboru. Verze odpovídají [SemVer](https://semver.org/lang/cs/) a jsou zveřejňovány jako [GitHub releases](https://github.com/jirihelmich/imagrow/releases).
 
+## [4.1.0] — 2026-05-28
+
+**Self-service Import.** Doctoři teď mohou nahrát JSON export zpět do aplikace — slouží jako obnovovací cesta po reinstalaci, přechodu na jiný počítač nebo budoucích migracích.
+
+### Přidáno
+- **Tlačítko Import** vedle Export na úvodní obrazovce. Vybere JSON soubor (z **Export** akce v jakékoliv 3.x/4.x verzi), zobrazí náhled (kolik pacientů, vyšetření, uživatelů se naimportuje) a po potvrzení nahradí všechna lokální data obsahem souboru. Po importu se vždy odhlásí — pro pokračování je nutné se znovu přihlásit.
+
+### Pro existující uživatele
+- Doporučený postup pro přechod na jiný počítač: na původním stroji `Export`, na novém `Import` — stejný formát, stejná data.
+- Před libovolnou migrací (nová verze, přechod na server) udělejte `Export` jako zálohu. Import vás kdykoliv vrátí zpět.
+
 ## [4.0.1] — 2026-05-28
 
 **Post-rebrand polish + appId correction.** Drobné dokončení po v4.0.0: oprava login obrazovky, sjednocení `appId` s doménou, redesign webu, přímé odkazy na binárky.

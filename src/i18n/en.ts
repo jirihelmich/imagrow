@@ -19,6 +19,16 @@ export const en: Translations = {
   unexpectedError: 'Unexpected application error.',
   patient: 'Patient',
   export: 'Export',
+  importLabel: 'Import',
+  importConfirmTitle: 'Replace all data?',
+  importConfirmBody: 'Your current data will be replaced with the contents of the file. This cannot be undone. We recommend running Export first as a backup.',
+  importSummaryLabel: 'The file contains:',
+  importPatientsLabel: (n: number) => `${n} patients`,
+  importExaminationsLabel: (n: number) => `${n} examinations`,
+  importUsersLabel: (n: number) => `${n} users`,
+  importSuccess: 'Data imported. Please sign in again to continue.',
+  importFailed: 'Import failed.',
+  importInvalidFile: 'The file is not a valid ImaGrow export.',
 
   // Footer
   footerText: 'Supported by a grant from Norway. \u00A9 2016\u20132026 RNDr. Ji\u0159\u00ED Helmich',

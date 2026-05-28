@@ -314,5 +314,52 @@ export function usePatients() {
     URL.revokeObjectURL(a.href);
   }, [db]);
 
-  return { createOrUpdate, getById, getDetail, deleteById, search, recent, all, exportDB, count, findByIds };
+  const previewImport = useCallback(async (file: File): Promise<Record<string, number>> => {
+    const text = await file.text();
+    const parsed = JSON.parse(text) as { tables?: Record<string, unknown[]> };
+    if (!parsed || typeof parsed !== 'object' || !parsed.tables || typeof parsed.tables !== 'object') {
+      throw new Error('INVALID_FORMAT');
+    }
+    const counts: Record<string, number> = {};
+    for (const name of ['Address', 'Person', 'User', 'Patient', 'Examination']) {
+      const rows = parsed.tables[name];
+      counts[name] = Array.isArray(rows) ? rows.length : 0;
+    }
+    return counts;
+  }, []);
+
+  const importDB = useCallback(async (file: File): Promise<void> => {
+    if (!db) throw new Error('NO_DB');
+    const text = await file.text();
+    const parsed = JSON.parse(text) as { tables?: Record<string, Array<Record<string, unknown>>> };
+    if (!parsed || !parsed.tables) throw new Error('INVALID_FORMAT');
+
+    const schema = db.getSchema();
+    // Delete in child→parent FK order so cascades don't fight us.
+    for (const name of ['Examination', 'Patient', 'User', 'Person', 'Address']) {
+      await db.delete().from(schema.table(name)).exec();
+    }
+    // Insert in parent→child order. DATE_TIME columns arrive as ISO strings and must be revived.
+    const dateColumns: Record<string, string[]> = {
+      Person: ['birthDate'],
+      Patient: ['expectedBirthDate'],
+      Examination: ['dateTime'],
+    };
+    for (const name of ['Address', 'Person', 'User', 'Patient', 'Examination']) {
+      const rows = parsed.tables[name];
+      if (!Array.isArray(rows) || rows.length === 0) continue;
+      const table = schema.table(name);
+      const cols = dateColumns[name] ?? [];
+      const lfRows = rows.map((row) => {
+        const r: Record<string, unknown> = { ...row };
+        for (const col of cols) {
+          if (typeof r[col] === 'string') r[col] = new Date(r[col] as string);
+        }
+        return table.createRow(r);
+      });
+      await db.insert().into(table).values(lfRows).exec();
+    }
+  }, [db]);
+
+  return { createOrUpdate, getById, getDetail, deleteById, search, recent, all, exportDB, previewImport, importDB, count, findByIds };
 }

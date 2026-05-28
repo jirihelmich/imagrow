@@ -1,9 +1,11 @@
-import { useState, useEffect, useCallback, useMemo } from 'react';
-import { Link } from 'react-router-dom';
+import { useState, useEffect, useCallback, useMemo, useRef } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import dayjs from 'dayjs';
-import { Plus, Download, Search, Users, Activity, AlertTriangle, CheckCircle2, Baby } from 'lucide-react';
+import toast from 'react-hot-toast';
+import { Plus, Download, Upload, Search, Users, Activity, AlertTriangle, CheckCircle2, Baby } from 'lucide-react';
 import { usePatients } from '../hooks/usePatients';
 import { useExaminations } from '../hooks/useExaminations';
+import { useAuth } from '../contexts/AuthContext';
 import { useT } from '../i18n/LanguageContext';
 import { genderColor } from '../utils/color';
 import { formatBirthNumber } from '../utils/birth-number';
@@ -12,6 +14,7 @@ import { formatDate } from '../utils/formatting';
 import { PageHeader } from '../components/layout/PageHeader';
 import { Card } from '../components/ui/Card';
 import { Button } from '../components/ui/Button';
+import { Modal } from '../components/ui/Modal';
 import { Spinner } from '../components/ui/Spinner';
 import type { PatientWithPerson } from '../types/database';
 
@@ -23,9 +26,39 @@ interface OverduePatient {
 }
 
 export function DashboardPage() {
-  const { search, recent, exportDB, count, findByIds } = usePatients();
+  const { search, recent, exportDB, previewImport, importDB, count, findByIds } = usePatients();
   const { getLatestPerPatient, countSince } = useExaminations();
+  const { signOut } = useAuth();
   const { t } = useT();
+  const navigate = useNavigate();
+
+  const importInputRef = useRef<HTMLInputElement>(null);
+  const [importPreview, setImportPreview] = useState<{ counts: Record<string, number>; file: File } | null>(null);
+
+  const handleImportClick = () => importInputRef.current?.click();
+  const handleImportFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    e.target.value = '';
+    if (!file) return;
+    try {
+      const counts = await previewImport(file);
+      setImportPreview({ counts, file });
+    } catch {
+      toast.error(t.importInvalidFile);
+    }
+  };
+  const confirmImport = async () => {
+    if (!importPreview) return;
+    try {
+      await importDB(importPreview.file);
+      toast.success(t.importSuccess);
+      setImportPreview(null);
+      signOut();
+      navigate('/login');
+    } catch {
+      toast.error(t.importFailed);
+    }
+  };
 
   const [recentPatients, setRecentPatients] = useState<PatientWithPerson[]>([]);
   const [searchResults, setSearchResults] = useState<PatientWithPerson[] | null>(null);
@@ -111,6 +144,8 @@ export function DashboardPage() {
           <>
             <Link to="/patients/new"><Button variant="primary"><Plus size={14} /> {t.dashboardNewPatient}</Button></Link>
             <Button onClick={() => exportDB()}><Download size={14} /> {t.export}</Button>
+            <Button onClick={handleImportClick}><Upload size={14} /> {t.importLabel}</Button>
+            <input ref={importInputRef} type="file" accept="application/json,.json" className="hidden" onChange={handleImportFileChange} />
           </>
         }
       />
@@ -187,6 +222,27 @@ export function DashboardPage() {
           </>
         )}
       </div>
+
+      <Modal
+        open={!!importPreview}
+        onClose={() => setImportPreview(null)}
+        onConfirm={confirmImport}
+        title={t.importConfirmTitle}
+        confirmLabel={t.importLabel}
+        confirmVariant="danger"
+      >
+        <p>{t.importConfirmBody}</p>
+        {importPreview && (
+          <>
+            <p className="mt-3 font-medium text-gray-700">{t.importSummaryLabel}</p>
+            <ul className="mt-1 list-disc pl-5 text-sm text-gray-700">
+              <li>{t.importPatientsLabel(importPreview.counts.Patient ?? 0)}</li>
+              <li>{t.importExaminationsLabel(importPreview.counts.Examination ?? 0)}</li>
+              <li>{t.importUsersLabel(importPreview.counts.User ?? 0)}</li>
+            </ul>
+          </>
+        )}
+      </Modal>
     </div>
   );
 }

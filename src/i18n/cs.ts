@@ -17,6 +17,16 @@ export const cs = {
   unexpectedError: 'Nečekaná chyba aplikace.',
   patient: 'Pacient',
   export: 'Export',
+  importLabel: 'Importovat',
+  importConfirmTitle: 'Nahradit všechna data?',
+  importConfirmBody: 'Vaše současná data budou nahrazena obsahem souboru. Akce je nevratná. Doporučujeme nejprve provést Export jako zálohu.',
+  importSummaryLabel: 'Soubor obsahuje:',
+  importPatientsLabel: (n: number) => `${n} pacientů`,
+  importExaminationsLabel: (n: number) => `${n} vyšetření`,
+  importUsersLabel: (n: number) => `${n} uživatelů`,
+  importSuccess: 'Data byla importována. Pro pokračování se prosím znovu přihlaste.',
+  importFailed: 'Import selhal.',
+  importInvalidFile: 'Soubor není platný export ImaGrow.',
 
   // Footer
   footerText: 'Podpořeno grantem z Norska. \u00A9 2016\u20132026 RNDr. Ji\u0159\u00ED Helmich',
