@@ -181,15 +181,27 @@
       background: rgba(99, 179, 237, 0.15);
       bottom: -60px; left: -40px;
     }
-    .hero-shot img {
-      width: 100%;
-      display: block;
-      border-radius: 12px;
+    .hero-shot .chart-card {
+      position: relative;
+      background: white;
+      border-radius: 14px;
       border: 1px solid var(--border);
       box-shadow: var(--shadow-lg);
-      background: white;
-      position: relative;
+      padding: 1.4rem 1.4rem 1rem;
     }
+    .hero-shot .chart-card svg {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+    .chart-head {
+      display: flex; align-items: baseline; justify-content: space-between;
+      gap: 1rem;
+      margin-bottom: 0.5rem;
+      padding-left: 0.1rem;
+    }
+    .chart-head .title { font-weight: 600; font-size: 0.95rem; color: var(--text); letter-spacing: -0.01em; }
+    .chart-head .sub { font-family: 'JetBrains Mono', monospace; font-size: 0.74rem; color: var(--muted); }
 
     section { padding: 6rem 1.75rem; }
     .container { max-width: 1200px; margin: 0 auto; }
@@ -424,7 +436,80 @@
       </p>
     </div>
     <div class="hero-shot">
-      <img src="screenshots/cs-10-growth-charts.png" onerror="this.onerror=null;this.src='screenshots/10-growth-charts.png';" alt="ImaGrow zobrazuje hmotnost, délku, obvod hlavy a hmotnost k délce pacienta vykreslené proti percentilovým referenčním křivkám" />
+      <div class="chart-card" role="img" aria-label="Růstový graf zobrazující dohonění hmotnosti nedonošeného dítěte z hodnot pod 5. percentilem na medián během 60 týdnů korigovaného věku">
+        <div class="chart-head">
+          <div><span class="title">Hmotnost</span> <span class="sub">chlapci · porodní hmotnost &lt;1500g</span></div>
+          <div class="sub">korigovaný věk</div>
+        </div>
+        <svg viewBox="0 0 800 460" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet">
+          <g stroke="#f1f5f9" stroke-width="1">
+            <line x1="56" y1="60"  x2="744" y2="60"/>
+            <line x1="56" y1="140" x2="744" y2="140"/>
+            <line x1="56" y1="220" x2="744" y2="220"/>
+            <line x1="56" y1="300" x2="744" y2="300"/>
+            <line x1="56" y1="380" x2="744" y2="380"/>
+          </g>
+
+          <g font-family="JetBrains Mono, monospace" font-size="10" fill="#94a3b8" text-anchor="end">
+            <text x="46" y="384">2</text>
+            <text x="46" y="304">5</text>
+            <text x="46" y="224">8</text>
+            <text x="46" y="144">11</text>
+            <text x="46" y="64">14</text>
+          </g>
+          <text x="46" y="48" font-family="Inter, sans-serif" font-size="10" fill="#64748b" text-anchor="end">kg</text>
+
+          <path d="M56,332 Q200,275 380,212 T744,108 L744,168 Q580,232 400,288 T56,360 Z" fill="#1c84c6" fill-opacity="0.05"/>
+
+          <g fill="none" stroke="#cbd5e1" stroke-width="1.6" stroke-linecap="round">
+            <path d="M56,392 Q200,358 380,308 T744,196" stroke-dasharray="2 5"/>
+            <path d="M56,360 Q200,310 380,250 T744,148" stroke-dasharray="5 5"/>
+            <path d="M56,316 Q200,260 380,196 T744,84" stroke="#64748b" stroke-width="1.8"/>
+            <path d="M56,272 Q200,212 380,144 T744,28" stroke-dasharray="5 5"/>
+            <path d="M56,244 Q200,184 380,116 T744,4" stroke-dasharray="2 5"/>
+          </g>
+
+          <g font-family="JetBrains Mono, monospace" font-size="9" fill="#94a3b8">
+            <text x="752" y="200">P2</text>
+            <text x="752" y="151">P5</text>
+            <text x="752" y="87" fill="#64748b" font-weight="500">P50</text>
+            <text x="752" y="31">P95</text>
+            <text x="744" y="9">P98</text>
+          </g>
+
+          <path d="M80,408 L150,388 L220,360 L290,326 L370,288 L450,250 L530,216 L620,180 L710,148"
+                fill="none" stroke="#1c84c6" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+
+          <g fill="#1c84c6" stroke="white" stroke-width="2">
+            <circle cx="80"  cy="408" r="4.5"/>
+            <circle cx="150" cy="388" r="4.5"/>
+            <circle cx="220" cy="360" r="4.5"/>
+            <circle cx="290" cy="326" r="4.5"/>
+            <circle cx="370" cy="288" r="4.5"/>
+            <circle cx="450" cy="250" r="4.5"/>
+            <circle cx="530" cy="216" r="4.5"/>
+            <circle cx="620" cy="180" r="4.5"/>
+            <circle cx="710" cy="148" r="4.5"/>
+          </g>
+
+          <circle cx="530" cy="216" r="9" fill="none" stroke="#1c84c6" stroke-width="1.5" opacity="0.45"/>
+          <line x1="530" y1="216" x2="530" y2="92" stroke="#cbd5e1" stroke-width="1" stroke-dasharray="2 3"/>
+          <g>
+            <rect x="460" y="60" width="200" height="36" rx="7" fill="white" stroke="#e4e9f0"/>
+            <text x="475" y="78" font-family="Inter, sans-serif" font-size="11" font-weight="600" fill="#0f172a">Týden 82 · 7,4 kg</text>
+            <text x="475" y="91" font-family="JetBrains Mono, monospace" font-size="9.5" fill="#1c84c6">sleduje P50 — catch-up hotov</text>
+          </g>
+
+          <g font-family="JetBrains Mono, monospace" font-size="10" fill="#94a3b8" text-anchor="middle">
+            <text x="80"  y="430">40</text>
+            <text x="220" y="430">55</text>
+            <text x="370" y="430">70</text>
+            <text x="530" y="430">85</text>
+            <text x="710" y="430">100</text>
+          </g>
+          <text x="744" y="448" font-family="Inter, sans-serif" font-size="9.5" fill="#64748b" text-anchor="end">týdny korigovaného věku</text>
+        </svg>
+      </div>
     </div>
   </header>
 
